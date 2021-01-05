@@ -3,6 +3,14 @@ import style from "./ActiveDialog.module.css";
 import Message from "./Message/Message";
 
 let ActiveDialog = () => {
+
+    let newMessageText = React.createRef();
+
+    let newMessage = () => {
+        let message = newMessageText.current.value;
+        alert(message);
+    }
+
     return (
         <div className={style.activeDialog_block}>
             <div className={style.dialogWindow}>
@@ -19,12 +27,12 @@ let ActiveDialog = () => {
                 />
             </div>
             <div>
-                <form className={style.message}>
-                    <input type="text" className={style.messageText} />
-                    <button type="submit" className={style.send}>
+                <div className={style.message}>
+                    <input ref={newMessageText} type="text" className={style.messageText} />
+                    <button onClick={newMessage} type="submit" className={style.send}>
                         Send
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     );
