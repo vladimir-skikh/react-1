@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Header from "./components/Header/Header";
+import Nav from "./components/Nav/Nav";
+import Profile from "./components/Profile/Profile";
+import News from "./components/News/News";
+import Follow from "./components/Follow/Follow";
+import Messages from "./components/Messages/Messages";
+import { Route, BrowserRouter } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(props) {
+    return (
+        <BrowserRouter>
+            <div>
+                <div className="header-background">
+                    <div className="wrapper wrapper-header">
+                        <Header />
+                    </div>
+                </div>
+                <div className="wrapper wrapper-content">
+                    <Nav />
+                    <Profile />
+                    <div className="content">
+                        <Route path="/news" render={() => <News state={props.state.newsPage} />} />
+                        <Route path="/messages" render={() => <Messages state={props.state.messagesPage} />} />
+                    </div>
+                    <Follow state={props.state.follow} />
+                </div>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

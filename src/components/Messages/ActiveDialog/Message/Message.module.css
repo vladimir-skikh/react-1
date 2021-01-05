@@ -1,0 +1,36 @@
+.message_block_left {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-areas: 'avatar text';
+  width: 100%;
+}
+.message_block_right {
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  grid-template-areas: 'text avatar';
+  width: 100%;
+}
+.avatar {
+  grid-area: avatar;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.text {
+  width: calc(100% - 10px);
+  margin: 0 0 15px;
+  grid-area: text;
+  padding: 5px 10px;
+}
+.text_right {
+  justify-self: end;
+}
+.text_left {
+  justify-self: start;
+}
+.message_block_left .text{
+  background: rgba(141,198,63, .1);
+}
+.message_block_right .text{
+  background: rgba(39,170,225, .1);
+}

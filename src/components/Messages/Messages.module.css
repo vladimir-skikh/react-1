@@ -1,0 +1,13 @@
+.messages {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  grid-template-areas: 'dialogs activeDialog';
+}
+.dialogs {
+  padding-right: 10px;
+  grid-area: dialogs;
+
+}
+.activeDialog {
+  grid-area: activeDialog;
+}

@@ -1,0 +1,17 @@
+.profile_block_name {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  top: -30px;
+}
+.profile_image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 7px solid #fff;
+}
+.profile_name {
+  color: #fff;
+  display: block;
+  padding: 10px 10px;
+}

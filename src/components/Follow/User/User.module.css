@@ -1,0 +1,40 @@
+.user {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  position: relative;
+}
+.user::after {
+  display: block;
+  content: '';
+  width: calc(100% - 50px);
+  height: 1px;
+  background-color: #f1f2f2;
+  position: absolute;
+  left: 50px;
+  bottom: 0;
+}
+.userName {
+  color: #27aae1;
+  text-decoration: none;
+  font-weight: 500;
+}
+.addUser {
+  color: #8dc63f;
+  outline: none;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+.userDesc {
+  height: 40px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.user img {
+  border-radius: 50%;
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
