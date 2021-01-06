@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST';
+const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
+const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
+const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
+
 let store = {
     _state: {
         newsPage: {
@@ -85,7 +90,7 @@ let store = {
     },
 
     dispatch (action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
 
             let newPost = {
                 postText: this._state.newsPage.newPostText,
@@ -97,12 +102,12 @@ let store = {
             this._state.newsPage.newPostText = '';
             this._renderReactDom(this._state);
 
-        } else if (action.type === 'CHANGE-NEW-POST-TEXT') {
+        } else if (action.type === CHANGE_NEW_POST_TEXT) {
 
             this._state.newsPage.newPostText = action.text;
             this._renderReactDom(this._state);
 
-        } else if (action.type === 'ADD-NEW-MESSAGE') {
+        } else if (action.type === ADD_NEW_MESSAGE) {
 
             let newMessage = {
                 author: "me",
@@ -113,7 +118,7 @@ let store = {
             this._state.messagesPage.newMessageText = '';
             this._renderReactDom(this._state);
 
-        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+        } else if (action.type === CHANGE_NEW_MESSAGE_TEXT) {
 
             this._state.messagesPage.newMessageText = action.text;
             this._renderReactDom(this._state);
@@ -121,6 +126,33 @@ let store = {
         }
     },
 
+}
+
+export const addPostActionCreator = () => {
+    let action = {
+        type: ADD_POST,
+    }
+    return action;
+}
+export const changeNewPostTextActionCreator = (newPostText) => {
+    let action = {
+        type: CHANGE_NEW_POST_TEXT,
+        text: newPostText,
+    }
+    return action;
+}
+export const addNewMessageCreator = () => {
+    let action = {
+        type: ADD_NEW_MESSAGE,
+    }
+    return action;
+}
+export const changeNewMessageTextActionCreator = (message) => {
+    let action = {
+        type: CHANGE_NEW_MESSAGE_TEXT,
+        text: message,
+    }
+    return action;
 }
 
 export default store;

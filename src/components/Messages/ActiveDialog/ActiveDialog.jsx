@@ -1,6 +1,8 @@
 import React from "react";
 import style from "./ActiveDialog.module.css";
 import Message from "./Message/Message";
+import {addNewMessageCreator, changeNewMessageTextActionCreator} from '../../../redux/state'
+
 
 let ActiveDialog = (props) => {
 
@@ -15,18 +17,13 @@ let ActiveDialog = (props) => {
     );
 
     let newMessage = () => {
-        let action = {
-            type: 'ADD-NEW-MESSAGE'
-        }
+        let action = addNewMessageCreator();
         props.dispatch(action);
     }
 
     let onChangeMessageText = () => {
         let message = newMessageText.current.value;
-        let action = {
-            type: 'CHANGE-NEW-MESSAGE-TEXT',
-            text: message,
-        }
+        let action = changeNewMessageTextActionCreator(message);
         props.dispatch(action);
     }
 
