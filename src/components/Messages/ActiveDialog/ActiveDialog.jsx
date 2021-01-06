@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./ActiveDialog.module.css";
 import Message from "./Message/Message";
-import {addNewMessageCreator, changeNewMessageTextActionCreator} from '../../../redux/state'
+import {addNewMessageCreator, changeNewMessageTextActionCreator} from '../../../redux/messagesPageReducer'
 
 
 let ActiveDialog = (props) => {

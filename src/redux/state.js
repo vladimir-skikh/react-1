@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
-const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
+import newsReducer from './newsPageReducer';
+import messagesReducer from './messagesPageReducer';
+import followReducer from './followReducer';
 
 let store = {
     _state: {
@@ -90,69 +89,12 @@ let store = {
     },
 
     dispatch (action) {
-        if (action.type === ADD_POST) {
+        this._state.newsPage = newsReducer(this._state.newsPage, action);
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
+        this._state.follow = followReducer(this._state.follow, action);
 
-            let newPost = {
-                postText: this._state.newsPage.newPostText,
-                postPhoto: "https://themified.com/friend-finder/images/post-images/11.jpg",
-                authorAvatar: "https://themified.com/friend-finder/images/users/user-4.jpg",
-                authorName: "My name",
-            };
-            this._state.newsPage.postsData.push(newPost);
-            this._state.newsPage.newPostText = '';
-            this._renderReactDom(this._state);
-
-        } else if (action.type === CHANGE_NEW_POST_TEXT) {
-
-            this._state.newsPage.newPostText = action.text;
-            this._renderReactDom(this._state);
-
-        } else if (action.type === ADD_NEW_MESSAGE) {
-
-            let newMessage = {
-                author: "me",
-                avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
-                message: this._state.messagesPage.newMessageText,
-            };
-            this._state.messagesPage.activeDialogMessagesData.push(newMessage);
-            this._state.messagesPage.newMessageText = '';
-            this._renderReactDom(this._state);
-
-        } else if (action.type === CHANGE_NEW_MESSAGE_TEXT) {
-
-            this._state.messagesPage.newMessageText = action.text;
-            this._renderReactDom(this._state);
-
-        }
+        this._renderReactDom(this._state);
     },
-
-}
-
-export const addPostActionCreator = () => {
-    let action = {
-        type: ADD_POST,
-    }
-    return action;
-}
-export const changeNewPostTextActionCreator = (newPostText) => {
-    let action = {
-        type: CHANGE_NEW_POST_TEXT,
-        text: newPostText,
-    }
-    return action;
-}
-export const addNewMessageCreator = () => {
-    let action = {
-        type: ADD_NEW_MESSAGE,
-    }
-    return action;
-}
-export const changeNewMessageTextActionCreator = (message) => {
-    let action = {
-        type: CHANGE_NEW_MESSAGE_TEXT,
-        text: message,
-    }
-    return action;
 }
 
 export default store;
