@@ -1,5 +1,5 @@
 import * as serviceWorker from './serviceWorker';
-import store from './redux/state';
+import store from './redux/reduxStore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -19,7 +19,9 @@ export let renderReactDom = (state) => {
 
 renderReactDom(store.getState());
 
-store.subscribe(renderReactDom);
+store.subscribe(() => {
+  renderReactDom(store.getState());
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

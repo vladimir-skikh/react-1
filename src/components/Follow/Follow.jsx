@@ -4,8 +4,6 @@ import User from "./User/User";
 
 let Follow = (props) => {
 
-    
-
     let follow = props.state.followData
                     .map(followItem => 
                         <User
@@ -13,7 +11,6 @@ let Follow = (props) => {
                             avatar={followItem.avatar}
                         />
                     );
-
 
     return (
         <div className={style.follow}>

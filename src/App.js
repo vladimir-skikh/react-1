@@ -9,6 +9,7 @@ import Messages from "./components/Messages/Messages";
 import { Route, BrowserRouter } from "react-router-dom";
 
 function App(props) {
+    console.log(props.state)
     return (
         <BrowserRouter>
             <div>
@@ -20,25 +21,25 @@ function App(props) {
                 <div className="wrapper wrapper-content">
                     <Nav />
                     <Profile
-                        state={props.state.newsPage}
+                        state={props.state.newsReducer}
                         dispatch={props.dispatch}
                     />
                     <div className="content">
                         <Route
                             path="/news"
-                            render={() => <News state={props.state.newsPage} />}
+                            render={() => <News state={props.state.newsReducer} />}
                         />
                         <Route
                             path="/messages"
                             render={() => (
                                 <Messages
-                                    state={props.state.messagesPage}
+                                    state={props.state.messagesReducer}
                                     dispatch={props.dispatch}
                                 />
                             )}
                         />
                     </div>
-                    <Follow state={props.state.follow} />
+                    <Follow state={props.state.followReducer} />
                 </div>
             </div>
         </BrowserRouter>
