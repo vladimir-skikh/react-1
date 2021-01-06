@@ -1,13 +1,17 @@
 import React from "react";
 import style from "./NewPost.module.css";
 
-let NewPost = () => {
+let NewPost = (props) => {
 
     let createElement = React.createRef();
 
-    let addPost = () => {
-        let text = createElement.current.value;
-        alert(text);
+    let addNewPost = () => {
+        props.addPost();
+    }
+
+    let onPostChange = () => {
+        let newPostText = createElement.current.value;
+        props.changeNewPostText(newPostText);
     }
 
     return (
@@ -22,9 +26,10 @@ let NewPost = () => {
                     className={style.newpost_textarea}
                     name=""
                     ref={createElement}
-                    placeholder="Write what you wish"
-                ></textarea>
-                <button onClick={addPost} className={style.newpost_button}>Publish</button>
+                    value={props.newPostText}
+                    onChange={onPostChange}
+                />
+                <button onClick={addNewPost} className={style.newpost_button}>Publish</button>
             </div>
         </div>
     );

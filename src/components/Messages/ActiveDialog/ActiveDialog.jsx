@@ -2,33 +2,41 @@ import React from "react";
 import style from "./ActiveDialog.module.css";
 import Message from "./Message/Message";
 
-let ActiveDialog = () => {
+let ActiveDialog = (props) => {
 
     let newMessageText = React.createRef();
 
     let newMessage = () => {
+        props.addNewMessage();
+    }
+
+    let activeDialogMessage = props.activeDialogMessagesData.map( message => 
+        <Message
+            author={message.author}
+            avatar={message.avatar}
+            message={message.message}
+        />
+    );
+
+    let onChangeMessageText = () => {
         let message = newMessageText.current.value;
-        alert(message);
+        props.changeNewMessageText(message);
     }
 
     return (
         <div className={style.activeDialog_block}>
             <div className={style.dialogWindow}>
-                <Message
-                    author="other"
-                    avatar="https://themified.com/friend-finder/images/users/user-2.jpg"
-                    message="Hi honey, how are you doing???? Long time no see. Where have
-                    you been?"
-                />
-                <Message
-                    author="me"
-                    avatar="https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg"
-                    message="I'm fine, thanks! What about you?"
-                />
+                {activeDialogMessage}
             </div>
             <div>
                 <div className={style.message}>
-                    <input ref={newMessageText} type="text" className={style.messageText} />
+                    <input 
+                        ref={newMessageText} 
+                        type="text" 
+                        className={style.messageText} 
+                        onChange={onChangeMessageText} 
+                        value={props.newMessageText}
+                    />
                     <button onClick={newMessage} type="submit" className={style.send}>
                         Send
                     </button>

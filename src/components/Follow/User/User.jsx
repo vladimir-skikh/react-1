@@ -6,8 +6,8 @@ let User = (props) => {
         <div className={style.user}>
             <img src={props.avatar} alt="" />
             <div className={style.userDesc}>
-                <a className={style.userName}>{props.name}</a>
-                <a className={style.addUser}>Add friend</a>
+                <span className={style.userName}>{props.name}</span>
+                <span className={style.addUser}>Add friend</span>
             </div>
         </div>
     );

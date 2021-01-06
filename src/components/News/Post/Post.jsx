@@ -10,7 +10,7 @@ const Post = (props) => {
           <img src={props.authorAvatar} alt="" className={style.avatar}/>
           <div className={style.authorDesc}>
             <div className={style.authorDesc__left}>
-              <a className={style.userName}>{props.authorName}</a>
+              <span className={style.userName}>{props.authorName}</span>
               <span className={style.published}>Published a photo about 3 mins ago</span>
             </div>
             <div className={style.authorDesc__right}>
@@ -19,7 +19,7 @@ const Post = (props) => {
           </div>
         </div>
         <div className={style.text}>
-          <p>{ props.postText } Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat ex temporibus quia autem ab perferendis odio sunt magni, amet accusamus modi recusandae reiciendis, quae molestiae officiis iste nam aspernatur eos.</p>
+          <p>{ props.postText }</p>
         </div>
       </div>
     </div>

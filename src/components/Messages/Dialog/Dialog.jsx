@@ -11,7 +11,7 @@ let Dialog = (props) => {
         <NavLink to={path} className={style.dialog}>
             <img src={props.avatar} alt="" className={style.avatar} />
             <div className={style.dialogDesc}>
-                <a className={style.name}>{props.name}</a>
+                <span className={style.name}>{props.name}</span>
                 <span className={style.message}>{props.lastMessage}</span>
             </div>
         </NavLink>
