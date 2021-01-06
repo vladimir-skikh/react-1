@@ -23,9 +23,8 @@ let Messages = (props) => {
             <div className={style.activeDialog}>
                 <ActiveDialog 
                     newMessageText={props.state.newMessageText}
-                    activeDialogMessagesData={props.state.activeDialogMessagesData} 
-                    addNewMessage={props.addNewMessage} 
-                    changeNewMessageText={props.changeNewMessageText}
+                    activeDialogMessagesData={props.state.activeDialogMessagesData}
+                    dispatch={props.dispatch}
                 />
             </div>
         </div>

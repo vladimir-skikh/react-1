@@ -77,47 +77,50 @@ let store = {
     },
     _renderReactDom() {},
 
-    addPost () {
-        let newPost = {
-            postText: this._state.newsPage.newPostText,
-            postPhoto: "https://themified.com/friend-finder/images/post-images/11.jpg",
-            authorAvatar: "https://themified.com/friend-finder/images/users/user-4.jpg",
-            authorName: "My name",
-        };
-        this._state.newsPage.postsData.push(newPost);
-        this._state.newsPage.newPostText = '';
-        this.renderReactDom(this._state);
-    },
-
-    addNewMessage() {
-        let newMessage = {
-            author: "me",
-            avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
-            message: this._state.messagesPage.newMessageText,
-        };
-        this._state.messagesPage.activeDialogMessagesData.push(newMessage);
-        this._state.messagesPage.newMessageText = '';
-    
-        this.renderReactDom(this._state);
-    },
-
-    changeNewPostText(text) {
-        this._state.newsPage.newPostText = text;
-        this.renderReactDom(this._state);
-    },
-
-    changeNewMessageText(text) {
-        this._state.messagesPage.newMessageText = text;
-        this.renderReactDom(this._state);
-    },
-
     subscribe(observer) {
         this._renderReactDom = observer;
     },
-    
     getState() {
         return this._state;
     },
+
+    dispatch (action) {
+        if (action.type === 'ADD-POST') {
+
+            let newPost = {
+                postText: this._state.newsPage.newPostText,
+                postPhoto: "https://themified.com/friend-finder/images/post-images/11.jpg",
+                authorAvatar: "https://themified.com/friend-finder/images/users/user-4.jpg",
+                authorName: "My name",
+            };
+            this._state.newsPage.postsData.push(newPost);
+            this._state.newsPage.newPostText = '';
+            this._renderReactDom(this._state);
+
+        } else if (action.type === 'CHANGE-NEW-POST-TEXT') {
+
+            this._state.newsPage.newPostText = action.text;
+            this._renderReactDom(this._state);
+
+        } else if (action.type === 'ADD-NEW-MESSAGE') {
+
+            let newMessage = {
+                author: "me",
+                avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
+                message: this._state.messagesPage.newMessageText,
+            };
+            this._state.messagesPage.activeDialogMessagesData.push(newMessage);
+            this._state.messagesPage.newMessageText = '';
+            this._renderReactDom(this._state);
+
+        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+
+            this._state.messagesPage.newMessageText = action.text;
+            this._renderReactDom(this._state);
+
+        }
+    },
+
 }
 
 export default store;

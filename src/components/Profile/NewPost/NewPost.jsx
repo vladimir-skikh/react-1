@@ -6,12 +6,19 @@ let NewPost = (props) => {
     let createElement = React.createRef();
 
     let addNewPost = () => {
-        props.addPost();
+        let action = {
+            type: 'ADD-POST'
+        }
+        props.dispatch(action);
     }
 
     let onPostChange = () => {
         let newPostText = createElement.current.value;
-        props.changeNewPostText(newPostText);
+        let action = {
+            type: 'CHANGE-NEW-POST-TEXT',
+            text: newPostText,
+        }
+        props.dispatch(action);
     }
 
     return (

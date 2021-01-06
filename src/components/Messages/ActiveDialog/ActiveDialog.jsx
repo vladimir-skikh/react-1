@@ -6,10 +6,6 @@ let ActiveDialog = (props) => {
 
     let newMessageText = React.createRef();
 
-    let newMessage = () => {
-        props.addNewMessage();
-    }
-
     let activeDialogMessage = props.activeDialogMessagesData.map( message => 
         <Message
             author={message.author}
@@ -18,9 +14,20 @@ let ActiveDialog = (props) => {
         />
     );
 
+    let newMessage = () => {
+        let action = {
+            type: 'ADD-NEW-MESSAGE'
+        }
+        props.dispatch(action);
+    }
+
     let onChangeMessageText = () => {
         let message = newMessageText.current.value;
-        props.changeNewMessageText(message);
+        let action = {
+            type: 'CHANGE-NEW-MESSAGE-TEXT',
+            text: message,
+        }
+        props.dispatch(action);
     }
 
     return (

@@ -10,7 +10,10 @@ let Profile = (props) => {
                 <ProfileSmallDesc />
             </div>
             <div className={style.profile_block_right}>
-                <NewPost addPost={props.addPost} newPostText={props.state} changeNewPostText={props.changeNewPostText}/>
+                <NewPost
+                    newPostText={props.state.newPostText}
+                    dispatch={props.dispatch}
+                />
             </div>
         </div>
     );

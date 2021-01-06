@@ -19,14 +19,24 @@ function App(props) {
                 </div>
                 <div className="wrapper wrapper-content">
                     <Nav />
-                    <Profile addPost={props.addPost} state={props.state.newsPage.newPostText} changeNewPostText={props.changeNewPostText}/>
+                    <Profile
+                        state={props.state.newsPage}
+                        dispatch={props.dispatch}
+                    />
                     <div className="content">
-                        <Route path="/news" render={() => <News state={props.state.newsPage} />} />
-                        <Route path="/messages" render={() => <Messages 
-                                                                state={props.state.messagesPage} 
-                                                                addNewMessage={props.addNewMessage} 
-                                                                changeNewMessageText={props.changeNewMessageText}
-                                                            />} />
+                        <Route
+                            path="/news"
+                            render={() => <News state={props.state.newsPage} />}
+                        />
+                        <Route
+                            path="/messages"
+                            render={() => (
+                                <Messages
+                                    state={props.state.messagesPage}
+                                    dispatch={props.dispatch}
+                                />
+                            )}
+                        />
                     </div>
                     <Follow state={props.state.follow} />
                 </div>
