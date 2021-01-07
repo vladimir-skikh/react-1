@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./ActiveDialog.module.css";
 import Message from "./Message/Message";
-import {addNewMessageCreator, changeNewMessageTextActionCreator} from '../../../redux/messagesPageReducer'
 
 
 let ActiveDialog = (props) => {
@@ -16,15 +15,13 @@ let ActiveDialog = (props) => {
         />
     );
 
-    let newMessage = () => {
-        let action = addNewMessageCreator();
-        props.dispatch(action);
+    let onAddMessage = () => {
+        props.addNewMessage();
     }
 
     let onChangeMessageText = () => {
         let message = newMessageText.current.value;
-        let action = changeNewMessageTextActionCreator(message);
-        props.dispatch(action);
+        props.changeMessageText(message);
     }
 
     return (
@@ -41,7 +38,7 @@ let ActiveDialog = (props) => {
                         onChange={onChangeMessageText} 
                         value={props.newMessageText}
                     />
-                    <button onClick={newMessage} type="submit" className={style.send}>
+                    <button onClick={onAddMessage} type="submit" className={style.send}>
                         Send
                     </button>
                 </div>

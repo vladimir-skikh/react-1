@@ -3,13 +3,12 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
-import News from "./components/News/News";
+import NewsContainer from "./components/News/NewsContainer";
 import Follow from "./components/Follow/Follow";
-import Messages from "./components/Messages/Messages";
+import MessagesContainer from "./components/Messages/MessagesContainer";
 import { Route, BrowserRouter } from "react-router-dom";
 
 function App(props) {
-    console.log(props.state)
     return (
         <BrowserRouter>
             <div>
@@ -21,20 +20,18 @@ function App(props) {
                 <div className="wrapper wrapper-content">
                     <Nav />
                     <Profile
-                        state={props.state.newsReducer}
-                        dispatch={props.dispatch}
+                        store={props.store}
                     />
                     <div className="content">
                         <Route
                             path="/news"
-                            render={() => <News state={props.state.newsReducer} />}
+                            render={() => <NewsContainer store={props.store} />}
                         />
                         <Route
                             path="/messages"
                             render={() => (
-                                <Messages
-                                    state={props.state.messagesReducer}
-                                    dispatch={props.dispatch}
+                                <MessagesContainer
+                                    store={props.store}
                                 />
                             )}
                         />

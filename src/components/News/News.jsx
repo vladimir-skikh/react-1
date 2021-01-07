@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 
 const News = (props) => {
 
-    let posts = props.state.postsData.map( post => 
+    let posts = props.postsData.map( post => 
             <Post
                 postText={post.postText}
                 postPhoto={post.postPhoto}

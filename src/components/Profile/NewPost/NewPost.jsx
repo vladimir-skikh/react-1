@@ -6,15 +6,13 @@ let NewPost = (props) => {
 
     let createElement = React.createRef();
 
-    let addNewPost = () => {
-        let action = addPostActionCreator();
-        props.dispatch(action);
+    let onAddPost = () => {
+        props.addNewPost();
     }
 
     let onPostChange = () => {
         let newPostText = createElement.current.value;
-        let action = changeNewPostTextActionCreator(newPostText);
-        props.dispatch(action);
+        props.changePostText(newPostText);
     }
 
     return (
@@ -32,7 +30,7 @@ let NewPost = (props) => {
                     value={props.newPostText}
                     onChange={onPostChange}
                 />
-                <button onClick={addNewPost} className={style.newpost_button}>Publish</button>
+                <button onClick={onAddPost} className={style.newpost_button}>Publish</button>
             </div>
         </div>
     );

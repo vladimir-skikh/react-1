@@ -1,11 +1,11 @@
 import React from "react";
 import style from "./Messages.module.css";
 import Dialog from "./Dialog/Dialog";
-import ActiveDialog from "./ActiveDialog/ActiveDialog";
+import ActiveDialogContainer from "./ActiveDialog/ActiveDialogContainer";
 
 let Messages = (props) => {
 
-    let dialogs = props.state.dialogsData
+    let dialogs = props.dialogsData
         .map( dialog => 
             <Dialog
                 avatar={dialog.avatar}
@@ -21,10 +21,8 @@ let Messages = (props) => {
                 {dialogs}
             </div>
             <div className={style.activeDialog}>
-                <ActiveDialog 
-                    newMessageText={props.state.newMessageText}
-                    activeDialogMessagesData={props.state.activeDialogMessagesData}
-                    dispatch={props.dispatch}
+                <ActiveDialogContainer 
+                    store={props.store}
                 />
             </div>
         </div>
