@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
 import NewsContainer from "./components/News/NewsContainer";
-import Follow from "./components/Follow/Follow";
+import FollowContainer from "./components/Follow/FollowContainer";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import { Route, BrowserRouter } from "react-router-dom";
 
@@ -36,7 +36,7 @@ function App(props) {
                             )}
                         />
                     </div>
-                    <Follow state={props.state.followReducer} />
+                    <FollowContainer store={props.store} />
                 </div>
             </div>
         </BrowserRouter>

@@ -4,7 +4,7 @@ import User from "./User/User";
 
 let Follow = (props) => {
 
-    let follow = props.state.followData
+    let follow = props.followData
                     .map(followItem => 
                         <User
                             name={followItem.name}

@@ -5,12 +5,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-export let renderReactDom = (state) => {
+export let renderReactDom = (store) => {
     ReactDOM.render(
         <React.StrictMode>
           <App 
-            state={state} 
-            dispatch={store.dispatch.bind(store)} 
             store={store}
           />
         </React.StrictMode>,
@@ -18,10 +16,10 @@ export let renderReactDom = (state) => {
     );
 }
 
-renderReactDom(store.getState());
+renderReactDom(store);
 
 store.subscribe(() => {
-  renderReactDom(store.getState());
+  renderReactDom(store);
 });
 
 // If you want your app to work offline and load faster, you can change
