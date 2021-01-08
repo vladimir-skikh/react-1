@@ -9,6 +9,7 @@ let Follow = (props) => {
                         <User
                             name={followItem.name}
                             avatar={followItem.avatar}
+                            key={followItem.id}
                         />
                     );
 

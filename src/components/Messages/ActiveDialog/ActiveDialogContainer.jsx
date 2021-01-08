@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "react-redux";
 import ActiveDialog from "./ActiveDialog";
 import {addNewMessageCreator, changeNewMessageTextActionCreator} from '../../../redux/messagesPageReducer'

@@ -12,6 +12,7 @@ let Messages = (props) => {
                 name={dialog.name}
                 lastMessage={dialog.lastMessage}
                 id={dialog.id}
+                key={dialog.id}
             />
         );
 

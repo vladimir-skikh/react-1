@@ -10,6 +10,7 @@ const News = (props) => {
                 postPhoto={post.postPhoto}
                 authorAvatar={post.authorAvatar}
                 authorName={post.authorName}
+                key={post.id}
             />
         );
 

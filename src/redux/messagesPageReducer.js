@@ -39,24 +39,38 @@ let initialState = {
 
 const messagesReducer = (state = initialState, action) => {
 
-    let stateCopy = {...state};
+    let stateCopy;
 
     switch (action.type) {
-        case ADD_NEW_MESSAGE: 
+        case ADD_NEW_MESSAGE: {
+
             let newMessage = {
                 author: "me",
                 avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
                 message: state.newMessageText,
             };
-            stateCopy.activeDialogMessagesData = [...state.activeDialogMessagesData];
-            stateCopy.activeDialogMessagesData.push(newMessage);
-            stateCopy.newMessageText = ''; 
+
+            stateCopy = { 
+                ...state,
+                newMessageText: '',
+                activeDialogMessagesData: [...state.activeDialogMessagesData, newMessage],
+            };
+
             break;
-        case CHANGE_NEW_MESSAGE_TEXT: 
-            stateCopy.newMessageText = action.text;
+        }
+        case CHANGE_NEW_MESSAGE_TEXT: {
+
+            stateCopy = { 
+                ...state,
+                newMessageText: action.text,
+            };
             break;
-        default:
+
+        }
+        default: {
+            stateCopy = {...state}
             break;
+        }
     }
 
     return stateCopy;

@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "react-redux";
 import NewPost from "./NewPost"
 import {changeNewPostTextActionCreator, addPostActionCreator} from '../../../redux/newsPageReducer'
