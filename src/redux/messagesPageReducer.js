@@ -39,6 +39,8 @@ let initialState = {
 
 const messagesReducer = (state = initialState, action) => {
 
+    let stateCopy = {...state};
+
     switch (action.type) {
         case ADD_NEW_MESSAGE: 
             let newMessage = {
@@ -46,17 +48,18 @@ const messagesReducer = (state = initialState, action) => {
                 avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
                 message: state.newMessageText,
             };
-            state.activeDialogMessagesData.push(newMessage);
-            state.newMessageText = ''; 
+            stateCopy.activeDialogMessagesData = [...state.activeDialogMessagesData];
+            stateCopy.activeDialogMessagesData.push(newMessage);
+            stateCopy.newMessageText = ''; 
             break;
         case CHANGE_NEW_MESSAGE_TEXT: 
-            state.newMessageText = action.text;
+            stateCopy.newMessageText = action.text;
             break;
         default:
             break;
     }
 
-    return state;
+    return stateCopy;
 }
 
 export const addNewMessageCreator = () => {

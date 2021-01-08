@@ -26,7 +26,9 @@ let initialState = {
 }
 
 const newsReducer = (state = initialState, action) => {
-
+    
+    let stateCopy = {...state};
+    
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -35,17 +37,18 @@ const newsReducer = (state = initialState, action) => {
                 authorAvatar: "https://themified.com/friend-finder/images/users/user-4.jpg",
                 authorName: "My name",
             };
-            state.postsData.push(newPost);
-            state.newPostText = '';
+            stateCopy.postsData = [...state.postsData];
+            stateCopy.postsData.push(newPost);
+            stateCopy.newPostText = '';
             break;
         case CHANGE_NEW_POST_TEXT:
-            state.newPostText = action.text;
+            stateCopy.newPostText = action.text;
             break;
         default:
             break;
     }
 
-    return state;
+    return stateCopy;
 }
 
 export const addPostActionCreator = () => {
