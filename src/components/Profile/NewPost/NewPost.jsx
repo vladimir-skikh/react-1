@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./NewPost.module.css";
-import {changeNewPostTextActionCreator, addPostActionCreator} from '../../../redux/newsPageReducer'
 
 let NewPost = (props) => {
 

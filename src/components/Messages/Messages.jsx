@@ -21,9 +21,7 @@ let Messages = (props) => {
                 {dialogs}
             </div>
             <div className={style.activeDialog}>
-                <ActiveDialogContainer 
-                    store={props.store}
-                />
+                <ActiveDialogContainer />
             </div>
         </div>
     );

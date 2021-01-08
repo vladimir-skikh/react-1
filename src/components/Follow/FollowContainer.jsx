@@ -1,10 +1,17 @@
-import React from "react";
+import { connect } from "react-redux";
 import Follow from "./Follow"
 
-let FollowContainer = (props) => {
+let mapStateToProps = (state) => {
+    return {
+        followData: state.followReducer.followData,
+    }
+}
+let mapDispatchToProps = (dispatch) => {
+    return {
+        
+    } 
+}
 
-    let state = props.store.getState();
+const FollowContainer = connect(mapStateToProps, mapDispatchToProps)(Follow);
 
-    return (<Follow followData={state.followReducer.followData} />);
-};
 export default FollowContainer;

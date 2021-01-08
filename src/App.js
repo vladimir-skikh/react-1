@@ -19,24 +19,15 @@ function App(props) {
                 </div>
                 <div className="wrapper wrapper-content">
                     <Nav />
-                    <Profile
-                        store={props.store}
-                    />
+                    <Profile />
                     <div className="content">
-                        <Route
-                            path="/news"
-                            render={() => <NewsContainer store={props.store} />}
-                        />
+                        <Route path="/news" render={() => <NewsContainer />} />
                         <Route
                             path="/messages"
-                            render={() => (
-                                <MessagesContainer
-                                    store={props.store}
-                                />
-                            )}
+                            render={() => <MessagesContainer />}
                         />
                     </div>
-                    <FollowContainer store={props.store} />
+                    <FollowContainer />
                 </div>
             </div>
         </BrowserRouter>

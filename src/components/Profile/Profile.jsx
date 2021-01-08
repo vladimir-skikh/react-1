@@ -7,12 +7,10 @@ let Profile = (props) => {
     return (
         <div className={style.profile}>
             <div className={style.profile_block_left}>
-                <ProfileSmallDesc store={props.store} />
+                <ProfileSmallDesc />
             </div>
             <div className={style.profile_block_right}>
-                <NewPostContainer
-                    store={props.store}
-                />
+                <NewPostContainer />
             </div>
         </div>
     );
