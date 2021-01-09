@@ -1,0 +1,57 @@
+.user {
+    display: grid;
+    grid-template-areas: 
+        'userImageBlock userInfoBlock'
+    ;
+    grid-template-columns: 60px auto;
+    grid-auto-rows: 100%;
+}
+.userImageBlock {
+    grid-area: userImageBlock;
+}
+.userAvatar {
+    border-radius: 50%;
+    height: 100%;
+}
+.userInfoBlock {
+    grid-area: userInfoBlock;
+    display: grid;
+    grid-template-areas: 
+        'userInfo followButtonBlock'
+    ;
+    grid-template-columns: auto 100px;
+}
+.userInfo {
+    grid-area: userInfo;
+    padding: 10px;
+}
+.userName {
+    display: block;
+    color: #27aae1;
+    text-decoration: none;
+    font-weight: 500;
+}
+.status {
+    display: block;
+    color: #6d6e71;
+    outline: none;
+    font-size: 1.3rem;
+}
+.followButtonBlock {
+    grid-area: followButtonBlock;
+    display: flex;
+    justify-content: flex-end;
+}
+.followButton {
+    width: 100%;
+    align-self: center;
+    padding: 7px 25px;
+    border-radius: 30px;
+    color: #fff;
+    border: none;
+    background: #149AC9;
+    transition: all 1s;
+}
+.followButton:focus {
+    outline: none;
+}

@@ -5,6 +5,7 @@ import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
 import NewsContainer from "./components/News/NewsContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import { Route, BrowserRouter } from "react-router-dom";
 
@@ -25,6 +26,10 @@ function App(props) {
                         <Route
                             path="/messages"
                             render={() => <MessagesContainer />}
+                        />
+                        <Route
+                            path="/users"
+                            render={() => <UsersContainer />}
                         />
                     </div>
                     <FollowContainer />

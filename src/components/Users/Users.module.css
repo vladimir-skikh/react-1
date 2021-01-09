@@ -1,0 +1,17 @@
+.users {
+    display: grid;
+    grid-gap: 10px;
+    grid-auto-rows: 60px;
+    padding-left: 35px;
+}
+.showMoreButton {
+    width: 200px;
+    align-self: center;
+    justify-self: center;
+    padding: 7px 25px;
+    border-radius: 30px;
+    color: #fff;
+    border: none;
+    background: #149AC9;
+    transition: all 1s;
+}

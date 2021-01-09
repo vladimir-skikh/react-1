@@ -51,6 +51,15 @@ let Nav = () => {
                         Settings
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to="/users"
+                        className={style.item}
+                        activeClassName={style.active}
+                    >
+                        Users
+                    </NavLink>
+                </li>
             </ul>
         </nav>
     );
