@@ -10,8 +10,6 @@ let mapStateToProps = (state, ownProps) => {
         following: ownProps.following,
         avatar: ownProps.avatar,
         status: ownProps.status,
-        country: ownProps.country,
-        city: ownProps.city,
     }
 }
 let mapDispatchToProps = (dispatch) => {

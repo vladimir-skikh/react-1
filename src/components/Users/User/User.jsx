@@ -1,50 +1,55 @@
 import React from "react";
 import style from "./User.module.css";
 
-let User = (props) => {
-    let createElement = React.createRef();
+class User extends React.Component {
+    createElement = React.createRef();
 
-    let onFollowClick = () => {
-        let user_id = createElement.current.value;
-        props.followUser(user_id);
+    onFollowClick = () => {
+        let user_id = this.createElement.current.value;
+        this.props.followUser(user_id);
     };
-    let onUnfollowClick = () => {
-        let user_id = createElement.current.value;
-        props.unfollowUser(user_id);
+    onUnfollowClick = () => {
+        let user_id = this.createElement.current.value;
+        this.props.unfollowUser(user_id);
     };
 
-    return (
-        <div className={style.user}>
-            <div className={style.userImageBlock}>
-                <img src={props.avatar} alt="" className={style.userAvatar} />
-            </div>
-            <div className={style.userInfoBlock}>
-                <div className={style.userInfo}>
-                    <span className={style.userName}>{props.userName}</span>
-                    <span className={style.status}>{props.status}</span>
+    render() {
+        return (
+            <div className={style.user}>
+                <div className={style.userImageBlock}>
+                    {/*<img src={props.avatar} alt="" className={style.userAvatar} />*/}
+                    <img src="https://themified.com/friend-finder/images/users/user-11.jpg" alt="" className={style.userAvatar} />
                 </div>
-                <div className={style.followButtonBlock}>
-                    {props.following 
-                    ?   <button
-                            value={props.id}
-                            onClick={onUnfollowClick}
-                            ref={createElement}
-                            className={style.followButton}
-                        >
-                            Unfollow
-                        </button> 
-                    :   <button
-                            value={props.id}
-                            onClick={onFollowClick}
-                            ref={createElement}
-                            className={style.followButton}
-                        >
-                            Follow
-                        </button>
-                    }
+                <div className={style.userInfoBlock}>
+                    <div className={style.userInfo}>
+                        <span className={style.userName}>{this.props.userName}</span>
+                        {/*<span className={style.status}>{props.status}</span>*/}
+                        <span className={style.status}>Some status</span>
+                    </div>
+                    <div className={style.followButtonBlock}>
+                        {this.props.following 
+                        ?   <button
+                                value={this.props.id}
+                                onClick={this.onUnfollowClick}
+                                ref={this.createElement}
+                                className={style.followButton}
+                            >
+                                Unfollow
+                            </button> 
+                        :   <button
+                                value={this.props.id}
+                                onClick={this.onFollowClick}
+                                ref={this.createElement}
+                                className={style.followButton}
+                            >
+                                Follow
+                            </button>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
+
 export default User;

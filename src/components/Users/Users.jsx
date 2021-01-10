@@ -1,39 +1,49 @@
 import React from "react";
-import style from './Users.module.css';
+import style from "./Users.module.css";
 import UserContainer from "./User/UserContainer";
+import axios from "axios";
 
-let Users = (props) => {
+class Users extends React.Component {
 
-    let createElement = React.createRef();
+    constructor(props) {
+        super(props);
 
-    let onShowMoreClick = () => {
-        let lastUser = createElement.current.value;
-        props.showMore(lastUser)
+        if (this.props.usersData.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                this.props.showMore(response.data.items);
+            });
+        }
     }
 
-    let allUsers = props.usersData.map(user => (
-        <UserContainer 
-            id={user.id} 
-            userName={user.userName} 
-            following={user.following} 
-            avatar={user.avatar} 
-            status={user.status} 
-            country={user.country} 
-            city={user.city} 
+    onShowMoreClick = () => {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.showMore(response.data.items);
+        });
+    };
+    
+    allUsers = this.props.usersData.map((user) => (
+        <UserContainer
+            id={user.id}
+            userName={user.name}
+            following={user.following}
+            avatar={user.photos.large}
+            status={user.status}
         />
     ));
 
-    return (
-        <div className={style.users}>
-            {allUsers}
-            <button 
-                className={style.showMoreButton}
-                ref={createElement}
-                onClick={onShowMoreClick}
-            >
-                Show more
-            </button>
-        </div>
-    );
-};
+    render() {
+        return (
+            <div className={style.users}>
+                {this.allUsers}
+                <button
+                    className={style.showMoreButton}
+                    onClick={this.onShowMoreClick}
+                >
+                    Show more
+                </button>
+            </div>
+        );
+    }
+}
+
 export default Users;

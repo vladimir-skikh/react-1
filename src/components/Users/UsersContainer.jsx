@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import Users from './Users'
-import {setUsersActionCreator} from '../../redux/usersPageReducer'
+import Users from './Users';
+import {setUsersActionCreator} from '../../redux/usersPageReducer';
 
 let mapStateToProps = (state) => {
     return {
@@ -9,13 +9,12 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        showMore: (lastUser) => {
-            let action = setUsersActionCreator(lastUser);
+        showMore: (users) => {
+            let action = setUsersActionCreator(users);
             dispatch(action);
         }
     }
 }
-
 let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
 
 export default UsersContainer;
