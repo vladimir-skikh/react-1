@@ -15,3 +15,6 @@
     background: #149AC9;
     transition: all 1s;
 }
+.pagination {
+    display: block;
+}

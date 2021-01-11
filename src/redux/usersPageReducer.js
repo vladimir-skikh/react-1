@@ -1,9 +1,15 @@
 const FOLLOW_USER = "FOLLOW-USER";
 const UNFOLLOW_USER = "UNFOLLOW-USER";
 const SET_USERS = "SET-USERS";
+const SET_USERS_COUNT = "SET-USERS-COUNT";
+const SET_PAGE_SIZE = "SET-PAGE-SIZE";
+const SET_PAGES_COUNT = "SET-PAGES-COUNT";
 
 let initialState = {
     usersData: [],
+    pageSize: 0,
+    totalUsers: 0,
+    pagesCount: 0,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -15,6 +21,30 @@ const usersReducer = (state = initialState, action) => {
             stateCopy = {
                 ...state,
                 usersData: [...state.usersData, ...action.users],
+            };
+
+            break;
+        }
+        case SET_USERS_COUNT: {
+            stateCopy = {
+                ...state,
+                totalUsers: action.count
+            };
+
+            break;
+        }
+        case SET_PAGE_SIZE: {
+            stateCopy = {
+                ...state,
+                pageSize: action.size
+            };
+
+            break;
+        }
+        case SET_PAGES_COUNT: {
+            stateCopy = {
+                ...state,
+                pagesCount: action.count
             };
 
             break;
@@ -82,6 +112,30 @@ export const setUsersActionCreator = (users) => {
     let action = {
         type: SET_USERS,
         users: users,
+    };
+    return action;
+};
+
+export const setTotalUsersActionCreator = (count) => {
+    let action = {
+        type: SET_USERS_COUNT,
+        count: count,
+    };
+    return action;
+};
+
+export const setPageSizeActionCreator = (size) => {
+    let action = {
+        type: SET_PAGE_SIZE,
+        size: size,
+    };
+    return action;
+};
+
+export const setPagesCountActionCreator = (count) => {
+    let action = {
+        type: SET_PAGES_COUNT,
+        count: count,
     };
     return action;
 };
