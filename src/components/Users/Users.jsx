@@ -19,20 +19,20 @@ class Users extends React.Component {
         
     };
     
-    allUsers = this.props.usersData.map((user) => (
-        <UserContainer
-            id={user.id}
-            userName={user.name}
-            following={user.following}
-            avatar={user.photos.large}
-            status={user.status}
-        />
-    ));
-
     render() {
         return (
             <div className={style.users}>
-                {this.allUsers}
+                {
+                    this.props.usersData.map((user) => (
+                        <UserContainer
+                            id={user.id}
+                            userName={user.name}
+                            following={user.following}
+                            avatar={user.photos.large}
+                            status={user.status}
+                        />
+                    ))
+                }
                 <button
                     className={style.showMoreButton}
                     onClick={this.onShowMoreClick}

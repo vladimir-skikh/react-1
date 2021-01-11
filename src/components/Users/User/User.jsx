@@ -17,14 +17,20 @@ class User extends React.Component {
         return (
             <div className={style.user}>
                 <div className={style.userImageBlock}>
-                    {/*<img src={props.avatar} alt="" className={style.userAvatar} />*/}
-                    <img src="https://themified.com/friend-finder/images/users/user-11.jpg" alt="" className={style.userAvatar} />
+                    {
+                        this.props.avatar
+                        ? <img src={this.props.avatar} alt="" className={style.userAvatar} />
+                        : <img src="https://themified.com/friend-finder/images/users/user-13.jpg" alt="" className={style.userAvatar} />
+                    }
                 </div>
                 <div className={style.userInfoBlock}>
                     <div className={style.userInfo}>
                         <span className={style.userName}>{this.props.userName}</span>
-                        {/*<span className={style.status}>{props.status}</span>*/}
-                        <span className={style.status}>Some status</span>
+                        {
+                            this.props.avatar
+                            ? <span className={style.status}>{this.props.status}</span>
+                            : <span className={style.status}>Some status</span>
+                        }
                     </div>
                     <div className={style.followButtonBlock}>
                         {this.props.following 
