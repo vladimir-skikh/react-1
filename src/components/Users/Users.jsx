@@ -5,20 +5,18 @@ import axios from "axios";
 
 class Users extends React.Component {
 
-    constructor(props) {
-        super(props);
+    onShowMoreClick = () => {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.showMore(response.data.items);
+        });
+    };
 
-        if (this.props.usersData.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.showMore(response.data.items);
-            });
-        }
+    componentDidMount() {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.showMore(response.data.items);
+        });
     }
 
-    onShowMoreClick = () => {
-        
-    };
-    
     render() {
         return (
             <div className={style.users}>
