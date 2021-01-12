@@ -4,12 +4,15 @@ const SET_USERS = "SET-USERS";
 const SET_USERS_COUNT = "SET-USERS-COUNT";
 const SET_PAGE_SIZE = "SET-PAGE-SIZE";
 const SET_PAGES_COUNT = "SET-PAGES-COUNT";
+const SET_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
 
 let initialState = {
     usersData: [],
-    pageSize: 0,
+    pageSize: 10,
     totalUsers: 0,
     pagesCount: 0,
+    pages: [1],
+    currentPage: 1,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -20,7 +23,7 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS: {
             stateCopy = {
                 ...state,
-                usersData: [...state.usersData, ...action.users],
+                usersData: [...action.users],
             };
 
             break;
@@ -42,9 +45,23 @@ const usersReducer = (state = initialState, action) => {
             break;
         }
         case SET_PAGES_COUNT: {
+
             stateCopy = {
                 ...state,
-                pagesCount: action.count
+                pagesCount: action.count,
+                pages: [],
+            };
+
+            for (let i = 1; i <= action.count; i++) {
+                stateCopy.pages.push(i);
+            }
+
+            break;
+        }
+        case SET_CURRENT_PAGE: {
+            stateCopy = {
+                ...state,
+                currentPage: action.pageNum
             };
 
             break;
@@ -136,6 +153,14 @@ export const setPagesCountActionCreator = (count) => {
     let action = {
         type: SET_PAGES_COUNT,
         count: count,
+    };
+    return action;
+};
+
+export const setCurrentPageActionCreator = (pageNum) => {
+    let action = {
+        type: SET_CURRENT_PAGE,
+        pageNum: pageNum,
     };
     return action;
 };

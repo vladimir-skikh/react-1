@@ -16,5 +16,25 @@
     transition: all 1s;
 }
 .pagination {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paginationList {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.paginationListItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 20px;
+    color: #149AC9;
+}
+.paginationListItemCurrent {
+    font-weight: bold;
 }
