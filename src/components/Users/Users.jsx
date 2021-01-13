@@ -6,9 +6,9 @@ import UserContainer from "./User/UserContainer";
 let Users = (props) => {
 
     let paginationStart = 0;
-    let paginationEnd = 10;
-    if (props.currentPage > 5) {
-        paginationStart = props.currentPage - 5;
+    let paginationEnd = 11;
+    if (props.currentPage > 6) {
+        paginationStart = props.currentPage - 6;
         paginationEnd = props.currentPage + 5;
     }
 
