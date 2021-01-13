@@ -38,8 +38,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-basis: 20px;
+    flex-basis: 30px;
     color: #149AC9;
+}
+.paginationListItem:hover {
+    cursor: pointer;
 }
 .paginationListItemCurrent {
     font-weight: bold;

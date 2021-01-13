@@ -5,6 +5,13 @@ import UserContainer from "./User/UserContainer";
 
 let Users = (props) => {
 
+    let paginationStart = 0;
+    let paginationEnd = 10;
+    if (props.currentPage > 5) {
+        paginationStart = props.currentPage - 5;
+        paginationEnd = props.currentPage + 5;
+    }
+
     let onChangeCurrentPage = (pageNum) => {
         props.updateUsers(props.count, pageNum);
     }
@@ -25,7 +32,7 @@ let Users = (props) => {
             <div className={style.pagination}>
                 <ul className={style.paginationList}>
                     {   
-                        props.pages.slice(0, 10).map( page => (
+                        props.pages.slice(paginationStart, paginationEnd).map( page => (
                             <li 
                                 className={style.paginationListItem + ' ' + (props.currentPage === page ? style.paginationListItemCurrent : '')}
                                 onClick={ () => {
