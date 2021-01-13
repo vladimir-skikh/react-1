@@ -5,6 +5,7 @@ const SET_USERS_COUNT = "SET-USERS-COUNT";
 const SET_PAGE_SIZE = "SET-PAGE-SIZE";
 const SET_PAGES_COUNT = "SET-PAGES-COUNT";
 const SET_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
+const IS_FETCHING = "IS-FETCHING";
 
 let initialState = {
     usersData: [],
@@ -13,6 +14,7 @@ let initialState = {
     pagesCount: 0,
     pages: [1],
     currentPage: 1,
+    isFetching: true,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -62,6 +64,14 @@ const usersReducer = (state = initialState, action) => {
             stateCopy = {
                 ...state,
                 currentPage: action.pageNum
+            };
+
+            break;
+        }
+        case IS_FETCHING: {
+            stateCopy = {
+                ...state,
+                isFetching: action.isFetching
             };
 
             break;
@@ -161,6 +171,14 @@ export const setCurrentPageActionCreator = (pageNum) => {
     let action = {
         type: SET_CURRENT_PAGE,
         pageNum: pageNum,
+    };
+    return action;
+};
+
+export const setIsFetchingActionCreator = (isFetching) => {
+    let action = {
+        type: IS_FETCHING,
+        isFetching: isFetching,
     };
     return action;
 };

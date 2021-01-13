@@ -25,7 +25,7 @@ let Users = (props) => {
             <div className={style.pagination}>
                 <ul className={style.paginationList}>
                     {   
-                        props.pages.slice(0, 6).map( page => (
+                        props.pages.slice(0, 10).map( page => (
                             <li 
                                 className={style.paginationListItem + ' ' + (props.currentPage === page ? style.paginationListItemCurrent : '')}
                                 onClick={ () => {

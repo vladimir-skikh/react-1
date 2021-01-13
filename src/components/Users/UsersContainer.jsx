@@ -7,8 +7,11 @@ import {
     setTotalUsersActionCreator, 
     setPageSizeActionCreator, 
     setPagesCountActionCreator,
-    setCurrentPageActionCreator
+    setCurrentPageActionCreator,
+    setIsFetchingActionCreator
 } from '../../redux/usersPageReducer';
+import style from './Users.module.css';
+import loader from '../../img/loader.svg';
 
 
 class UsersAPIContainer extends React.Component {
@@ -20,12 +23,16 @@ class UsersAPIContainer extends React.Component {
     }
 
     onShowMoreClick = () => {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.showMore(response.data.items);
-        });
+        let count = this.props.pageSize;
+        let page = this.props.currentPage + 1;
+
+        this.updateUsers(count, page);
     };
 
     updateUsers = (count, page) => {
+
+        this.props.setIsFetching(true);
+
         let query = `https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`;
 
         axios.get(query).then(response => {
@@ -33,6 +40,7 @@ class UsersAPIContainer extends React.Component {
             this.props.setPageSize(count);
             this.props.setPagesCount(Math.ceil(response.data.totalCount / count));
             this.props.setCurrentPage(page);
+            this.props.setIsFetching(false);
         });
     }
 
@@ -47,17 +55,19 @@ class UsersAPIContainer extends React.Component {
     }
 
     render() {
-        return (
-            <Users 
-                updateUsers={this.updateUsers} 
-                onShowMoreClick={this.onShowMoreClick} 
-                count={this.count} 
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                usersData={this.props.usersData}
-                pages={this.props.pages}
-            />
-        );
+        return <>
+                { this.props.isFetching ? <div className={style.preloader}> <img src={loader} alt="Loading..." className={style.preloaderImage}/> </div>: null }
+                <Users 
+                    updateUsers={this.updateUsers} 
+                    onShowMoreClick={this.onShowMoreClick} 
+                    count={this.count} 
+                    pageSize={this.props.pageSize}
+                    currentPage={this.props.currentPage}
+                    usersData={this.props.usersData}
+                    pages={this.props.pages}
+                />
+            </>
+        
     }
 }
 
@@ -71,6 +81,7 @@ let mapStateToProps = (state) => {
         pagesCount: state.usersReducer.pagesCount,
         currentPage: state.usersReducer.currentPage,
         pages: state.usersReducer.pages,
+        isFetching: state.usersReducer.isFetching,
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -95,6 +106,10 @@ let mapDispatchToProps = (dispatch) => {
             let action = setCurrentPageActionCreator(pageNum);
             dispatch(action);
         },
+        setIsFetching: (isFetching) => {
+            let action = setIsFetchingActionCreator(isFetching);
+            dispatch(action);
+        }
     }
 }
 let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer);
