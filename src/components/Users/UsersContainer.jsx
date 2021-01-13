@@ -10,8 +10,7 @@ import {
     setCurrentPageActionCreator,
     setIsFetchingActionCreator
 } from '../../redux/usersPageReducer';
-import style from './Users.module.css';
-import loader from '../../img/loader.svg';
+import Preloader from "../common/Preloader/Preloader";
 
 
 class UsersAPIContainer extends React.Component {
@@ -56,7 +55,10 @@ class UsersAPIContainer extends React.Component {
 
     render() {
         return <>
-                { this.props.isFetching ? <div className={style.preloader}> <img src={loader} alt="Loading..." className={style.preloaderImage}/> </div>: null }
+                { this.props.isFetching 
+                    ? <Preloader />
+                    : null 
+                }
                 <Users 
                     updateUsers={this.updateUsers} 
                     onShowMoreClick={this.onShowMoreClick} 
