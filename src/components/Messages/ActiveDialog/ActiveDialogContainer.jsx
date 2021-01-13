@@ -8,18 +8,11 @@ let mapStateToProps = (state) => {
         activeDialogMessagesData: state.messagesReducer.activeDialogMessagesData,
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addNewMessage: () => {
-            let action = addNewMessageCreator();
-            dispatch(action); 
-        },
-        changeMessageText: (message) => {
-            let action = changeNewMessageTextActionCreator(message);
-            dispatch(action);
-        }
-    }
+
+let actionCreators = {
+    addNewMessage: addNewMessageCreator,
+    changeMessageText: changeNewMessageTextActionCreator
 }
-const ActiveDialogContainer = connect(mapStateToProps, mapDispatchToProps)(ActiveDialog);
+const ActiveDialogContainer = connect(mapStateToProps, actionCreators)(ActiveDialog);
 
 export default ActiveDialogContainer;

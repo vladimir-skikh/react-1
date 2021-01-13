@@ -7,19 +7,12 @@ let mapStateToProps = (state) => {
         newPostText: state.newsReducer.newPostText,
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addNewPost: () => {
-            let action = addPostActionCreator();
-            dispatch(action);
-        },
-        changePostText: (newPostText) => {
-            let action = changeNewPostTextActionCreator(newPostText);
-            dispatch(action);
-        },
-    }
+
+let actionCreators = {
+    addNewPost: addPostActionCreator,
+    changePostText: changeNewPostTextActionCreator,
 }
 
-const NewPostContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost);
+const NewPostContainer = connect(mapStateToProps, actionCreators)(NewPost);
 
 export default NewPostContainer;
