@@ -16,11 +16,6 @@ let NewPost = (props) => {
 
     return (
         <div className={style.profile_block_newpost}>
-            <img
-                className={style.profile_image}
-                src="https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg"
-                alt=""
-            />
             <div className={style.newpost}>
                 <textarea
                     className={style.newpost_textarea}

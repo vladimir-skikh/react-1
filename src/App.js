@@ -7,6 +7,7 @@ import NewsContainer from "./components/News/NewsContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import MessagesContainer from "./components/Messages/MessagesContainer";
+import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
 import { Route, BrowserRouter } from "react-router-dom";
 
 function App(props) {
@@ -30,6 +31,10 @@ function App(props) {
                         <Route
                             path="/users"
                             render={() => <UsersContainer />}
+                        />
+                        <Route
+                            path="/user"
+                            render={() => <UserProfileContainer />}
                         />
                     </div>
                     <FollowContainer />

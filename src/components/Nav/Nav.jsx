@@ -12,7 +12,7 @@ let Nav = () => {
                         to="/profile"
                         className={style.item}
                     >
-                        Profile
+                        My Profile
                     </NavLink>
                 </li>
                 <li>

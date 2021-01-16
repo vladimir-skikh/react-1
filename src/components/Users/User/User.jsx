@@ -1,5 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import style from "./User.module.css";
+import undefinedUser from '../../../img/undefinedUser.png';
 
 class User extends React.Component {
     createElement = React.createRef();
@@ -17,11 +19,13 @@ class User extends React.Component {
         return (
             <div className={style.user}>
                 <div className={style.userImageBlock}>
+                    <NavLink to={'/user/' + this.props.id} userId={this.props.id}>
                     {
                         this.props.avatar
                         ? <img src={this.props.avatar} alt="" className={style.userAvatar} />
-                        : <img src="https://themified.com/friend-finder/images/users/user-13.jpg" alt="" className={style.userAvatar} />
+                        : <img src={undefinedUser} alt="" className={style.userAvatar} />
                     }
+                    </NavLink>
                 </div>
                 <div className={style.userInfoBlock}>
                     <div className={style.userInfo}>
