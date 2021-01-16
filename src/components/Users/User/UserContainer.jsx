@@ -2,35 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import User from './User';
 import {followActionCreator, unfollowActionCreator} from '../../../redux/usersPageReducer'
-import axios from "axios";
+import usersAPI from "../../../api/api";
 
 class UserAPIContainer extends React.Component 
 {
     follow = (user_id) => {
-        let query = `https://social-network.samuraijs.com/api/1.0/follow/${user_id}`;
-        axios.post(query, {}, 
-            { 
-                withCredentials: true ,
-                headers: {
-                    'API-KEY': '243c72f1-6008-4b8d-8dff-b9a03a32b432',
-                }
-            }).then( response => {
-            if (response.data.resultCode === 0) {
+        usersAPI.followUserById(user_id).then( response => {
+            if (response.resultCode === 0) {
                 this.props.followUser(user_id);
             }
         });
     };
 
     unfollow = (user_id) => {
-        let query = `https://social-network.samuraijs.com/api/1.0/follow/${user_id}`;
-        axios.delete(query, 
-            { 
-                withCredentials: true ,
-                headers: {
-                    'API-KEY': '243c72f1-6008-4b8d-8dff-b9a03a32b432',
-                },
-            }).then( response => {
-            if (response.data.resultCode === 0) {
+        usersAPI.unfollowUserById(user_id).then( response => {
+            if (response.resultCode === 0) {
                 this.props.unfollowUser(user_id);
             }
         });
