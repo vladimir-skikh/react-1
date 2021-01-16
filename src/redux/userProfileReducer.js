@@ -1,10 +1,9 @@
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
-const IS_FETCHING = "IS-FETCHING";
+const UNSET_USER_PROFILE = 'UNSET-USER-PROFILE';
 
 
 let initialState = {
     userProfile: null,
-    isFetching: false,
 }
 
 const userProfileReducer = (state = initialState, action) => {
@@ -19,12 +18,11 @@ const userProfileReducer = (state = initialState, action) => {
             }
             break;
         }
-        case IS_FETCHING: {
+        case UNSET_USER_PROFILE: {
             stateCopy = {
                 ...state,
-                isFetching: action.isFetching
-            };
-
+                userProfile: null,
+            }
             break;
         }
         default: 
@@ -42,12 +40,11 @@ export const setUserProfileActionCreator = (userProfile) => {
     }
     return action;
 }
-export const setIsFetchingActionCreator = (isFetching) => {
+export const unsetUserProfileActionCreator = () => {
     let action = {
-        type: IS_FETCHING,
-        isFetching: isFetching,
-    };
+        type: UNSET_USER_PROFILE,
+    }
     return action;
-};
+}
 
 export default userProfileReducer;

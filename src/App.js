@@ -33,7 +33,7 @@ function App(props) {
                             render={() => <UsersContainer />}
                         />
                         <Route
-                            path="/user"
+                            path="/user/:userId"
                             render={() => <UserProfileContainer />}
                         />
                     </div>

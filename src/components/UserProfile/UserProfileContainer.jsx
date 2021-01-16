@@ -5,22 +5,24 @@ import UserProfile from './UserProfile';
 import Preloader from '../common/Preloader/Preloader';
 import {
     setUserProfileActionCreator,
-    setIsFetchingActionCreator
+    unsetUserProfileActionCreator
 } from '../../redux/userProfileReducer';
+import { withRouter } from 'react-router-dom';
 
 class UserProfileAPIContainer extends React.Component 
 {
-    setUserInfo = () => {
-        this.props.setIsFetching(true);
-        let query = `https://social-network.samuraijs.com/api/1.0/profile/14105`;
+    setUserInfo = (userId) => {
+        let query = `https://social-network.samuraijs.com/api/1.0/profile/${userId}`;
         axios.get(query).then( response => {
             this.props.setUserProfile(response.data);
-            this.props.setIsFetching(false);
         });
     }
 
     componentDidMount() {
-        this.setUserInfo();
+        this.setUserInfo(this.props.match.params.userId);
+    }
+    componentWillUnmount() {
+        this.props.unsetUserProfile();
     }
 
     render () {
@@ -40,14 +42,14 @@ class UserProfileAPIContainer extends React.Component
 const mapStateToProps = (state) => {
     return {
         profile: state.userProfileReducer.userProfile,
-        isFetching: state.userProfileReducer.isFetching,
     }
 }
 let actionCreators = {
     setUserProfile: setUserProfileActionCreator,
-    setIsFetching: setIsFetchingActionCreator,
+    unsetUserProfile: unsetUserProfileActionCreator,
 }
 
-let UserProfileContainer = connect(mapStateToProps, actionCreators)(UserProfileAPIContainer);
+let WithUrlDataContainerComponent = withRouter(UserProfileAPIContainer);
+let UserProfileContainer = connect(mapStateToProps, actionCreators)(WithUrlDataContainerComponent);
 
 export default UserProfileContainer;
