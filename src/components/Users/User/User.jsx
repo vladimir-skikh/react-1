@@ -43,6 +43,7 @@ class User extends React.Component {
                                 onClick={this.onUnfollowClick}
                                 ref={this.createElement}
                                 className={style.followButton}
+                                disabled={this.props.followingInProgress.some( id => id == this.props.id)}
                             >
                                 Unfollow
                             </button> 
@@ -51,6 +52,7 @@ class User extends React.Component {
                                 onClick={this.onFollowClick}
                                 ref={this.createElement}
                                 className={style.followButton}
+                                disabled={this.props.followingInProgress.some( id => id == this.props.id)}
                             >
                                 Follow
                             </button>

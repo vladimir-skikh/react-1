@@ -6,6 +6,7 @@ const SET_PAGE_SIZE = "SET-PAGE-SIZE";
 const SET_PAGES_COUNT = "SET-PAGES-COUNT";
 const SET_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
 const IS_FETCHING = "IS-FETCHING";
+const FOLLOWING_IN_PROGRESS = "FOLLOWING-IN-PROGRESS";
 
 let initialState = {
     usersData: [],
@@ -15,6 +16,7 @@ let initialState = {
     pages: [1],
     currentPage: 1,
     isFetching: true,
+    followingInProgress: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -110,6 +112,16 @@ const usersReducer = (state = initialState, action) => {
 
             break;
         }
+        case FOLLOWING_IN_PROGRESS: {
+            stateCopy = {
+                ...state,
+                followingInProgress: action.progress 
+                ? [...state.followingInProgress, action.user_id]
+                : state.followingInProgress.filter( id => id !== action.user_id)
+            };
+
+            break;
+        }
         default: {
             stateCopy = { ...state };
             break;
@@ -120,7 +132,6 @@ const usersReducer = (state = initialState, action) => {
 };
 
 export const followActionCreator = (user_id) => {
-    debugger;
     let action = {
         type: FOLLOW_USER,
         user_id: user_id,
@@ -131,6 +142,15 @@ export const followActionCreator = (user_id) => {
 export const unfollowActionCreator = (user_id) => {
     let action = {
         type: UNFOLLOW_USER,
+        user_id: user_id,
+    };
+    return action;
+};
+
+export const followingProgressActionCreator = (user_id, progress) => {
+    let action = {
+        type: FOLLOWING_IN_PROGRESS,
+        progress: progress,
         user_id: user_id,
     };
     return action;

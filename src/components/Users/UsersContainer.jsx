@@ -61,6 +61,7 @@ class UsersAPIContainer extends React.Component {
                         currentPage={this.props.currentPage}
                         usersData={this.props.usersData}
                         pages={this.props.pages}
+                        followingInProgress={this.props.followingInProgress}
                     />
                 )}
             </>
@@ -77,6 +78,7 @@ let mapStateToProps = (state) => {
         currentPage: state.usersReducer.currentPage,
         pages: state.usersReducer.pages,
         isFetching: state.usersReducer.isFetching,
+        followingInProgress: state.usersReducer.followingInProgress,
     };
 };
 

@@ -26,6 +26,7 @@ let Users = (props) => {
                         following={user.followed}
                         avatar={user.photos.large}
                         status={user.status}
+                        followingInProgress={props.followingInProgress}
                     />
                 ))
             }
