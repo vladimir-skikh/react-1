@@ -4,6 +4,7 @@ import messagesReducer from "./messagesPageReducer";
 import followReducer from "./followReducer";
 import usersReducer from "./usersPageReducer";
 import userProfileReducer from "./userProfileReducer";
+import authReducer from "./authReducer";
 
 
 let reducers = combineReducers({
@@ -12,6 +13,7 @@ let reducers = combineReducers({
     followReducer,
     usersReducer,
     userProfileReducer,
+    authReducer,
 });
 
 let store = createStore(reducers);

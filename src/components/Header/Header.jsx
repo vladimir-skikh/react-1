@@ -1,14 +1,35 @@
 import React from "react";
-import "./Header.css";
+import { NavLink } from "react-router-dom";
+import style from "./Header.module.css";
 
-let Header = () => {
+let Header = (props) => {
     return (
-        <header className="header">
-            <img
-                src="https://www.pngmart.com/files/7/Envelope-Mail-PNG-Free-Download.png"
-                alt="Logo"
-            />
-            MessageMe
+        <header className={style.header}>
+            <div className={style.headerLogoBlock}>
+                <img
+                    src="https://www.pngmart.com/files/7/Envelope-Mail-PNG-Free-Download.png"
+                    alt="Logo"
+                />
+                <h1 className={style.title}>
+                    MessageMe
+                </h1>
+            </div>
+            <div className={style.loginBlock}>
+                {
+                    props.isAuth
+                    ? 
+                        <div>
+                            <span className={style.loginText}>
+                                {props.userData.login}
+                            </span>
+                        </div>
+                    : 
+                        <NavLink to='/login' className={style.loginText}>
+                            Login
+                        </NavLink>
+
+                }
+            </div>
         </header>
     );
 };

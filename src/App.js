@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
 import NewsContainer from "./components/News/NewsContainer";
@@ -16,7 +16,7 @@ function App(props) {
             <div>
                 <div className="header-background">
                     <div className="wrapper wrapper-header">
-                        <Header />
+                        <HeaderContainer />
                     </div>
                 </div>
                 <div className="wrapper wrapper-content">

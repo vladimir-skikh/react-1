@@ -26,8 +26,11 @@ body {
 .wrapper-header {
   grid-template-rows: 60px;
   grid-template-areas: 
-    'header header';
+    'header header header';
   margin-bottom: 20px;
+}
+.header-background {
+  background-color: #231F20;
 }
 .content {
   grid-area: content;
