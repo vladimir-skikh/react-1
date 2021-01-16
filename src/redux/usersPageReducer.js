@@ -83,7 +83,7 @@ const usersReducer = (state = initialState, action) => {
                     if (user.id === parseInt(action.user_id)) {
                         let userCopy = {
                             ...user,
-                            following: true,
+                            followed: true,
                         };
                         return userCopy;
                     }
@@ -100,7 +100,7 @@ const usersReducer = (state = initialState, action) => {
                     if (user.id === parseInt(action.user_id)) {
                         let userCopy = {
                             ...user,
-                            following: false,
+                            followed: false,
                         };
                         return userCopy;
                     }
@@ -120,6 +120,7 @@ const usersReducer = (state = initialState, action) => {
 };
 
 export const followActionCreator = (user_id) => {
+    debugger;
     let action = {
         type: FOLLOW_USER,
         user_id: user_id,

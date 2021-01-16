@@ -23,7 +23,7 @@ let Users = (props) => {
                     <UserContainer
                         id={user.id}
                         userName={user.name}
-                        following={user.following}
+                        following={user.followed}
                         avatar={user.photos.large}
                         status={user.status}
                     />

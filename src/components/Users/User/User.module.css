@@ -55,3 +55,7 @@
 .followButton:focus {
     outline: none;
 }
+.followButton:hover {
+    cursor: pointer;
+    background-color: #12a6db;
+}

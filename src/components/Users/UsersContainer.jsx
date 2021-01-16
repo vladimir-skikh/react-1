@@ -34,7 +34,10 @@ class UsersAPIContainer extends React.Component {
 
         let query = `https://social-network.samuraijs.com/api/1.0/users?count=${count}&page=${page}`;
 
-        axios.get(query).then(response => {
+        axios.get(query, 
+            {
+                withCredentials: true,
+            }).then(response => {
             this.props.showMore(response.data.items);
             this.props.setPageSize(count);
             this.props.setPagesCount(Math.ceil(response.data.totalCount / count));
@@ -55,19 +58,22 @@ class UsersAPIContainer extends React.Component {
 
     render() {
         return <>
-                { this.props.isFetching 
-                    ? <Preloader />
-                    : null 
+                { 
+                    this.props.isFetching 
+                    ? 
+                        <Preloader />
+                    : 
+                        <Users 
+                            updateUsers={this.updateUsers} 
+                            onShowMoreClick={this.onShowMoreClick} 
+                            count={this.count} 
+                            pageSize={this.props.pageSize}
+                            currentPage={this.props.currentPage}
+                            usersData={this.props.usersData}
+                            pages={this.props.pages}
+                        />
                 }
-                <Users 
-                    updateUsers={this.updateUsers} 
-                    onShowMoreClick={this.onShowMoreClick} 
-                    count={this.count} 
-                    pageSize={this.props.pageSize}
-                    currentPage={this.props.currentPage}
-                    usersData={this.props.usersData}
-                    pages={this.props.pages}
-                />
+
             </>
         
     }
