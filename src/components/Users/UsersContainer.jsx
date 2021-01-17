@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 import Users from "./Users";
 import {
     setUsersActionCreator,
@@ -11,7 +13,6 @@ import {
     getUsersThunkCreator,
 } from "../../redux/usersPageReducer";
 import Preloader from "../common/Preloader/Preloader";
-import withAuthRedirect from "../hoc/withAuthRedirect";
 
 class UsersAPIContainer extends React.Component {
     constructor(props) {
@@ -85,11 +86,7 @@ let actionCreators = {
     getUsers: getUsersThunkCreator,
 };
 
-let AuthRedirectComponent = withAuthRedirect(UsersAPIContainer);
-
-let UsersContainer = connect(
-    mapStateToProps,
-    actionCreators
-)(AuthRedirectComponent);
-
-export default UsersContainer;
+export default compose(
+    connect(mapStateToProps, actionCreators),
+    withAuthRedirect,
+)(UsersAPIContainer);
