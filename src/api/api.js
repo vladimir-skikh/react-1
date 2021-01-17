@@ -12,11 +12,24 @@ const usersAPI = {
     getUsers(count = 10, page = 1) {
         return instance.get(`users?count=${count}&page=${page}`).then( response => response.data);
     },
-    followUserById(user_id)  {
-        return instance.post(`follow/${user_id}`).then( response => response.data);
+    followUserById(userId)  {
+        return instance.post(`follow/${userId}`).then( response => response.data);
     },
-    unfollowUserById(user_id) {
-        return instance.delete(`follow/${user_id}`).then( response => response.data);
-    }
+    unfollowUserById(userId) {
+        return instance.delete(`follow/${userId}`).then( response => response.data);
+    },
+    setUserInfoById(userId) {
+        return instance.get(`profile/${userId}`).then( response => response.data);
+    },
 }
+
+export const authAPI = {
+    login() {
+        return instance.get('auth/me').then( response => response.data);
+    },
+    logout() {
+        
+    },
+}
+
 export default usersAPI;

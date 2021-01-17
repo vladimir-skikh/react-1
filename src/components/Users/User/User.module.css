@@ -50,14 +50,16 @@
     color: #fff;
     border: none;
     background: #149AC9;
-    transition: all 1s;
+    transition: all 0.3s;
 }
 .followButton:focus {
     outline: none;
 }
 .followButton:hover {
     cursor: pointer;
-    background-color: #12a6db;
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
 }
 .followButton:disabled {
     background-color: #035775a9;

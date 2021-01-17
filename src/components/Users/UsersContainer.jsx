@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
-import usersAPI from "../../api/api";
 import {
     setUsersActionCreator,
     setTotalUsersActionCreator,
@@ -9,6 +8,7 @@ import {
     setPagesCountActionCreator,
     setCurrentPageActionCreator,
     setIsFetchingActionCreator,
+    getUsersThunkCreator,
 } from "../../redux/usersPageReducer";
 import Preloader from "../common/Preloader/Preloader";
 
@@ -27,15 +27,7 @@ class UsersAPIContainer extends React.Component {
     };
 
     updateUsers = (count, page) => {
-        this.props.setIsFetching(true);
-
-        usersAPI.getUsers(count, page).then((response) => {
-            this.props.showMore(response.items);
-            this.props.setPageSize(count);
-            this.props.setPagesCount(Math.ceil(response.totalCount / count));
-            this.props.setCurrentPage(page);
-            this.props.setIsFetching(false);
-        });
+        this.props.getUsers(count, page);
     };
 
     componentDidMount() {
@@ -89,6 +81,7 @@ let actionCreators = {
     setPagesCount: setPagesCountActionCreator,
     setCurrentPage: setCurrentPageActionCreator,
     setIsFetching: setIsFetchingActionCreator,
+    getUsers: getUsersThunkCreator,
 };
 
 let UsersContainer = connect(

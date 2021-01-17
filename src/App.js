@@ -38,6 +38,10 @@ function App(props) {
                         />
                     </div>
                     <FollowContainer />
+                    <Route
+                            path="/login"
+                            render={() => <LoginContainer />}
+                    />
                 </div>
             </div>
         </BrowserRouter>

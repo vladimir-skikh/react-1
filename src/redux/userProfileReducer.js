@@ -1,3 +1,5 @@
+import usersAPI from '../api/api'
+
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const UNSET_USER_PROFILE = 'UNSET-USER-PROFILE';
 
@@ -46,5 +48,13 @@ export const unsetUserProfileActionCreator = () => {
     }
     return action;
 }
+
+export const getUserProfileThunkCreator = (userId) => {
+    return (dispatch) => {
+        usersAPI.setUserInfoById(userId).then( response => {
+            dispatch(setUserProfileActionCreator(response));
+        });
+    }
+} 
 
 export default userProfileReducer;

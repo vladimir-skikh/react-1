@@ -2,32 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import User from './User';
 import {
-    followActionCreator,
-    unfollowActionCreator,
-    followingProgressActionCreator,
+    toggleFollowThunkCreator
 } from '../../../redux/usersPageReducer'
-import usersAPI from "../../../api/api";
 
 class UserAPIContainer extends React.Component 
 {
     follow = (user_id) => {
-        this.props.followProgress(user_id, true);
-        usersAPI.followUserById(user_id).then( response => {
-            if (response.resultCode === 0) {
-                this.props.followUser(user_id);
-                this.props.followProgress(user_id, false);
-            }
-        });
+        this.props.toggleFollow(user_id, true);
     };
 
     unfollow = (user_id) => {
-        this.props.followProgress(user_id, true);
-        usersAPI.unfollowUserById(user_id).then( response => {
-            if (response.resultCode === 0) {
-                this.props.unfollowUser(user_id);
-                this.props.followProgress(user_id, false);
-            }
-        });
+        this.props.toggleFollow(user_id, false);
     };
 
     render() {
@@ -57,9 +42,7 @@ let mapStateToProps = (state, ownProps) => {
     }
 }
 const actionCreators = {
-    followUser: followActionCreator,
-    unfollowUser: unfollowActionCreator,
-    followProgress: followingProgressActionCreator,
+    toggleFollow: toggleFollowThunkCreator
 }
 
 let UserContainer = connect(mapStateToProps, actionCreators)(UserAPIContainer);
