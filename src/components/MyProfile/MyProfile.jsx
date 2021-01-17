@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './MyProfile.module.css';
 import undefinedUser from '../../img/undefinedUser.png'
-
+import MyProfileStatusContainer from './MyProfileStatus/MyProfileStatusContainer';
 
 const MyProfile = (props) => {    
 
@@ -34,6 +34,7 @@ const MyProfile = (props) => {
                     <span className={style.userFullname}>
                         {props.profile.fullName}
                     </span>
+                    <MyProfileStatusContainer />
                 </div>
                 <div className={style.userInfoBlockItem + ' ' + style.userContactsBlock}>
                     <h3 className={style.userInfoTitle + ' ' + style.userFullnameTitle}>
@@ -46,7 +47,7 @@ const MyProfile = (props) => {
                                 {
                                     contacts.map( (url, key) => (
                                         <li className={style.userContactsListItem + ' ' + key}>
-                                            <a href={url}>
+                                            <a href={url} className={style.userContactslink}>
                                                 {key}
                                             </a>
                                         </li>

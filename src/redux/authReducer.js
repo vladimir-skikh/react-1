@@ -2,8 +2,11 @@ import {authAPI} from '../api/api'
 
 const SET_USER_DATA = 'SET-USER-DATA';
 
+/** удалить id из userData */
 let initialState = {
-    userData: {},
+    userData: {
+        id: 13908,
+    },
     isAuth: false,
 }
 
