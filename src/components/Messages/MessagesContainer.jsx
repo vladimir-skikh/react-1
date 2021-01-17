@@ -4,6 +4,7 @@ import Messages from "./Messages"
 let mapStateToProps = (state) => {
     return {
         dialogsData: state.messagesReducer.dialogsData,
+        isAuth: state.authReducer.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch) => {

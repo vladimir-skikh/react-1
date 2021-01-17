@@ -3,11 +3,13 @@ import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
+import MyProfileContainer from "./components/MyProfile/MyProfileContainer";
 import NewsContainer from "./components/News/NewsContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
+import LoginContainer from "./components/Login/LoginContainer";
 import { Route, BrowserRouter } from "react-router-dom";
 
 function App(props) {
@@ -36,13 +38,15 @@ function App(props) {
                             path="/user/:userId"
                             render={() => <UserProfileContainer />}
                         />
+                        <Route
+                            path="/profile"
+                            render={() => <MyProfileContainer />}
+                        />
+                        <Route path="/login" render={() => <LoginContainer />} />
                     </div>
                     <FollowContainer />
-                    <Route
-                            path="/login"
-                            render={() => <LoginContainer />}
-                    />
                 </div>
+
             </div>
         </BrowserRouter>
     );
