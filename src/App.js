@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
-import Profile from "./components/Profile/Profile";
 import MyProfileContainer from "./components/MyProfile/MyProfileContainer";
 import NewsContainer from "./components/News/NewsContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
@@ -22,8 +21,10 @@ function App(props) {
                     </div>
                 </div>
                 <div className="wrapper wrapper-content">
-                    <Nav />
-                    <Profile />
+                    <aside className="sidebar">
+                        <Nav />
+                        <FollowContainer />
+                    </aside>
                     <div className="content">
                         <Route path="/news" render={() => <NewsContainer />} />
                         <Route
@@ -44,9 +45,7 @@ function App(props) {
                         />
                         <Route path="/login" render={() => <LoginContainer />} />
                     </div>
-                    <FollowContainer />
                 </div>
-
             </div>
         </BrowserRouter>
     );

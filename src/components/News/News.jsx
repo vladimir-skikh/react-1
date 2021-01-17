@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./News.module.css";
 import Post from "./Post/Post";
+import NewPostContainer from './NewPost/NewPostContainer';
 
 const News = (props) => {
 
@@ -15,8 +16,13 @@ const News = (props) => {
         );
 
     return (
-        <div className={style.news}>
-            {posts}
+        <div>
+            <div className={style.newPostBlock}>
+                <NewPostContainer />
+            </div>
+            <div className={style.news}>
+                {posts}
+            </div>
         </div>
     );
 };

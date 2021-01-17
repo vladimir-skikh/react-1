@@ -7,6 +7,7 @@ import {
     getUserProfileThunkCreator
 } from '../../redux/userProfileReducer';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 
 class UserProfileAPIContainer extends React.Component 
@@ -46,7 +47,9 @@ let actionCreators = {
     getUserProfile: getUserProfileThunkCreator
 }
 
-let WithUrlDataContainerComponent = withRouter(UserProfileAPIContainer);
-let UserProfileContainer = connect(mapStateToProps, actionCreators)(WithUrlDataContainerComponent);
+let UserProfileContainer = compose(
+    connect(mapStateToProps, actionCreators),
+    withRouter,
+)(UserProfileAPIContainer)
 
 export default UserProfileContainer;

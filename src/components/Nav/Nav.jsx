@@ -5,6 +5,7 @@ import style from "./Nav.module.css";
 let Nav = () => {
     return (
         <nav className={style.nav}>
+            <h4 className={style.title}>Menu</h4>
             <ul>
                 <li>
                     <NavLink
