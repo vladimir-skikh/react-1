@@ -1,14 +1,8 @@
 import React from 'react';
 import style from './MyProfile.module.css';
-import { Redirect } from "react-router-dom";
 
 
-const MyProfile = (props) => {
-
-    if (props.isAuth === false) {
-        return <Redirect to='/login' />
-    }
-    
+const MyProfile = (props) => {    
     return (
         <div className={style.myprofile}>
             My Profile

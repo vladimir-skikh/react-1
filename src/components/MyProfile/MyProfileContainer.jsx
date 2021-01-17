@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import MyProfile from './MyProfile';
+import AuthRedirect from '../hoc/AuthRedirect';
 
 const mapStateToProps = (state) => {
     return {
@@ -10,5 +11,7 @@ const actionCreators = {
 
 }
 
-let MyProfileContainer = connect(mapStateToProps, actionCreators)(MyProfile);
+let AuthRedirectComponent = AuthRedirect(MyProfile);
+
+let MyProfileContainer = connect(mapStateToProps, actionCreators)(AuthRedirectComponent);
 export default MyProfileContainer;

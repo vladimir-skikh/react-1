@@ -2,7 +2,6 @@ import React from "react";
 import style from "./Messages.module.css";
 import Dialog from "./Dialog/Dialog";
 import ActiveDialogContainer from "./ActiveDialog/ActiveDialogContainer";
-import { Redirect } from "react-router-dom";
 
 let Messages = (props) => {
 
@@ -16,10 +15,6 @@ let Messages = (props) => {
                 key={dialog.id}
             />
         );
-
-    if (props.isAuth === false) {
-        return <Redirect to='/login' />
-    }
 
     return (
         <div className={style.messages}>

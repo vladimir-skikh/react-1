@@ -11,7 +11,7 @@ import {
     getUsersThunkCreator,
 } from "../../redux/usersPageReducer";
 import Preloader from "../common/Preloader/Preloader";
-import { Redirect } from "react-router-dom";
+import AuthRedirect from "../hoc/AuthRedirect";
 
 
 class UsersAPIContainer extends React.Component {
@@ -42,9 +42,7 @@ class UsersAPIContainer extends React.Component {
     }
 
     render() {
-        if (this.props.isAuth === false) {
-            return <Redirect to='/login' />
-        }
+
         return (
             <>
                 {this.props.isFetching ? (
@@ -90,9 +88,11 @@ let actionCreators = {
     getUsers: getUsersThunkCreator,
 };
 
+let AuthRedirectComponent = AuthRedirect(UsersAPIContainer);
+
 let UsersContainer = connect(
     mapStateToProps,
     actionCreators
-)(UsersAPIContainer);
+)(AuthRedirectComponent);
 
 export default UsersContainer;
