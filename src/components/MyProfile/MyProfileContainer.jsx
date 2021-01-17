@@ -1,17 +1,16 @@
 import { connect } from "react-redux";
-import MyProfile from './MyProfile';
-import AuthRedirect from '../hoc/AuthRedirect';
+import MyProfile from "./MyProfile";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 const mapStateToProps = (state) => {
-    return {
-        isAuth: state.authReducer.isAuth,
-    }
-}
-const actionCreators = {
+    return {};
+};
+const actionCreators = {};
 
-}
+let AuthRedirectComponent = withAuthRedirect(MyProfile);
 
-let AuthRedirectComponent = AuthRedirect(MyProfile);
-
-let MyProfileContainer = connect(mapStateToProps, actionCreators)(AuthRedirectComponent);
+let MyProfileContainer = connect(
+    mapStateToProps,
+    actionCreators
+)(AuthRedirectComponent);
 export default MyProfileContainer;
