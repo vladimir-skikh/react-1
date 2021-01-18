@@ -1,13 +1,16 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { updateUserStatusThunkCreator } from "../../../redux/userProfileReducer";
 import MyProfileStatus from "./MyProfileStatus";
 
 const mapStateToProps = (state) => {
     return {
-        status: 'Some status',
+        status: state.userProfileReducer.userStatus,
     }
 }
-const actionCreators = {}
+const actionCreators = {
+    updateStatus: updateUserStatusThunkCreator
+}
 
 let MyProfileStatusContainer = compose(
     connect(mapStateToProps, actionCreators)

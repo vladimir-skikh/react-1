@@ -2,20 +2,32 @@ import React from "react";
 import style from "./MyProfileStatus.module.css";
 
 class MyProfileStatus extends React.Component {
+
     state = {
         editMode: false,
+        status: this.props.status,
     };
 
-    activateStatusEditMode() {
-        /** setState является асинкхонной функцией */
+    activateStatusEditMode = () => {
+        /** setState является асинхронной функцией */
         this.setState({
             editMode: true,
         });
     }
 
-    diactivateStatusEditMode() {
+    diactivateStatusEditMode = () => {
+        this.props.updateStatus(this.state.status);
+
         this.setState({
             editMode: false,
+        });
+    }
+
+    onChangeStatusText = (e) => {
+        let status = e.currentTarget.value;
+
+        this.setState({
+            status: status,
         });
     }
 
@@ -29,17 +41,23 @@ class MyProfileStatus extends React.Component {
                     <div>
                         <input
                             type="text"
-                            value={this.props.status}
-                            onBlur={this.diactivateStatusEditMode.bind(this)}
                             autoFocus={true}
+                            value={this.state.status}
+                            onBlur={this.diactivateStatusEditMode}
+                            onChange={this.onChangeStatusText}
                         />
                     </div>
                 ) : (
                     <span
                         className={style.statusText}
-                        onDoubleClick={this.activateStatusEditMode.bind(this)}
+                        onDoubleClick={this.activateStatusEditMode}
+                        onTouchStart={this.activateStatusEditMode}
                     >
-                        {this.props.status}
+                        {
+                            ( this.props.status !== '' && this.props.status !== null ) 
+                            ? this.props.status 
+                            : 'No status'
+                        }
                     </span>
                 )}
             </div>

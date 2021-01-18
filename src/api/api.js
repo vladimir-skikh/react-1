@@ -19,7 +19,20 @@ const usersAPI = {
         return instance.delete(`follow/${userId}`).then( response => response.data);
     },
     setUserInfoById(userId) {
+        console.warn('Method deprecated! Use profileAPI method to set user info.');
+        return profileAPI.setUserInfoById(userId);
+    },
+}
+
+export const profileAPI = {
+    setUserInfoById(userId) {
         return instance.get(`profile/${userId}`).then( response => response.data);
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`).then( response => response.data);
+    },
+    updateStatus(status) {
+        return instance.put(`profile/status`, { status: status }).then( response => response.data);
     },
 }
 
