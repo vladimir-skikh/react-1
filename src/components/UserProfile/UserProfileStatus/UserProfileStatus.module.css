@@ -1,0 +1,17 @@
+.statusBlock {
+
+}
+.statusText {
+    display: block;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+.userInfoTitle {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    line-height: 32px;
+    color:#149AC9;
+    outline: none;
+    font-size: 2rem;
+}

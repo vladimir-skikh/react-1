@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './UserProfile.module.css';
 import undefinedUser from '../../img/undefinedUser.png';
+import UserProfileStatusContainer from './UserProfileStatus/UserProfileStatusContainer';
 
 
 let UserProfile = (props) => {
@@ -34,6 +35,7 @@ let UserProfile = (props) => {
                     <span className={style.userFullname}>
                         {props.profile.fullName}
                     </span>
+                    <UserProfileStatusContainer />
                 </div>
                 <div className={style.userInfoBlockItem + ' ' + style.userContactsBlock}>
                     <h3 className={style.userInfoTitle + ' ' + style.userFullnameTitle}>
