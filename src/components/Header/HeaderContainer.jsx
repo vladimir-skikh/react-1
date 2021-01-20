@@ -5,19 +5,15 @@ import { setUserThunkCreator } from '../../redux/authReducer';
 
 class HeaderContainer extends React.Component 
 {
-    componentDidMount() {
-        this.props.setUserData();
-    }
-
     render () {
-        return <Header {...this.props} userData={this.props.userData}/>
+        return <Header {...this.props} userId={this.props.userId}/>
     }
 }
 
 let mapStateToProps = (state) => {
     return {
         isAuth: state.authReducer.isAuth,
-        userData: state.authReducer.userData
+        userId: state.authReducer.userId
     }
 }
 

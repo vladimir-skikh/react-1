@@ -37,8 +37,14 @@ export const profileAPI = {
 }
 
 export const authAPI = {
-    login() {
-        return instance.get('auth/me').then( response => response.data);
+    login(formData) {
+        debugger;
+        return instance.post('auth/login', {
+            email: formData.email,
+            password: formData.password,
+            rememberMe: formData.rememberMe,
+            captcha: false,
+        }).then( response => response.data);
     },
     logout() {
         

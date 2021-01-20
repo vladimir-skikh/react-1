@@ -1,3 +1,68 @@
 .login {
-    
+    width: 50%;
+}
+.formTitle {
+    color: #27aae1;
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+.formDescription {
+    color: #939598;
+    margin: 0 0 10px;
+    line-height: 26px;
+    font-size: 13px;
+}
+.loginInputBlock {
+    width: 100%;
+    margin: 15px 0;
+}
+.loginFormInput {
+    color: #939598;
+    border-radius: 30px;
+    box-shadow: none;
+    width: 100%;
+    border: 1px solid #f1f2f2;
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.4rem;
+}
+.loginFormInput:focus {
+    outline: none;
+    box-shadow: 0 0 20px -10px #149AC9;
+}
+.loginFormCheckbox:focus {
+
+}
+.loginLabel {
+    color: #939598;
+    margin: 0 0 10px;
+    line-height: 16px;
+    font-size: 16px;
+}
+.loginSubmitButton {
+    background: #149AC9;
+    transition: all 0.3s;
+    color: #fff;
+    border:1px solid #149AC9;
+    text-decoration: none;
+    padding: 7px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    border-radius: 30px;
+    letter-spacing: 0.05em;
+}
+.loginSubmitButton:hover {
+    cursor: pointer;
+    background-color: #286090;
+}
+.loginSubmitButton:focus {
+    border-color:#286090;
+    box-shadow: 0 0 15px -5px #149AC9;
 }

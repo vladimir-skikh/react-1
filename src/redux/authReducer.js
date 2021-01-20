@@ -4,9 +4,7 @@ const SET_USER_DATA = 'SET-USER-DATA';
 
 /** удалить id из userData */
 let initialState = {
-    userData: {
-        id: 13908,
-    },
+    userId: null,
     isAuth: false,
 }
 
@@ -17,7 +15,7 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA: {
             stateCopy = {
                 ...state,
-                userData: {...action.userData},
+                userId: action.userId,
                 isAuth: true,
             }
             break;
@@ -31,19 +29,20 @@ const authReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
-export const setUserDataActionCreator = (userData) => {
+export const setUserDataActionCreator = (userId) => {
     let action = {
         type: SET_USER_DATA,
-        userData: userData,
+        userId: userId,
     }
     return action;
 }
 
-export const setUserThunkCreator = () => {
+export const setUserThunkCreator = (formData) => {
     return (dispatch) => {
-        authAPI.login().then( response => {
+        authAPI.login(formData).then( response => {
+            debugger
             if (response.resultCode === 0) {
-                dispatch(setUserDataActionCreator(response.data));
+                dispatch(setUserDataActionCreator(response.data.userId));
             }
         });
     }

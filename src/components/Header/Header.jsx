@@ -20,7 +20,7 @@ let Header = (props) => {
                     ? 
                         <div>
                             <span className={style.loginText}>
-                                {props.userData.login}
+                                {props.userId}
                             </span>
                         </div>
                     : 
