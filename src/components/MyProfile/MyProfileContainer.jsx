@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from "redux";
 import { connect } from "react-redux";
 import MyProfile from "./MyProfile";
-//import withAuthRedirect from "../hoc/withAuthRedirect";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 import {
     unsetUserProfileActionCreator,
     getUserProfileThunkCreator
@@ -53,7 +53,7 @@ const actionCreators = {
 /** восстановить withRedirect */
 let MyProfileContainer = compose(
     connect(mapStateToProps, actionCreators),
-    //withAuthRedirect
+    withAuthRedirect
 )(MyUserProfileAPIContainer);
 
 export default MyProfileContainer;
