@@ -18,11 +18,9 @@ let Header = (props) => {
                 {
                     props.isAuth
                     ? 
-                        <div>
-                            <span className={style.loginText}>
-                                {props.userId}
-                            </span>
-                        </div>
+                        <NavLink to='/logout' className={style.loginText}>
+                            Logout
+                        </NavLink>
                     : 
                         <NavLink to='/login' className={style.loginText}>
                             Login

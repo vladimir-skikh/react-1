@@ -16,7 +16,7 @@ class MyUserProfileAPIContainer extends React.Component
     }
 
     componentDidMount() {
-        this.setUserInfo(this.props.userData.id);
+        this.setUserInfo(this.props.userId);
     }
     
     componentWillUnmount() {
@@ -40,7 +40,7 @@ class MyUserProfileAPIContainer extends React.Component
 
 const mapStateToProps = (state) => {
     return {
-        userData: state.authReducer.userData,
+        userId: state.authReducer.userId,
         profile: state.userProfileReducer.userProfile,
     };
 };
@@ -50,7 +50,6 @@ const actionCreators = {
     getUserProfile: getUserProfileThunkCreator
 };
 
-/** восстановить withRedirect */
 let MyProfileContainer = compose(
     connect(mapStateToProps, actionCreators),
     withAuthRedirect

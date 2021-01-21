@@ -27,6 +27,7 @@ const userProfileReducer = (state = initialState, action) => {
             stateCopy = {
                 ...state,
                 userProfile: null,
+                userStatus: "",
             }
             break;
         }

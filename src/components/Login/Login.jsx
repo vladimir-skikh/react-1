@@ -2,8 +2,6 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import style from "./Login.module.css";
 
-
-/** сделать авторизацию */
 export const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
@@ -31,8 +29,9 @@ let LoginReduxForm = reduxForm({
 const Login = (props) => {
 
     const onSubmit = (formData) => {
-        console.log(formData)
-        props.submitLogin(formData);
+        console.log(formData);
+        /** вернуть логинизацию */
+        //props.submitLogin(formData);
     }
 
     return (

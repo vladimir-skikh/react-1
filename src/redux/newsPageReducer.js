@@ -1,5 +1,4 @@
 const ADD_POST = 'ADD-POST';
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 
 let initialState = {
     postsData: [
@@ -37,7 +36,7 @@ const newsReducer = (state = initialState, action) => {
 
             let newPost = {
                 id: 4,
-                postText: state.newPostText,
+                postText: action.newPostText,
                 postPhoto: "https://themified.com/friend-finder/images/post-images/11.jpg",
                 authorAvatar: "https://themified.com/friend-finder/images/users/user-4.jpg",
                 authorName: "My name",
@@ -52,15 +51,6 @@ const newsReducer = (state = initialState, action) => {
             break;
 
         }
-        case CHANGE_NEW_POST_TEXT: {
-
-            stateCopy = {
-                ...state,
-                newPostText: action.text,
-            };
-            break;
-
-        }
         default: {
             stateCopy = {...state}
             break;
@@ -70,17 +60,10 @@ const newsReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (newPostText) => {
     let action = {
         type: ADD_POST,
-    }
-    return action;
-}
-
-export const changeNewPostTextActionCreator = (newPostText) => {
-    let action = {
-        type: CHANGE_NEW_POST_TEXT,
-        text: newPostText,
+        newPostText: newPostText,
     }
     return action;
 }

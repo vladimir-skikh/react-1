@@ -14,6 +14,7 @@ const withAuthRedirect = (Component) => {
     let mapStateToProps = (state) => {
         return {
             isAuth: state.authReducer.isAuth,
+            userId: state.authReducer.userId,
         }
     };
     let actionCreators = {};

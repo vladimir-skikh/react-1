@@ -2,7 +2,6 @@ import {authAPI} from '../api/api'
 
 const SET_USER_DATA = 'SET-USER-DATA';
 
-/** удалить id из userData */
 let initialState = {
     userId: null,
     isAuth: false,
@@ -20,16 +19,14 @@ const authReducer = (state = initialState, action) => {
             }
             break;
         }
-        default: {
+        default: 
             stateCopy = {...state}
-            break;
-        }
     }
 
     return stateCopy;
 }
 
-export const setUserDataActionCreator = (userId) => {
+export const setUserIdActionCreator = (userId) => {
     let action = {
         type: SET_USER_DATA,
         userId: userId,
@@ -40,9 +37,8 @@ export const setUserDataActionCreator = (userId) => {
 export const setUserThunkCreator = (formData) => {
     return (dispatch) => {
         authAPI.login(formData).then( response => {
-            debugger
             if (response.resultCode === 0) {
-                dispatch(setUserDataActionCreator(response.data.userId));
+                dispatch(setUserIdActionCreator(response.data.userId));
             }
         });
     }

@@ -1,5 +1,4 @@
 const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
 
 let initialState = {
     dialogsData: [
@@ -34,7 +33,6 @@ let initialState = {
             message: "I'm fine, thanks! What about you?",
         },
     ],
-    newMessageText: 'My new message',
 }
 
 const messagesReducer = (state = initialState, action) => {
@@ -47,7 +45,7 @@ const messagesReducer = (state = initialState, action) => {
             let newMessage = {
                 author: "me",
                 avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
-                message: state.newMessageText,
+                message: action.message,
             };
 
             stateCopy = { 
@@ -58,15 +56,6 @@ const messagesReducer = (state = initialState, action) => {
 
             break;
         }
-        case CHANGE_NEW_MESSAGE_TEXT: {
-
-            stateCopy = { 
-                ...state,
-                newMessageText: action.text,
-            };
-            break;
-
-        }
         default: {
             stateCopy = {...state}
             break;
@@ -76,17 +65,10 @@ const messagesReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
-export const addNewMessageCreator = () => {
+export const addNewMessageCreator = (message) => {
     let action = {
         type: ADD_NEW_MESSAGE,
-    }
-    return action;
-}
-
-export const changeNewMessageTextActionCreator = (message) => {
-    let action = {
-        type: CHANGE_NEW_MESSAGE_TEXT,
-        text: message,
+        message: message,
     }
     return action;
 }
