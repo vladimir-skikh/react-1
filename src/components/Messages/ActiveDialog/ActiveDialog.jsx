@@ -1,5 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { required } from "../../../utils/validators/validators";
+import { Input } from "../../common/FormControls/FormControls";
 import style from "./ActiveDialog.module.css";
 import Message from "./Message/Message";
 
@@ -30,10 +32,11 @@ const NewMessageFrom = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={style.message}>
             <Field
-                component="input"
+                component={Input}
                 type="text"
                 name="newMessage"
                 className={style.messageText}
+                validate={[required]}
             />
             <button type="submit" className={style.send}>
                 Send
