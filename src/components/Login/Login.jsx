@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { required } from "../../utils/validators/validators";
+import { required, email } from "../../utils/validators/validators";
 import {Input} from '../common/FormControls/FormControls';
 import style from "./Login.module.css";
 
@@ -14,8 +14,9 @@ export const LoginForm = (props) => {
                     type="email"
                     placeholder={"Email"}
                     name="email"
-                    validate={[required]}
+                    validate={[required, email]}
                     side="right"
+                    errorSignSide='right'
                 />
             </div>
             <div className={style.loginInputBlock}>
@@ -27,6 +28,7 @@ export const LoginForm = (props) => {
                     name="password"
                     validate={[required]}
                     side="right"
+                    errorSignSide='right'
                 />
             </div>
             <div className={style.loginInputBlock}>
@@ -38,6 +40,7 @@ export const LoginForm = (props) => {
                     component={Input}
                     type="checkbox"
                     name="rememberMe"
+                    errorSignSide='right'
                 />
             </div>
             <div className={style.loginInputBlock}>

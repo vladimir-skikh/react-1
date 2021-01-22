@@ -17,16 +17,20 @@ let NewPost = (props) => {
     );
 };
 
+/** Сделать отступ для блока текстарии */
 const NewPostFrom = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={style.newpost}>
-            <Field
-                className={style.newpost_textarea}
-                component={Textarea}
-                name="newPostText"
-                validate={[required, maxLength10]}
-                placeholder="Post message"
-            />
+            <div >
+                <Field
+                    className={style.newpost_textarea}
+                    component={Textarea}
+                    name="newPostText"
+                    validate={[required, maxLength10]}
+                    placeholder="Post message"
+                    errorSignSide='right'
+                />
+            </div>
             <button className={style.newpost_button}>
                 Publish
             </button>

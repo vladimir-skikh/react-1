@@ -1,47 +1,67 @@
 .formControl {
     position: relative;
 }
-.formControl.error input,
-.formControl.error textarea {
+.error input,
+.error textarea {
     box-shadow: 0 0 10px -3px tomato;
 }
-.errorMessageBlock {
+.error:hover > .errorMessageBlock {
     display: flex;
+}
+.error::after {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    content: '!';
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    background-color: tomato;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.error.rightSignError::after {
+    right: 8px;
+}
+.error.leftSignError::after {
+    left: 8px;
+}
+.errorMessageBlock {
+    display: none;
     justify-content: center;
     align-items: center;
     position: absolute;
-    /*Сделать позиционирование ошибки по центру*/
     top: 50%;
+    transform: translateY(-50%);
     border-radius: 10px;
     background-color: tomato;
+    width: 150px;
 }
-.errorMessageBlock.right {
-    right: -150px;
-}
-.errorMessageBlock.right::before {
+.errorMessageBlock::before {
     content: '';
     display: block;
     position: absolute;
-    top: 12px;
-    left: -7px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 0;
     height: 0;
     border: 8px solid transparent;
+}
+.errorMessageBlock.right {
+    right: -160px;
+}
+.errorMessageBlock.right::before {
+    left: -7px;
     border-right-color: tomato;
     border-left: 0;
 }
 .errorMessageBlock.left {
-    left: -150px;
+    left: -160px;
 }
 .errorMessageBlock.left::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 12px;
     right: -7px;
-    width: 0;
-    height: 0;
-    border: 8px solid transparent;
     border-left-color: tomato;
     border-right: 0;
 }

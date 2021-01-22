@@ -37,6 +37,7 @@ const NewMessageFrom = (props) => {
                 name="newMessage"
                 className={style.messageText}
                 validate={[required]}
+                checkSubmit={true}
             />
             <button type="submit" className={style.send}>
                 Send

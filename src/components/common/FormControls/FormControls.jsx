@@ -12,11 +12,12 @@ const FromControl = ({
     meta,
     ...props
 }) => {
-    const hasError = meta.touched && meta.error;
+    const hasError = props.checkSubmit ? meta.touched && meta.error && meta.submitFailed : meta.touched && meta.error;
     const side = (props.side && props.side === 'right') ? style.right : style.left;
+    const errorSignSide = (props.errorSignSide && props.errorSignSide === 'right') ? style.rightSignError : style.leftSignError;
 
     return (
-        <div className={style.formControl + ' ' + (hasError ? style.error : '')}>
+        <div className={style.formControl + ' ' + errorSignSide + ' ' + (hasError ? style.error : '')}>
             {props.children}
             {
                 ( hasError ) ?
@@ -33,10 +34,10 @@ const FromControl = ({
 
 export const Textarea = (props) => {
     const {input, meta, ...restProps} = props;
-    return <FromControl {...props} side={props.side}> <textarea {...input} {...restProps} /> </FromControl>
+    return <FromControl {...props} side={props.side} errorSignSide={props.errorSignSide}> <textarea {...input} {...restProps} /> </FromControl>
 }
 
 export const Input = (props) => {
     const {input, meta, ...restProps} = props;
-    return <FromControl {...props} side={props.side}> <input {...input} {...restProps} /> </FromControl>
+    return <FromControl {...props} side={props.side} errorSignSide={props.errorSignSide}> <input {...input} {...restProps} /> </FromControl>
 }
