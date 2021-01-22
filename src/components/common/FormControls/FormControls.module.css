@@ -1,10 +1,52 @@
-.fromControl {
-
+.formControl {
+    position: relative;
 }
 .formControl.error input,
 .formControl.error textarea {
-    border: 1px solid red;
+    box-shadow: 0 0 10px -3px tomato;
 }
-.formControl.error span {
-    color: red;
-} 
+.errorMessageBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /*Сделать позиционирование ошибки по центру*/
+    top: 50%;
+    border-radius: 10px;
+    background-color: tomato;
+}
+.errorMessageBlock.right {
+    right: -150px;
+}
+.errorMessageBlock.right::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: -7px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: tomato;
+    border-left: 0;
+}
+.errorMessageBlock.left {
+    left: -150px;
+}
+.errorMessageBlock.left::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: -7px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-left-color: tomato;
+    border-right: 0;
+}
+.errorMessage {
+    display: block;
+    padding: 10px;
+    color: #fff;
+}

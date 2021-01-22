@@ -13,14 +13,18 @@ const FromControl = ({
     ...props
 }) => {
     const hasError = meta.touched && meta.error;
+    const side = (props.side && props.side === 'right') ? style.right : style.left;
+
     return (
         <div className={style.formControl + ' ' + (hasError ? style.error : '')}>
             {props.children}
             {
                 ( hasError ) ?
-                    <span>
-                        {meta.error}
-                    </span> 
+                    <div className={style.errorMessageBlock + ' ' + side}>
+                        <span className={style.errorMessage}>
+                            {meta.error}
+                        </span>
+                    </div> 
                 : ''
             }
         </div>
@@ -29,10 +33,10 @@ const FromControl = ({
 
 export const Textarea = (props) => {
     const {input, meta, ...restProps} = props;
-    return <FromControl {...props}> <textarea {...input} {...restProps} /> </FromControl>
+    return <FromControl {...props} side={props.side}> <textarea {...input} {...restProps} /> </FromControl>
 }
 
 export const Input = (props) => {
     const {input, meta, ...restProps} = props;
-    return <FromControl {...props}> <input {...input} {...restProps} /> </FromControl>
+    return <FromControl {...props} side={props.side}> <input {...input} {...restProps} /> </FromControl>
 }

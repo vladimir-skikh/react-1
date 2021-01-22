@@ -15,6 +15,7 @@ export const LoginForm = (props) => {
                     placeholder={"Email"}
                     name="email"
                     validate={[required]}
+                    side="right"
                 />
             </div>
             <div className={style.loginInputBlock}>
@@ -25,6 +26,7 @@ export const LoginForm = (props) => {
                     placeholder={"Password"}
                     name="password"
                     validate={[required]}
+                    side="right"
                 />
             </div>
             <div className={style.loginInputBlock}>
