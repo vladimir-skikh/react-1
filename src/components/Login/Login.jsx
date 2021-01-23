@@ -9,7 +9,8 @@ export const LoginForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div className={style.loginInputBlock}>
                 <Field
-                    className={style.loginFormInput}
+                    inputClassName={style.loginFormInput}
+                    wrapperClassName={style.loginFormWrapper}
                     component={Input}
                     type="email"
                     placeholder={"Email"}
@@ -21,7 +22,8 @@ export const LoginForm = (props) => {
             </div>
             <div className={style.loginInputBlock}>
                 <Field
-                    className={style.loginFormInput}
+                    inputClassName={style.loginFormInput}
+                    wrapperClassName={style.loginFormWrapper}
                     component={Input}
                     type="password"
                     placeholder={"Password"}
@@ -36,7 +38,7 @@ export const LoginForm = (props) => {
                     Remember Me
                 </label>
                 <Field
-                    className={style.loginFormCheckbox}
+                    inputClassName={style.loginFormCheckbox}
                     component={Input}
                     type="checkbox"
                     name="rememberMe"

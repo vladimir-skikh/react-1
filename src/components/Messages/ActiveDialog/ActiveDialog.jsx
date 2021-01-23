@@ -31,17 +31,22 @@ let ActiveDialog = (props) => {
 const NewMessageFrom = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={style.message}>
-            <Field
-                component={Input}
-                type="text"
-                name="newMessage"
-                className={style.messageText}
-                validate={[required]}
-                checkSubmit={true}
-            />
-            <button type="submit" className={style.send}>
-                Send
-            </button>
+            <div className={style.messageFormBody}>
+                <div className={style.messageTextBlock}>
+                    <Field
+                        inputClassName={style.messageText}
+                        wrapperClassName={style.messageTextWrapper}
+                        component={Input}
+                        type="text"
+                        name="newMessage"
+                        validate={[required]}
+                        checkSubmit={true}
+                    />
+                </div>
+                <button type="submit" className={style.send}>
+                    Send
+                </button>
+            </div>
         </form>
     );
 };

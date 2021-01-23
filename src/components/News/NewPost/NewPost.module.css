@@ -5,13 +5,22 @@
   display: flex;
   align-items: center;
 }
-.newpost_textarea {
+
+.newpostTextareaBlock {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  border-radius: 4px;
-  padding: 6px 12px;
   width: 480px;
   height: 50px;
   margin-right: 50px;
+}
+.newpostTextareaWrapper {
+  width: 100%;
+  height: 100%;
+}
+.newpostTextarea {
+  border-radius: 4px;
+  padding: 6px 12px;
+  width: 100%;
+  height: 100%;
 }
 .newpost_button {
   padding: 7px 25px;
@@ -21,6 +30,7 @@
   background: #149AC9;
   transition: all 1s;
 }
+
 .newpost_button:hover {
   color: #fff;
   background-color: #286090;

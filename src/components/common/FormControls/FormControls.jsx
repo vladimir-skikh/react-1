@@ -17,7 +17,12 @@ const FromControl = ({
     const errorSignSide = (props.errorSignSide && props.errorSignSide === 'right') ? style.rightSignError : style.leftSignError;
 
     return (
-        <div className={style.formControl + ' ' + errorSignSide + ' ' + (hasError ? style.error : '')}>
+        <div className={
+            style.formControl + ' ' 
+            + errorSignSide + ' ' 
+            + props.wrapperClassName + ' '
+            + (hasError ? style.error : '')
+        }>
             {props.children}
             {
                 ( hasError ) ?
@@ -34,10 +39,30 @@ const FromControl = ({
 
 export const Textarea = (props) => {
     const {input, meta, ...restProps} = props;
-    return <FromControl {...props} side={props.side} errorSignSide={props.errorSignSide}> <textarea {...input} {...restProps} /> </FromControl>
+    const inputClassName = props.inputClassName ? props.inputClassName : '';
+    const wrapperClassName = props.wrapperClassName ? props.wrapperClassName : '';
+
+    return <FromControl 
+        {...props} 
+        side={props.side} 
+        errorSignSide={props.errorSignSide} 
+        wrapperClassName={wrapperClassName}
+    > 
+        <textarea {...input} {...restProps} className={inputClassName}/> 
+    </FromControl>
 }
 
 export const Input = (props) => {
     const {input, meta, ...restProps} = props;
-    return <FromControl {...props} side={props.side} errorSignSide={props.errorSignSide}> <input {...input} {...restProps} /> </FromControl>
+    const inputClassName = props.inputClassName ? props.inputClassName : '';
+    const wrapperClassName = props.wrapperClassName ? props.wrapperClassName : '';
+
+    return <FromControl 
+        {...props} 
+        side={props.side} 
+        errorSignSide={props.errorSignSide} 
+        wrapperClassName={wrapperClassName}
+    > 
+        <input {...input} {...restProps} className={inputClassName}/> 
+    </FromControl>
 }
