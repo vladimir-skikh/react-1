@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
-import { setUserThunkCreator } from '../../redux/authReducer';
+import { setIsAuthThunkCreator } from '../../redux/authReducer';
 import Login from './Login'
 
 const mapStateToProps = (state) => {
     return {
-
+        isAuth: state.authReducer.isAuth,
     }
 }
 
 const actionCreators = {
-    submitLogin: setUserThunkCreator
+    submitLogin: setIsAuthThunkCreator
 }
 
 let LoginContainer = connect(mapStateToProps, actionCreators)(Login);

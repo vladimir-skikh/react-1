@@ -5,11 +5,13 @@ import followReducer from "./followReducer";
 import usersReducer from "./usersPageReducer";
 import userProfileReducer from "./userProfileReducer";
 import authReducer from "./authReducer";
+import appReducer from "./appReducer";
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form'
 
 
 let reducers = combineReducers({
+    appReducer,
     newsReducer,
     messagesReducer,
     followReducer,

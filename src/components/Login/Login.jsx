@@ -1,12 +1,20 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { required, email } from "../../utils/validators/validators";
 import {Input} from '../common/FormControls/FormControls';
+import formStyle from '../common/FormControls/FormControls.module.css';
 import style from "./Login.module.css";
 
 export const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
+            {
+                props.error ?
+                <div className={formStyle.summaryFormError}>
+                    {props.error}
+                </div> : ''
+            }
             <div className={style.loginInputBlock}>
                 <Field
                     inputClassName={style.loginFormInput}
@@ -60,10 +68,10 @@ let LoginReduxForm = reduxForm({
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData);
-        /** вернуть логинизацию */
-        //props.submitLogin(formData);
+        props.submitLogin(formData);
     };
+
+    if (props.isAuth) return <Redirect to="/profile" />
 
     return (
         <div className={style.login}>

@@ -1,10 +1,8 @@
-import usersAPI, {profileAPI} from '../api/api'
+import {profileAPI} from '../api/api'
 
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const UNSET_USER_PROFILE = 'UNSET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-DATA';
-const UPDATE_USER_STATUS = 'UPDATE-USER-DATA';
-
 
 let initialState = {
     userProfile: null,
@@ -32,13 +30,6 @@ const userProfileReducer = (state = initialState, action) => {
             break;
         }
         case SET_USER_STATUS: {
-            stateCopy = {
-                ...state,
-                userStatus: action.status,
-            }
-            break;
-        }
-        case UPDATE_USER_STATUS: {
             stateCopy = {
                 ...state,
                 userStatus: action.status,
@@ -74,19 +65,21 @@ export const setUserStatusActionCreator = (status) => {
     }
     return action;
 }
-export const updateUserStatusActionCreator = (status) => {
-    let action = {
-        type: UPDATE_USER_STATUS,
-        status: status,
-    }
-    return action;
-}
 
 export const getUserProfileThunkCreator = (userId) => {
     return (dispatch) => {
-        usersAPI.setUserInfoById(userId).then( response => {
+        profileAPI.setUserInfoById(userId).then( response => {
             dispatch(setUserProfileActionCreator(response));
         });
+        /** Пропадает данные о залогиненном пользователе после запроса */
+/*         profileAPI.getStatus(userId).then( response => {
+            dispatch(setUserStatusActionCreator(response));
+        }); */
+    }
+} 
+
+export const getUserStatusThunkCreator = (userId) => {
+    return (dispatch) => {
         profileAPI.getStatus(userId).then( response => {
             dispatch(setUserStatusActionCreator(response));
         });
@@ -97,7 +90,7 @@ export const updateUserStatusThunkCreator = (status) => {
     return (dispatch) => {
         profileAPI.updateStatus(status).then( response => {
             if (response.resultCode === 0) {
-                dispatch(updateUserStatusActionCreator(status));
+                dispatch(setUserStatusActionCreator(status));
             }
         });
     }

@@ -70,3 +70,11 @@
     padding: 10px;
     color: #fff;
 }
+.summaryFormError {
+    padding: 15px;
+    border: 1px solid tomato;
+    border-radius: 10px;
+    width: 100%;
+    color: tomato;
+    text-align: center;
+}

@@ -11,12 +11,8 @@ import Preloader from '../common/Preloader/Preloader';
 
 class MyUserProfileAPIContainer extends React.Component 
 {
-    setUserInfo = (userId) => {
-        this.props.getUserProfile(userId);
-    }
-
     componentDidMount() {
-        this.setUserInfo(this.props.userId);
+        this.props.getUserProfile(this.props.id);
     }
     
     componentWillUnmount() {
@@ -40,7 +36,7 @@ class MyUserProfileAPIContainer extends React.Component
 
 const mapStateToProps = (state) => {
     return {
-        userId: state.authReducer.userId,
+        id: state.authReducer.userData.id,
         profile: state.userProfileReducer.userProfile,
     };
 };

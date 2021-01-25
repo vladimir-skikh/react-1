@@ -3,6 +3,11 @@ import { NavLink } from "react-router-dom";
 import style from "./Header.module.css";
 
 let Header = (props) => {
+
+    const onLogoutClick = () => {
+        props.onLogout();
+    }
+
     return (
         <header className={style.header}>
             <div className={style.headerLogoBlock}>
@@ -18,9 +23,9 @@ let Header = (props) => {
                 {
                     props.isAuth
                     ? 
-                        <NavLink to='/logout' className={style.loginText}>
+                        <button className={style.loginText} onClick={onLogoutClick}>
                             Logout
-                        </NavLink>
+                        </button>
                     : 
                         <NavLink to='/login' className={style.loginText}>
                             Login

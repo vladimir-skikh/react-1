@@ -9,11 +9,24 @@ import UsersContainer from "./components/Users/UsersContainer";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
 import LoginContainer from "./components/Login/LoginContainer";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
+import { Component } from "react";
+import { connect } from "react-redux";
+import { initializeApp } from "./redux/appReducer";
+import { compose } from "redux";
+import Preloader from "./components/common/Preloader/Preloader";
 
-function App(props) {
-    return (
-        <BrowserRouter>
+class App extends Component {
+
+    componentDidMount() {
+        this.props.initializeApp();
+    }
+
+    render() {
+        if (!this.props.isInitialized) {
+            return <Preloader />;
+        }
+        return (
             <div>
                 <div className="header-background">
                     <div className="wrapper wrapper-header">
@@ -47,8 +60,21 @@ function App(props) {
                     </div>
                 </div>
             </div>
-        </BrowserRouter>
-    );
+        );
+    }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+    return {
+        isInitialized: state.appReducer.initialized,
+    }
+}
+
+let actionCreators = {
+    initializeApp: initializeApp,
+}
+
+export default compose(
+    withRouter, 
+    connect(mapStateToProps, actionCreators),
+)(App);

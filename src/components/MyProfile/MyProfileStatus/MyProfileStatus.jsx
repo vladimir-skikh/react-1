@@ -62,7 +62,7 @@ class MyProfileStatus extends React.Component {
                         onTouchStart={this.activateStatusEditMode}
                     >
                         {
-                            ( this.props.status !== '' && this.props.status !== null ) 
+                            ( this.props.status !== '' && this.props.status !== undefined ) 
                             ? this.props.status 
                             : 'No status'
                         }
