@@ -47,8 +47,8 @@ const actionCreators = {
 };
 
 let MyProfileContainer = compose(
+    withAuthRedirect,
     connect(mapStateToProps, actionCreators),
-    withAuthRedirect
 )(MyUserProfileAPIContainer);
 
 export default MyProfileContainer;

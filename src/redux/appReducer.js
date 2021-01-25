@@ -32,8 +32,9 @@ export const setInitializedCreator = () => {
 }
 
 export const initializeApp = () => (dispatch) => {
-    let promise =  dispatch(checkAuthThunkCreator());
-    Promise.all([promise]).then( () => {
+    let checkAuthPromise =  dispatch(checkAuthThunkCreator());
+
+    Promise.all([checkAuthPromise]).then( () => {
         dispatch(setInitializedCreator());
     })
 }

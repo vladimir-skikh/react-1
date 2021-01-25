@@ -7,11 +7,11 @@ import MyProfileStatus from "./MyProfileStatus";
 class MyProfileStatusAPIContainer extends React.Component 
 {
     componentDidMount() {
-        //this.props.getStatus(this.props.userId);
+        this.props.getStatus(this.props.userId);
     }
 
     render() {
-        return <MyProfileStatus status={this.props.status}/>;
+        return <MyProfileStatus status={this.props.status} updateStatus={this.props.updateStatus}/>;
     }
 }
 

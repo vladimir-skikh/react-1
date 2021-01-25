@@ -7,14 +7,14 @@ const withAuthRedirect = (Component) => {
         render() {
             if (!this.props.isAuth) return <Redirect to="/login" />;
 
-            return <Component {...this.props} />;
+            return <Component {...this.props} isAuth={this.props.isAuth} userData={this.props.userData}/>;
         }
     };
 
     let mapStateToProps = (state) => {
         return {
             isAuth: state.authReducer.isAuth,
-            id: state.authReducer.userData.id,
+            userData: state.authReducer.userData,
         }
     };
     let actionCreators = {};
