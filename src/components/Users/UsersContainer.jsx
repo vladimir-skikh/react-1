@@ -12,6 +12,16 @@ import {
     setIsFetchingActionCreator,
     getUsersThunkCreator,
 } from "../../redux/usersPageReducer";
+import {
+    getUsersData,
+    getTotalUsers,
+    getPageSize,
+    getPagesCount,
+    getCurrentPage,
+    getIsFetching,
+    getFollowingInProgress,
+    getPages,
+} from "../../redux/usersSelectors";
 import Preloader from "../common/Preloader/Preloader";
 
 class UsersAPIContainer extends React.Component {
@@ -62,17 +72,16 @@ class UsersAPIContainer extends React.Component {
         );
     }
 }
-
 let mapStateToProps = (state) => {
     return {
-        usersData: state.usersReducer.usersData,
-        totalUsers: state.usersReducer.totalUsers,
-        pageSize: state.usersReducer.pageSize,
-        pagesCount: state.usersReducer.pagesCount,
-        currentPage: state.usersReducer.currentPage,
-        pages: state.usersReducer.pages,
-        isFetching: state.usersReducer.isFetching,
-        followingInProgress: state.usersReducer.followingInProgress,
+        usersData: getUsersData(state),
+        totalUsers: getTotalUsers(state),
+        pageSize: getPageSize(state),
+        pagesCount: getPagesCount(state),
+        currentPage: getCurrentPage(state),
+        pages: getPages(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     };
 };
 
