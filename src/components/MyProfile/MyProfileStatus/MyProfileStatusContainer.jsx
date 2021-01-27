@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { updateUserStatusThunkCreator, getUserStatusThunkCreator } from "../../../redux/userProfileReducer";
-import MyProfileStatus from "./MyProfileStatus";
+import MyProfileStatusWithHooks from "./MyProfileStatusWithHooks";
 
 class MyProfileStatusAPIContainer extends React.Component 
 {
@@ -11,7 +11,7 @@ class MyProfileStatusAPIContainer extends React.Component
     }
 
     render() {
-        return <MyProfileStatus status={this.props.status} updateStatus={this.props.updateStatus}/>;
+        return <MyProfileStatusWithHooks status={this.props.status} updateStatus={this.props.updateStatus}/>;
     }
 }
 
