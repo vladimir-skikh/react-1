@@ -1,4 +1,6 @@
 const ADD_POST = 'ADD-POST';
+const DELETE_POST = 'DELETE-POST';
+
 
 let initialState = {
     postsData: [
@@ -51,6 +53,15 @@ const newsReducer = (state = initialState, action) => {
             break;
 
         }
+        case DELETE_POST: {
+            stateCopy = {
+                ...state,
+                postsData: state.postsData.filter( p => p.id !== action.post_id),
+            };
+
+            break;
+
+        }
         default: {
             stateCopy = {...state}
             break;
@@ -64,6 +75,14 @@ export const addPostActionCreator = (newPostText) => {
     let action = {
         type: ADD_POST,
         newPostText: newPostText,
+    }
+    return action;
+}
+
+export const deletePostActionCreator = (post_id) => {
+    let action = {
+        type: DELETE_POST,
+        post_id: post_id,
     }
     return action;
 }
