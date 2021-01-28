@@ -3,9 +3,15 @@ import style from "./News.module.css";
 import Post from "./Post/Post";
 import NewPostContainer from './NewPost/NewPostContainer';
 
-const News = (props) => {
+class News extends React.PureComponent
+{
 
-    let posts = props.postsData.map( post => 
+    /** Нужно ли отрисовывать компоненту? false - нет, true - да */
+    /* shouldComponentUpdate(nextProps, nextState) {
+        return nextProps !== this.props || nextState !== this.state;
+    } */
+
+    posts = this.props.postsData.map( post => 
             <Post
                 postText={post.postText}
                 postPhoto={post.postPhoto}
@@ -15,15 +21,17 @@ const News = (props) => {
             />
         );
 
-    return (
-        <div>
-            <div className={style.newPostBlock}>
-                <NewPostContainer />
+    render() {
+        return (
+            <div>
+                <div className={style.newPostBlock}>
+                    <NewPostContainer />
+                </div>
+                <div className={style.news}>
+                    {this.posts}
+                </div>
             </div>
-            <div className={style.news}>
-                {posts}
-            </div>
-        </div>
-    );
+        );
+    }
 };
 export default News;
