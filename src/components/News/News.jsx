@@ -3,15 +3,10 @@ import style from "./News.module.css";
 import Post from "./Post/Post";
 import NewPostContainer from './NewPost/NewPostContainer';
 
-class News extends React.PureComponent
-{
+/** React memo делает оптимизацию по типу shoudComponentUpdate или PureComponent */
+const News = React.memo(props => {
 
-    /** Нужно ли отрисовывать компоненту? false - нет, true - да */
-    /* shouldComponentUpdate(nextProps, nextState) {
-        return nextProps !== this.props || nextState !== this.state;
-    } */
-
-    posts = this.props.postsData.map( post => 
+    let posts = props.postsData.map( post => 
             <Post
                 postText={post.postText}
                 postPhoto={post.postPhoto}
@@ -20,18 +15,17 @@ class News extends React.PureComponent
                 key={post.id}
             />
         );
-
-    render() {
-        return (
-            <div>
-                <div className={style.newPostBlock}>
-                    <NewPostContainer />
-                </div>
-                <div className={style.news}>
-                    {this.posts}
-                </div>
+    
+    return (
+        <div>
+            <div className={style.newPostBlock}>
+                <NewPostContainer />
             </div>
-        );
-    }
-};
+            <div className={style.news}>
+                {posts}
+            </div>
+        </div>
+    );
+    
+});
 export default News;
