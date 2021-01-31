@@ -2,10 +2,11 @@ import { connect } from "react-redux";
 import Messages from "./Messages";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import { compose } from "redux";
+import { getDialogsUsers } from "../../redux/selectors/messagesSelector";
 
 let mapStateToProps = (state) => {
     return {
-        dialogsData: state.messagesReducer.dialogsData,
+        dialogsData: getDialogsUsers(state),
     };
 };
 let mapDispatchToProps = (dispatch) => {

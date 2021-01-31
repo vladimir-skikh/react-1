@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import ActiveDialog from "./ActiveDialog";
 import {addNewMessageCreator} from '../../../redux/messagesPageReducer'
+import { getActiveDisalogMessages } from "../../../redux/selectors/messagesSelector";
 
 let mapStateToProps = (state) => {
     return {
-        activeDialogMessagesData: state.messagesReducer.activeDialogMessagesData,
+        activeDialogMessagesData: getActiveDisalogMessages(state),
     }
 }
 

@@ -4,7 +4,7 @@ import { compose } from "redux";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import Users from "./Users";
 import {
-    setUsersActionCreator,
+    showMoreUsersThunkCreator,
     setTotalUsersActionCreator,
     setPageSizeActionCreator,
     setPagesCountActionCreator,
@@ -21,7 +21,7 @@ import {
     getIsFetching,
     getFollowingInProgress,
     getPages,
-} from "../../redux/usersSelectors";
+} from "../../redux/selectors/usersSelectors";
 import Preloader from "../common/Preloader/Preloader";
 
 class UsersAPIContainer extends React.Component {
@@ -35,7 +35,7 @@ class UsersAPIContainer extends React.Component {
         let count = this.props.pageSize;
         let page = this.props.currentPage + 1;
 
-        this.updateUsers(count, page);
+        this.props.showMore(count, page);
     };
 
     updateUsers = (count, page) => {
@@ -86,7 +86,7 @@ let mapStateToProps = (state) => {
 };
 
 let actionCreators = {
-    showMore: setUsersActionCreator,
+    showMore: showMoreUsersThunkCreator,
     setTotalUsersCount: setTotalUsersActionCreator,
     setPageSize: setPageSizeActionCreator,
     setPagesCount: setPagesCountActionCreator,

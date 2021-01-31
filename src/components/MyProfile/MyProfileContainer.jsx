@@ -8,6 +8,7 @@ import {
     unsetUserProfileActionCreator,
 } from '../../redux/userProfileReducer';
 import Preloader from '../common/Preloader/Preloader';
+import { getId, getProfile } from '../../redux/selectors/profileSelector';
 
 class MyProfileAPIContainer extends React.Component 
 {
@@ -36,8 +37,8 @@ class MyProfileAPIContainer extends React.Component
 
 const mapStateToProps = (state) => {
     return {
-        id: state.authReducer.userData.id,
-        profile: state.userProfileReducer.userProfile,
+        id: getId(state),
+        profile: getProfile(state),
         init: state.userProfileReducer.init,
     };
 };

@@ -27,11 +27,19 @@ const usersReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_USERS: {
-            stateCopy = {
-                ...state,
-                usersData: [...action.users],
-            };
 
+            if (action.showMore) {
+                stateCopy = {
+                    ...state,
+                    usersData: [ ...state.usersData, ...action.users],
+                };
+            }
+            else {
+                stateCopy = {
+                    ...state,
+                    usersData: [...action.users],
+                };
+            }
             break;
         }
         case SET_USERS_COUNT: {
@@ -158,10 +166,11 @@ export const followingProgressActionCreator = (user_id, progress) => {
     return action;
 };
 
-export const setUsersActionCreator = (users) => {
+export const setUsersActionCreator = (users, showMore = false) => {
     let action = {
         type: SET_USERS,
         users: users,
+        showMore: showMore,
     };
     return action;
 };
@@ -243,6 +252,17 @@ export const toggleFollowThunkCreator = (user_id, isFollow) => {
             });
         } 
     }
-
 } 
+
+export const showMoreUsersThunkCreator = (count, currentPage) => (dispatch) => {
+    return usersAPI.getUsers(count, currentPage).then( response => {
+        debugger
+        dispatch(setUsersActionCreator(response.items, true));
+        dispatch(setPageSizeActionCreator(count));
+        dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
+        dispatch(setCurrentPageActionCreator(currentPage));
+        dispatch(setIsFetchingActionCreator(false));
+    })
+}
+
 export default usersReducer;

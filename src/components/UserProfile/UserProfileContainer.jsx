@@ -8,6 +8,7 @@ import {
 } from '../../redux/userProfileReducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import { getProfile } from '../../redux/selectors/profileSelector';
 
 
 class UserProfileAPIContainer extends React.Component 
@@ -39,7 +40,7 @@ class UserProfileAPIContainer extends React.Component
 
 const mapStateToProps = (state) => {
     return {
-        profile: state.userProfileReducer.userProfile,
+        profile: getProfile(state),
     }
 }
 let actionCreators = {

@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { getStatus } from "../../../redux/selectors/profileSelector";
 import UserProfileStatus from "./UserProfileStatus";
 
 const mapStateToProps = (state) => {
     return {
-        status: state.userProfileReducer.userStatus,
+        status: getStatus(state),
     }
 }
 const actionCreators = {}

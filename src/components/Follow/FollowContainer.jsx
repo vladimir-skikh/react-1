@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
+import { getFollowComponentUsers } from "../../redux/selectors/followSelector";
 import Follow from "./Follow"
 
 let mapStateToProps = (state) => {
     return {
-        followData: state.followReducer.followData,
+        followData: getFollowComponentUsers(state),
     }
 }
 let mapDispatchToProps = (dispatch) => {

@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { getStatus } from "../../../redux/selectors/profileSelector";
 import { updateUserStatusThunkCreator } from "../../../redux/userProfileReducer";
 import MyProfileStatusWithHooks from "./MyProfileStatusWithHooks";
 
 const mapStateToProps = (state) => {
     return {
-        status: state.userProfileReducer.userStatus,
+        status: getStatus(state),
     }
 }
 const actionCreators = {

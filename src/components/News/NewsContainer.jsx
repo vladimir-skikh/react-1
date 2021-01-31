@@ -1,17 +1,14 @@
 import { connect } from "react-redux";
+import { getNews } from "../../redux/selectors/newsSelector";
 import News from "./News";
 
 let mapStateToProps = (state) => {
     return {
-        postsData: state.newsReducer.postsData,
+        postsData: getNews(state),
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        
-    }
-}
+let actionCreators = {}
 
-const NewsContainer = connect(mapStateToProps, mapDispatchToProps)(News);
+const NewsContainer = connect(mapStateToProps, actionCreators)(News);
 
 export default NewsContainer;
