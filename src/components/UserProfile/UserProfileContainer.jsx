@@ -4,7 +4,7 @@ import UserProfile from './UserProfile';
 import Preloader from '../common/Preloader/Preloader';
 import {
     unsetUserProfileActionCreator,
-    getUserProfileThunkCreator
+    initProfile
 } from '../../redux/userProfileReducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -13,7 +13,7 @@ import { compose } from 'redux';
 class UserProfileAPIContainer extends React.Component 
 {
     setUserInfo = (userId) => {
-        this.props.getUserProfile(userId);
+        this.props.initProfile(userId);
     }
 
     componentDidMount() {
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 }
 let actionCreators = {
     unsetUserProfile: unsetUserProfileActionCreator,
-    getUserProfile: getUserProfileThunkCreator
+    initProfile: initProfile
 }
 
 let UserProfileContainer = compose(

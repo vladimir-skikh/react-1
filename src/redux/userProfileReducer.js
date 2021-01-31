@@ -3,10 +3,13 @@ import {profileAPI} from '../api/api'
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const UNSET_USER_PROFILE = 'UNSET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
+const SET_INIT = 'SET-INIT-PROFILE';
+
 
 let initialState = {
     userProfile: null,
     userStatus: "",
+    init: false,
 }
 
 const userProfileReducer = (state = initialState, action) => {
@@ -14,6 +17,14 @@ const userProfileReducer = (state = initialState, action) => {
     let stateCopy;
 
     switch (action.type) {
+        case SET_INIT: {
+            stateCopy = {
+                ...state,
+                userProfile: {...state.userProfile},
+                init: true,
+            }
+            break;
+        }
         case SET_USER_PROFILE: {
             stateCopy = {
                 ...state,
@@ -26,6 +37,7 @@ const userProfileReducer = (state = initialState, action) => {
                 ...state,
                 userProfile: null,
                 userStatus: "",
+                init: false,
             }
             break;
         }
@@ -58,6 +70,12 @@ export const unsetUserProfileActionCreator = () => {
     return action;
 }
 
+const getUserProfileThunkCreator = (userId) => (dispatch) => {
+    return profileAPI.setUserInfoById(userId).then( response => {
+        dispatch(setUserProfileActionCreator(response));
+    });
+} 
+
 export const setUserStatusActionCreator = (status) => {
     let action = {
         type: SET_USER_STATUS,
@@ -66,30 +84,37 @@ export const setUserStatusActionCreator = (status) => {
     return action;
 }
 
-export const getUserProfileThunkCreator = (userId) => {
-    return (dispatch) => {
-        profileAPI.setUserInfoById(userId).then( response => {
-            dispatch(setUserProfileActionCreator(response));
-        });
-    }
+const getUserStatusThunkCreator = (userId) => (dispatch) => {
+    return profileAPI.getStatus(userId).then( response => {
+        dispatch(setUserStatusActionCreator(response));
+    });
 } 
 
-export const getUserStatusThunkCreator = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId).then( response => {
-            dispatch(setUserStatusActionCreator(response));
-        });
-    }
+export const updateUserStatusThunkCreator = (status) => (dispatch) => {
+    return profileAPI.updateStatus(status).then( response => {
+        if (response.resultCode === 0) {
+            dispatch(setUserStatusActionCreator(status));
+        }
+    });
 } 
 
-export const updateUserStatusThunkCreator = (status) => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then( response => {
-            if (response.resultCode === 0) {
-                dispatch(setUserStatusActionCreator(status));
-            }
-        });
+
+
+const setInitActionCreator = () => {
+    let action = {
+        type: SET_INIT,
     }
-} 
+    return action;
+}
+
+export const initProfile = (userId) => (dispatch) => {
+    debugger;
+    let profile =  dispatch(getUserProfileThunkCreator(userId));
+    let status =  dispatch(getUserStatusThunkCreator(userId));
+
+    Promise.all([profile, status]).then( () => {
+        dispatch(setInitActionCreator());
+    })
+}
 
 export default userProfileReducer;

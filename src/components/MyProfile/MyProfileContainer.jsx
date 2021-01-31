@@ -4,15 +4,15 @@ import { connect } from "react-redux";
 import MyProfile from "./MyProfile";
 import withAuthRedirect from "../hoc/withAuthRedirect";
 import {
+    initProfile,
     unsetUserProfileActionCreator,
-    getUserProfileThunkCreator
 } from '../../redux/userProfileReducer';
 import Preloader from '../common/Preloader/Preloader';
 
-class MyUserProfileAPIContainer extends React.Component 
+class MyProfileAPIContainer extends React.Component 
 {
     componentDidMount() {
-        this.props.getUserProfile(this.props.id);
+        this.props.initProfile(this.props.id);
     }
     
     componentWillUnmount() {
@@ -20,7 +20,7 @@ class MyUserProfileAPIContainer extends React.Component
     }
 
     render () {
-        if (!this.props.profile) {
+        if (!this.props.init) {
             return <Preloader />;
         }
         return (
@@ -38,17 +38,18 @@ const mapStateToProps = (state) => {
     return {
         id: state.authReducer.userData.id,
         profile: state.userProfileReducer.userProfile,
+        init: state.userProfileReducer.init,
     };
 };
 
 const actionCreators = {
     unsetUserProfile: unsetUserProfileActionCreator,
-    getUserProfile: getUserProfileThunkCreator
+    initProfile: initProfile
 };
 
 let MyProfileContainer = compose(
     withAuthRedirect,
     connect(mapStateToProps, actionCreators),
-)(MyUserProfileAPIContainer);
+)(MyProfileAPIContainer);
 
 export default MyProfileContainer;
