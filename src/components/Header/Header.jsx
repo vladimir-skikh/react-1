@@ -23,12 +23,14 @@ let Header = (props) => {
                 {
                     props.isAuth
                     ? 
-                        <button className={style.loginText} onClick={onLogoutClick}>
+                        <button className={style.logoutButton} onClick={onLogoutClick}>
                             Logout
                         </button>
                     : 
-                        <NavLink to='/login' className={style.loginText}>
-                            Login
+                        <NavLink to='/login'>
+                            <button className={style.loginButton} onClick={onLogoutClick}>
+                                Login
+                            </button>
                         </NavLink>
 
                 }

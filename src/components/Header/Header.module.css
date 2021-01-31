@@ -21,10 +21,24 @@
   display: flex;
   align-items: center;
 }
-.loginBlock {
-
-}
-.loginText {
+.logoutButton,
+.loginButton {
+  width: 100%;
+  align-self: center;
+  padding: 7px 10px;
   color: #fff;
-  text-decoration: none;
+  border: none;
+  background: #149AC9;
+  transition: all 0.3s;
+}
+.logoutButton:focus, 
+.loginButton:focus {
+  outline: none;
+}
+.logoutButton:hover,
+.loginButton:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
 }

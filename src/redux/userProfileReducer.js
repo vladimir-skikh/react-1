@@ -98,8 +98,6 @@ export const updateUserStatusThunkCreator = (status) => (dispatch) => {
     });
 } 
 
-
-
 const setInitActionCreator = () => {
     let action = {
         type: SET_INIT,
