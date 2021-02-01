@@ -1,4 +1,5 @@
 import usersAPI from '../api/api'
+import { updateObjectInArray } from '../utils/helpers/helperObject';
 
 const FOLLOW_USER = "FOLLOW-USER";
 const UNFOLLOW_USER = "UNFOLLOW-USER";
@@ -91,16 +92,7 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW_USER: {
             stateCopy = {
                 ...state,
-                usersData: state.usersData.map((user) => {
-                    if (user.id === parseInt(action.user_id)) {
-                        let userCopy = {
-                            ...user,
-                            followed: true,
-                        };
-                        return userCopy;
-                    }
-                    return user;
-                }),
+                usersData: updateObjectInArray(state.usersData, action.user_id, 'id', {followed: true}),
             };
 
             break;
@@ -108,16 +100,7 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW_USER: {
             stateCopy = {
                 ...state,
-                usersData: state.usersData.map((user) => {
-                    if (user.id === parseInt(action.user_id)) {
-                        let userCopy = {
-                            ...user,
-                            followed: false,
-                        };
-                        return userCopy;
-                    }
-                    return user;
-                }),
+                usersData: updateObjectInArray(state.usersData, action.user_id, 'id', {followed: false}),
             };
 
             break;
@@ -141,6 +124,7 @@ const usersReducer = (state = initialState, action) => {
     return stateCopy;
 };
 
+/** ---------------Action creators--------------- */
 export const followActionCreator = (user_id) => {
     let action = {
         type: FOLLOW_USER,
@@ -148,7 +132,6 @@ export const followActionCreator = (user_id) => {
     };
     return action;
 };
-
 export const unfollowActionCreator = (user_id) => {
     let action = {
         type: UNFOLLOW_USER,
@@ -156,7 +139,6 @@ export const unfollowActionCreator = (user_id) => {
     };
     return action;
 };
-
 export const followingProgressActionCreator = (user_id, progress) => {
     let action = {
         type: FOLLOWING_IN_PROGRESS,
@@ -165,7 +147,6 @@ export const followingProgressActionCreator = (user_id, progress) => {
     };
     return action;
 };
-
 export const setUsersActionCreator = (users, showMore = false) => {
     let action = {
         type: SET_USERS,
@@ -174,7 +155,6 @@ export const setUsersActionCreator = (users, showMore = false) => {
     };
     return action;
 };
-
 export const setTotalUsersActionCreator = (count) => {
     let action = {
         type: SET_USERS_COUNT,
@@ -182,7 +162,6 @@ export const setTotalUsersActionCreator = (count) => {
     };
     return action;
 };
-
 export const setPageSizeActionCreator = (size) => {
     let action = {
         type: SET_PAGE_SIZE,
@@ -190,7 +169,6 @@ export const setPageSizeActionCreator = (size) => {
     };
     return action;
 };
-
 export const setPagesCountActionCreator = (count) => {
     let action = {
         type: SET_PAGES_COUNT,
@@ -198,7 +176,6 @@ export const setPagesCountActionCreator = (count) => {
     };
     return action;
 };
-
 export const setCurrentPageActionCreator = (pageNum) => {
     let action = {
         type: SET_CURRENT_PAGE,
@@ -206,7 +183,6 @@ export const setCurrentPageActionCreator = (pageNum) => {
     };
     return action;
 };
-
 export const setIsFetchingActionCreator = (isFetching) => {
     let action = {
         type: IS_FETCHING,
@@ -214,7 +190,9 @@ export const setIsFetchingActionCreator = (isFetching) => {
     };
     return action;
 };
+/** --------------------------------------------- */
 
+/** ---------------Thunk Creators---------------- */
 export const getUsersThunkCreator = (count, page) => {
     return (dispatch) => {
         dispatch(setIsFetchingActionCreator(true));
@@ -228,32 +206,18 @@ export const getUsersThunkCreator = (count, page) => {
         });
     }
 } 
-
 export const toggleFollowThunkCreator = (user_id, isFollow) => {
     if (isFollow) {
-        return (dispatch) => {
-            dispatch(followingProgressActionCreator(user_id, true));
-            usersAPI.followUserById(user_id).then( response => {
-                if (response.resultCode === 0) {
-                    dispatch(followActionCreator(user_id));
-                    dispatch(followingProgressActionCreator(user_id, false));
-                }
-            });
+        return async (dispatch) => {
+            toggleFollowUnfollow(dispatch, user_id, usersAPI.followUserById.bind(usersAPI), followActionCreator);
         }
     }
     else {
-        return (dispatch) => {
-            dispatch(followingProgressActionCreator(user_id, true));
-            usersAPI.unfollowUserById(user_id).then( response => {
-                if (response.resultCode === 0) {
-                    dispatch(unfollowActionCreator(user_id));
-                    dispatch(followingProgressActionCreator(user_id, false));
-                }
-            });
+        return async (dispatch) => {
+            toggleFollowUnfollow(dispatch, user_id, usersAPI.unfollowUserById.bind(usersAPI), unfollowActionCreator);
         } 
     }
 } 
-
 export const showMoreUsersThunkCreator = (count, currentPage) => (dispatch) => {
     return usersAPI.getUsers(count, currentPage).then( response => {
         debugger
@@ -264,5 +228,19 @@ export const showMoreUsersThunkCreator = (count, currentPage) => (dispatch) => {
         dispatch(setIsFetchingActionCreator(false));
     })
 }
+/** --------------------------------------------- */
+
+/** Other helpfull function */
+const toggleFollowUnfollow = async (dispatch, user_id, apiMethod, actionCreator) => {
+    dispatch(followingProgressActionCreator(user_id, true));
+
+    let response = await apiMethod(user_id);
+
+    if (response.resultCode === 0) {
+        dispatch(actionCreator(user_id));
+        dispatch(followingProgressActionCreator(user_id, false));
+    }
+}
+/** ----------------------- */
 
 export default usersReducer;
