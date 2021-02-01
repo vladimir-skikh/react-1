@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import style from "./Header.module.css";
+import logo from '../../img/logo.png';
 
 let Header = (props) => {
 
@@ -12,7 +13,7 @@ let Header = (props) => {
         <header className={style.header}>
             <div className={style.headerLogoBlock}>
                 <img
-                    src="https://www.pngmart.com/files/7/Envelope-Mail-PNG-Free-Download.png"
+                    src={logo}
                     alt="Logo"
                 />
                 <h1 className={style.title}>
