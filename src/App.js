@@ -5,7 +5,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
 import MyProfileContainer from "./components/MyProfile/MyProfileContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
-import { Route, withRouter, BrowserRouter } from "react-router-dom";
+import { Route, withRouter, HashRouter } from "react-router-dom";
 import { Component } from "react";
 import { connect, Provider } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
@@ -84,9 +84,9 @@ const AppContainer =  compose(
 const MainApp = (props) => {
     return (
         <Provider store={store}>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <HashRouter>
                 <AppContainer store={store} />
-            </BrowserRouter>
+            </HashRouter>
         </Provider>
     )
 }
