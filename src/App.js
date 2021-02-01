@@ -1,20 +1,25 @@
 import React from "react";
 import "./App.css";
+import store from "./redux/reduxStore";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
 import MyProfileContainer from "./components/MyProfile/MyProfileContainer";
-import NewsContainer from "./components/News/NewsContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import MessagesContainer from "./components/Messages/MessagesContainer";
-import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
-import LoginContainer from "./components/Login/LoginContainer";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, BrowserRouter } from "react-router-dom";
 import { Component } from "react";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
 import { compose } from "redux";
 import Preloader from "./components/common/Preloader/Preloader";
+import withSuspense from "./components/hoc/withSuspense";
+
+/** Lazy load */
+const NewsContainer = React.lazy(() => import("./components/News/NewsContainer"));
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"));
+const MessagesContainer = React.lazy(() => import("./components/Messages/MessagesContainer"));
+const UserProfileContainer = React.lazy(() => import("./components/UserProfile/UserProfileContainer"));
+const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"));
+
 
 class App extends Component {
 
@@ -39,24 +44,21 @@ class App extends Component {
                         <FollowContainer />
                     </aside>
                     <div className="content">
-                        <Route path="/news" render={() => <NewsContainer />} />
+                        <Route path="/news" render={withSuspense(NewsContainer)}/>
                         <Route
                             path="/messages"
-                            render={() => <MessagesContainer />}
-                        />
+                            render={withSuspense(MessagesContainer)}/>
                         <Route
                             path="/users"
-                            render={() => <UsersContainer />}
-                        />
+                            render={withSuspense(UsersContainer)} />
                         <Route
                             path="/user/:userId"
-                            render={() => <UserProfileContainer />}
-                        />
+                            render={withSuspense(UserProfileContainer)}/>
                         <Route
                             path="/profile"
                             render={() => <MyProfileContainer />}
                         />
-                        <Route path="/login" render={() => <LoginContainer />} />
+                        <Route path="/login" render={withSuspense(LoginContainer)} />
                     </div>
                 </div>
             </div>
@@ -74,7 +76,19 @@ let actionCreators = {
     initializeApp: initializeApp,
 }
 
-export default compose(
+const AppContainer =  compose(
     withRouter, 
     connect(mapStateToProps, actionCreators),
 )(App);
+
+const MainApp = (props) => {
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <AppContainer store={store} />
+            </BrowserRouter>
+        </Provider>
+    )
+}
+
+export default MainApp;
