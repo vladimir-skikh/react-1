@@ -20,6 +20,12 @@ class MyProfile extends React.Component
         }
     }
 
+    onAvatarChange = (e) => {
+        if (e.target.files.length) {
+            this.props.uploadPhoto(e.target.files[0]);
+        }
+    }
+
     render() {
         return (
             <div className={style.user}>
@@ -64,6 +70,13 @@ class MyProfile extends React.Component
                                 </span>
                         }
                     </div>
+                    <div className={style.userInfoBlockItem}>
+                        <h3 className={style.userInfoTitle}>
+                            Avatar
+                        </h3>
+                        <input type="file" onChange={this.onAvatarChange}/>
+                    </div>
+
                 </div>
                 <div className={style.userAboutBlock}>
                     <p className={style.userAbout}>

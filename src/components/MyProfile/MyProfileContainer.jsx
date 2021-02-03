@@ -6,6 +6,7 @@ import withAuthRedirect from "../hoc/withAuthRedirect";
 import {
     initProfile,
     unsetUserProfileActionCreator,
+    uploadPhotoThunkCreator,
 } from '../../redux/userProfileReducer';
 import Preloader from '../common/Preloader/Preloader';
 import { getId, getProfile } from '../../redux/selectors/profileSelector';
@@ -20,6 +21,10 @@ class MyProfileAPIContainer extends React.Component
         this.props.unsetUserProfile();
     }
 
+    uploadPhoto = (file) => {
+        this.props.uploadPhoto(file);
+    }
+
     render () {
         if (!this.props.init) {
             return <Preloader />;
@@ -28,6 +33,7 @@ class MyProfileAPIContainer extends React.Component
             <MyProfile 
                 {...this.props} 
                 profile={this.props.profile} 
+                uploadPhoto={this.uploadPhoto}
             />
         );
     }
@@ -45,7 +51,8 @@ const mapStateToProps = (state) => {
 
 const actionCreators = {
     unsetUserProfile: unsetUserProfileActionCreator,
-    initProfile: initProfile
+    initProfile: initProfile,
+    uploadPhoto: uploadPhotoThunkCreator,
 };
 
 let MyProfileContainer = compose(

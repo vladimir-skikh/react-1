@@ -4,6 +4,7 @@ const SET_USER_PROFILE = 'message-me/userProfile/SET-USER-PROFILE';
 const UNSET_USER_PROFILE = 'message-me/userProfile/UNSET-USER-PROFILE';
 const SET_USER_STATUS = 'message-me/userProfile/SET-USER-STATUS';
 const SET_INIT = 'message-me/userProfile/SET-INIT-PROFILE';
+const SET_PHOTOS = 'message-me/userProfile/SET-PHOTOS';
 
 
 let initialState = {
@@ -48,6 +49,13 @@ const userProfileReducer = (state = initialState, action) => {
             }
             break;
         }
+        case SET_PHOTOS: {
+            stateCopy = {
+                ...state,
+                userProfile: {...state.userProfile, photos: action.photos},
+            }
+            break;
+        }
         default: 
             stateCopy = {...state};
     }
@@ -83,6 +91,13 @@ const setInitActionCreator = () => {
     }
     return action;
 }
+const uploadPhotoActionCreator = (photos) => {
+    let action = {
+        type: SET_PHOTOS,
+        photos: photos,
+    }
+    return action;
+}
 /** ------------------------------ */
 
 /** -------------Thunk Creators------------- */
@@ -102,6 +117,12 @@ export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
         dispatch(setUserStatusActionCreator(status));
     }
 } 
+export const uploadPhotoThunkCreator = (file) => async (dispatch) => {
+    let response = await profileAPI.uploadPhoto(file);
+    if (response.resultCode === 0) {
+        dispatch(uploadPhotoActionCreator(response.data.photos));
+    }
+}
 /** ---------------------------------------- */
 
 /** --------------Init-------------- */
