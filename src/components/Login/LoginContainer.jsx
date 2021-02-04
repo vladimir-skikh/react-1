@@ -5,6 +5,7 @@ import Login from './Login'
 const mapStateToProps = (state) => {
     return {
         isAuth: state.authReducer.isAuth,
+        captchaUrl: state.authReducer.captchaUrl
     }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './FormControls.module.css';
+import classnames from 'classnames';
 
 /**
  * 
@@ -26,7 +27,7 @@ const FromControl = ({
             {props.children}
             {
                 ( hasError ) ?
-                    <div className={style.errorMessageBlock + ' ' + side}>
+                    <div className={classnames(style.errorMessageBlock, side)}>
                         <span className={style.errorMessage}>
                             {meta.error}
                         </span>

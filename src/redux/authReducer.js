@@ -1,15 +1,18 @@
 import { stopSubmit } from 'redux-form';
-import {authAPI} from '../api/api';
+import {authAPI, securityAPI} from '../api/api';
 
-const SET_USER_DATA = 'SET-USER-DATA';
-const UNSET_USER_DATA = 'UNSET-USER-DATA';
-const TOGLE_IS_AUTH = 'TOGLE-IS-AUTH';
+const SET_USER_DATA = 'messageme/authReducer/SET-USER-DATA';
+const UNSET_USER_DATA = 'messageme/authReducer/UNSET-USER-DATA';
+const TOGLE_IS_AUTH = 'messageme/authReducer/TOGLE-IS-AUTH';
+const SET_CAPTCHA_URL = 'messageme/authReducer/SET-CAPTCHA-URL';
+
 
 let initialState = {
     userData: {
         id: null,
         email: null,
         login: null,
+        captchaUrl: null,
     },
     isAuth: false,
 }
@@ -36,6 +39,13 @@ const authReducer = (state = initialState, action) => {
             stateCopy = {
                 ...state,
                 isAuth: action.isAuth,
+            }
+            break;
+        }
+        case SET_CAPTCHA_URL: {
+            stateCopy = {
+                ...state,
+                captchaUrl: action.url,
             }
             break;
         }
@@ -96,6 +106,21 @@ export const unsetUserThunkCreator = () => {
     }
 }
 
+const setCaptchaUrlActionCreator = (url) => {
+    let action = {
+        type: SET_CAPTCHA_URL,
+        url: url,
+    }
+    return action;
+}
+
+const getCaptchaUrlThunkCreator = () => async (dispatch) => {
+    let response = await securityAPI.getCaptchaUrl();
+    const captchaUrl = response.url;
+
+    dispatch(setCaptchaUrlActionCreator(captchaUrl));
+}
+
 export const setIsAuthThunkCreator = (formData) => {
     return (dispatch) => {
         authAPI.login(formData).then( response => {
@@ -105,10 +130,13 @@ export const setIsAuthThunkCreator = (formData) => {
                     email: null,
                     login: null,
                 }
-                dispatch(unsetUserActionCreator(payload));
+                dispatch(setUserActionCreator(payload));
                 dispatch(setIsAuthActionCreator(true));
             }
             else {
+                if (response.resultCode === 10) {
+                    dispatch(getCaptchaUrlThunkCreator());
+                }
                 let error_message = response.messages.length > 0 ? response.messages[0] : 'Email or password is incorrect';
                 let action = stopSubmit('login', {_error: error_message});
                 dispatch(action);

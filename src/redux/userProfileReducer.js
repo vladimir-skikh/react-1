@@ -1,4 +1,6 @@
-import {profileAPI} from '../api/api'
+import {profileAPI} from '../api/api';
+import { stopSubmit } from 'redux-form';
+
 
 const SET_USER_PROFILE = 'message-me/userProfile/SET-USER-PROFILE';
 const UNSET_USER_PROFILE = 'message-me/userProfile/UNSET-USER-PROFILE';
@@ -116,11 +118,35 @@ export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
     if (response.resultCode === 0) {
         dispatch(setUserStatusActionCreator(status));
     }
+    else {
+        Promise.reject(response.messages[0]);
+    }
 } 
 export const uploadPhotoThunkCreator = (file) => async (dispatch) => {
     let response = await profileAPI.uploadPhoto(file);
     if (response.resultCode === 0) {
         dispatch(uploadPhotoActionCreator(response.data.photos));
+    }
+}
+export const saveProfileDataThunkCreator = (formData) => async (dispatch, getState) => {
+    const userId = getState().authReducer.userData.id;
+    const response = await profileAPI.saveProfileData(formData);
+
+    if (response.resultCode === 0) {
+        dispatch(getUserProfileThunkCreator(userId));
+    }
+    else {
+        let error_message = response.messages.length > 0 ? response.messages[0] : 'Invalid form data';
+        let index = error_message.indexOf('Contacts->');
+        let action = {};
+        if (index !== -1) {
+            let contact_key = error_message.substring(index + 10, error_message.length - 1).toLowerCase();
+            action = stopSubmit('myprofileSettings', {'contacts': {[contact_key]: error_message} } );
+        }
+        else {
+            action = stopSubmit('myprofileSettings', {_error: error_message});
+        }
+        dispatch(action);
     }
 }
 /** ---------------------------------------- */

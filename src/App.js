@@ -5,7 +5,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
 import MyProfileContainer from "./components/MyProfile/MyProfileContainer";
 import FollowContainer from "./components/Follow/FollowContainer";
-import { Route, withRouter, HashRouter } from "react-router-dom";
+import { Route, withRouter, HashRouter, Switch, Redirect } from "react-router-dom";
 import { Component } from "react";
 import { connect, Provider } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
@@ -19,12 +19,22 @@ const UsersContainer = React.lazy(() => import("./components/Users/UsersContaine
 const MessagesContainer = React.lazy(() => import("./components/Messages/MessagesContainer"));
 const UserProfileContainer = React.lazy(() => import("./components/UserProfile/UserProfileContainer"));
 const LoginContainer = React.lazy(() => import("./components/Login/LoginContainer"));
+const Settings = React.lazy(() => import("./components/Settings/Settings"));
 
 
 class App extends Component {
 
+    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+        alert(promiseRejectionEvent.reason);
+    }
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
 
     render() {
@@ -44,21 +54,27 @@ class App extends Component {
                         <FollowContainer />
                     </aside>
                     <div className="content">
-                        <Route path="/news" render={withSuspense(NewsContainer)}/>
-                        <Route
-                            path="/messages"
-                            render={withSuspense(MessagesContainer)}/>
-                        <Route
-                            path="/users"
-                            render={withSuspense(UsersContainer)} />
-                        <Route
-                            path="/user/:userId"
-                            render={withSuspense(UserProfileContainer)}/>
-                        <Route
-                            path="/profile"
-                            render={() => <MyProfileContainer />}
-                        />
-                        <Route path="/login" render={withSuspense(LoginContainer)} />
+                        <Switch>
+                            <Redirect exact from='/' to='/profile' />
+
+                            <Route path="/news" render={withSuspense(NewsContainer)}/>
+                            <Route path="/settings" render={withSuspense(Settings)}/>
+                            <Route
+                                path="/messages"
+                                render={withSuspense(MessagesContainer)}/>
+                            <Route
+                                path="/users"
+                                render={withSuspense(UsersContainer)} />
+                            <Route
+                                path="/user/:userId"
+                                render={withSuspense(UserProfileContainer)}/>
+                            <Route
+                                path="/profile"
+                                render={() => <MyProfileContainer />}
+                            />
+                            <Route path="/login" render={withSuspense(LoginContainer)} />
+                            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+                        </Switch>
                     </div>
                 </div>
             </div>

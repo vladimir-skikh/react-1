@@ -44,6 +44,9 @@ export const profileAPI = {
             }
         }).then( response => response.data);
     },
+    saveProfileData(formData) {
+        return instance.put(`profile`, formData).then( response => response.data);
+    }
 }
 
 export const authAPI = {
@@ -55,11 +58,17 @@ export const authAPI = {
             email: formData.email,
             password: formData.password,
             rememberMe: formData.rememberMe,
-            captcha: false,
+            captcha: formData.captcha ? formData.captcha : false,
         }).then( response => response.data);
     },
     logout() {
         return instance.delete('auth/login').then( response => response.data);
+    },
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get('security/get-captcha-url').then( response => response.data);
     },
 }
 

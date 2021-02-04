@@ -2,23 +2,12 @@ import React from 'react';
 import style from './MyProfile.module.css';
 import undefinedUser from '../../img/undefinedUser.png'
 import MyProfileStatusContainer from './MyProfileStatus/MyProfileStatusContainer';
+import classnames from 'classnames';
 
 class MyProfile extends React.Component
 {    
 
     templateAbout = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempus libero vel massa vulputate congue. Aenean commodo sem vitae dolor varius, in cursus est semper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas nulla augue, pretium in metus eu, gravida auctor quam. Donec et sem metus. Nulla sit amet eros sem. Sed vel lacinia est, id laoreet erat.';
-
-    hasContacts = false;
-    contacts = [];
-
-    componentDidMount() {
-        for (let key in this.props.profile.contacts) {
-            if (this.props.profile.contacts.key !== undefined) {
-                this.hasContacts = true;
-                this.contacts[key] = this.props.profile.contacts.key;
-            }
-        }
-    }
 
     onAvatarChange = (e) => {
         if (e.target.files.length) {
@@ -37,7 +26,7 @@ class MyProfile extends React.Component
                     }
                 </div>
                 <div className={style.userInfoBlock}>
-                    <div className={style.userInfoBlockItem + ' ' + style.userFullnameBlock}>
+                    <div className={classnames(style.userInfoBlockItem, style.userFullnameBlock)}>
                         <h3 className={style.userInfoTitle + ' ' + style.userFullnameTitle}>
                             Fullname
                         </h3>
@@ -50,25 +39,24 @@ class MyProfile extends React.Component
                         <h3 className={style.userInfoTitle + ' ' + style.userFullnameTitle}>
                             Contacts
                         </h3>
-                        {
-                            this.hasContacts
-                            ?                     
-                                <ul className={style.userContactsList}>
-                                    {
-                                        this.contacts.map( (url, key) => (
+                        <ul className={style.userContactsList}>
+                            {
+                                Object.keys(this.props.profile.contacts).map( key => {
+                                    if (this.props.profile.contacts[key] !== null) {
+                                        return (
                                             <li className={style.userContactsListItem + ' ' + key}>
-                                                <a href={url} className={style.userContactslink}>
+                                                <a href={this.props.profile.contacts[key]} className={style.userContactslink}>
                                                     {key}
                                                 </a>
                                             </li>
-                                        ))
+                                        );
                                     }
-                                </ul>
-                            : 
-                                <span className={style.userContactsUnavailable}>
-                                    User has no available contatcs
-                                </span>
-                        }
+                                })
+                            }
+                        </ul>
+                        <span className={style.userContactsUnavailable}>
+                            User has no available contatcs
+                        </span>
                     </div>
                     <div className={style.userInfoBlockItem}>
                         <h3 className={style.userInfoTitle}>

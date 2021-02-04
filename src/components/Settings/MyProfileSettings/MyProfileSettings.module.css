@@ -1,0 +1,75 @@
+.settingsForm {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    padding: 0 0 20px 0;
+}
+.settingsSectionTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #149AC9;
+    margin-bottom: 20px;
+}
+.settingsSectionInputs {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #f7f7f7;
+}
+.settingsLabel {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+.settingsSectionInputs .settingsInputBlock:not(:last-child) {
+    margin: 0 0 10px 0;
+}
+.settingsFormTextarea {
+    width: 100%;
+    padding: 8px;
+    min-height: 150px;
+    font-size: 14px;
+    border-radius: 15px;
+}
+.settingsFormTextarea:focus {
+    outline: none;
+    box-shadow: 0 0 20px -10px #149AC9;
+}
+
+.settingsContactsInputBlock {
+    display: flex;
+
+}
+.settingsContactsLabel {
+    margin-right: 20px;
+    text-transform: capitalize;
+}
+.settingsButtonInputBlock {
+    display: flex;
+    justify-content: center;
+}
+.settingsSubmitButton {
+    background: #149AC9;
+    transition: all 0.3s;
+    color: #fff;
+    border:1px solid #149AC9;
+    text-decoration: none;
+    padding: 7px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    border-radius: 30px;
+    letter-spacing: 0.05em;
+}
+.settingsSubmitButton:hover {
+    cursor: pointer;
+    background-color: #286090;
+}
+.settingsSubmitButton:focus {
+    border-color:#286090;
+    box-shadow: 0 0 15px -5px #149AC9;
+}
+.settingsFormError {
+    margin-bottom: 20px;
+}

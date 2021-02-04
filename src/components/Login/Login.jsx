@@ -6,7 +6,7 @@ import {Input} from '../common/FormControls/FormControls';
 import formStyle from '../common/FormControls/FormControls.module.css';
 import style from "./Login.module.css";
 
-export const LoginForm = (props) => {
+const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             {
@@ -53,6 +53,25 @@ export const LoginForm = (props) => {
                     errorSignSide='right'
                 />
             </div>
+            {
+                props.captchaUrl ?
+                    <div className={style.loginFormCaptchaBlock}>
+                        <img src={props.captchaUrl} alt="Captcha" className={style.loginFormCaptchaImage}/>
+                        <div className={style.loginInputBlock}>
+                            <label className={style.loginLabel} htmlFor="rememberMe">
+                                Enter symbols from image
+                            </label>
+                            <Field
+                                inputClassName={style.loginFormInput}
+                                component={Input}
+                                type="text"
+                                name="captcha"
+                                validate={[required]}
+                                errorSignSide='right'
+                            />
+                        </div>
+                    </div> : ''
+            }
             <div className={style.loginInputBlock}>
                 <button className={style.loginSubmitButton} type="submit">
                     Sign in
@@ -77,7 +96,7 @@ const Login = (props) => {
         <div className={style.login}>
             <h1 className={style.formTitle}>Login</h1>
             <div className={style.formDescription}>Log into your account</div>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </div>
     );
 };
