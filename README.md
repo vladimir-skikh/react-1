@@ -1,4 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### You must complete
+
+1. redux-ducks Reducers refactoring
+2. In the pagination of the user page, create buttons at the beginning and at the end of pages list
+3. Create login on a separate page
+4. Who to follow section - insert real users
+5. Main container wrapper: add padding
+6. Create Pagination component for users page
+7. usersPage add compоnentWillUnmount
+8. usersPage change some status of users to real status
+9. Make a normal button for uploading an avatar
+
 
 ## Available Scripts
 
@@ -37,32 +49,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `npm stop`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Stops the test runner in the interactive watch mode.
