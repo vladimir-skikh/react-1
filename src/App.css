@@ -19,6 +19,8 @@ body {
   column-gap: 30px;
   grid-template-areas: 
   'sidebar content';
+  padding: 0 15px;
+
 }
 .wrapper-header {
   grid-template-rows: 60px;
