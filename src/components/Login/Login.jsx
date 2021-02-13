@@ -42,8 +42,8 @@ const LoginForm = (props) => {
                 />
             </div>
             <div className={style.loginInputBlock}>
-                <label className={style.loginLabel} htmlFor="rememberMe">
-                    Remember Me
+                <label className={style.loginLabel + ' ' + style.loginLabelRememberMe} htmlFor="rememberMe">
+                    Remember Me?
                 </label>
                 <Field
                     inputClassName={style.loginFormCheckbox}

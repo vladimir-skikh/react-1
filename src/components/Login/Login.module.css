@@ -62,11 +62,17 @@
 .loginFormCheckbox:focus {
 
 }
+.loginFormCheckbox {
+    display: inline;
+}
 .loginLabel {
     color: #939598;
     margin: 0 0 10px;
     line-height: 16px;
     font-size: 16px;
+}
+.loginLabelRememberMe {
+    display: inline;
 }
 .loginSubmitButton {
     background: #149AC9;
@@ -88,4 +94,20 @@
 .loginSubmitButton:focus {
     border-color:#286090;
     box-shadow: 0 0 15px -5px #149AC9;
+}
+
+@media screen and (max-width: 992px) {
+    .login {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 760px) {
+    .login {
+        width: 70%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .login {
+        width: 90%;
+    }
 }

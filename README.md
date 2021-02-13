@@ -1,15 +1,12 @@
 
 ### You must complete
 
-1. redux-ducks Reducers refactoring
-2. In the pagination of the user page, create buttons at the beginning and at the end of pages list
-3. Create login on a separate page
-4. Who to follow section - insert real users
-5. Main container wrapper: add padding
-6. Create Pagination component for users page
-7. usersPage add compоnentWillUnmount
-8. usersPage change some status of users to real status
-9. Make a normal button for uploading an avatar
+Who to follow section - insert real users
+Main container wrapper: add padding
+Create Pagination component for users page
+usersPage add compоnentWillUnmount
+usersPage change some status of users to real status
+Make a normal button for uploading an avatar
 
 
 ## Available Scripts
