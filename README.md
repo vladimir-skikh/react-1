@@ -1,12 +1,12 @@
 
 ### You must complete
 
-- Who to follow section - insert real users<br />
 - Main container wrapper: add padding<br />
 - Create Pagination component for users page<br />
 - usersPage add compоnentWillUnmount<br />
 - usersPage change some status of users to real status<br />
 - Make a normal button for uploading an avatar<br />
+- Make it possible to subscribe to a user from the Who To Follow section<br />
 
 
 ## Available Scripts

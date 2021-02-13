@@ -1,4 +1,4 @@
-import usersAPI from '../api/api'
+import usersAPI from '../api/api';
 import { updateObjectInArray } from '../utils/helpers/helperObject';
 
 const FOLLOW_USER = "FOLLOW-USER";

@@ -2,17 +2,18 @@ import React from "react";
 import style from "./Follow.module.css";
 import User from "./User/User";
 
+
 let Follow = (props) => {
 
     let follow = props.followData
-                    .map(followItem => 
+                    .map(user => 
                         <User
-                            name={followItem.name}
-                            avatar={followItem.avatar}
-                            key={followItem.id}
+                            id={user.id}
+                            name={user.name}
+                            avatar={user.photos.small}
+                            key={user.id}
                         />
                     );
-
     return (
         <div className={style.follow}>
             <h4>Who to Follow</h4>
