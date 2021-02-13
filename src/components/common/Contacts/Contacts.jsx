@@ -9,7 +9,7 @@ const Contatcs = ({contacts}) => {
                 if (contacts[key] !== '' && contacts[key] !== null) {
                     return (
                         <li className={style.userContactsListItem}>
-                            <a href={contacts[key]} className={style.userContactslink + ' ' + style[key]}></a>
+                            <a href={contacts[key]} className={style.userContactslink + ' ' + style[key]}>{key}</a>
                         </li>
                     );
                 }
