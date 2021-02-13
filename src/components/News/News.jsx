@@ -4,9 +4,9 @@ import Post from "./Post/Post";
 import NewPostContainer from './NewPost/NewPostContainer';
 
 /** React memo делает оптимизацию по типу shoudComponentUpdate или PureComponent */
-const News = React.memo(props => {
+const News = React.memo( ({postsData}) => {
 
-    let posts = props.postsData.map( post => 
+    let posts = postsData.map( post => 
             <Post
                 postText={post.postText}
                 postPhoto={post.postPhoto}

@@ -1,16 +1,21 @@
 import React from "react";
 import style from './Post.module.css';
 
-const Post = (props) => {
+const Post = ({
+  postPhoto, 
+  authorAvatar, 
+  authorName, 
+  postText
+}) => {
   return (
     <div className={style.item}>
-      <img src={props.postPhoto} alt="" className={style.postPhoto}/>
+      <img src={postPhoto} alt="" className={style.postPhoto}/>
       <div className={style.postDesc}>
         <div className={style.author}>
-          <img src={props.authorAvatar} alt="" className={style.avatar}/>
+          <img src={authorAvatar} alt="" className={style.avatar}/>
           <div className={style.authorDesc}>
             <div className={style.authorDesc__left}>
-              <span className={style.userName}>{props.authorName}</span>
+              <span className={style.userName}>{authorName}</span>
               <span className={style.published}>Published a photo about 3 mins ago</span>
             </div>
             <div className={style.authorDesc__right}>
@@ -19,7 +24,7 @@ const Post = (props) => {
           </div>
         </div>
         <div className={style.text}>
-          <p>{ props.postText }</p>
+          <p>{ postText }</p>
         </div>
       </div>
     </div>

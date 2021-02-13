@@ -5,9 +5,10 @@ import {required, maxLength3000} from '../../../utils/validators/validators';
 import {Textarea} from '../../common/FormControls/FormControls';
 
 
-let NewPost = (props) => {
+let NewPost = ({addNewPost}) => {
+    
     let onAddPost = (formData) => {
-        props.addNewPost(formData.newPostText);
+        addNewPost(formData.newPostText);
     };
 
     return (
@@ -17,9 +18,9 @@ let NewPost = (props) => {
     );
 };
 
-const NewPostFrom = (props) => {
+const NewPostFrom = ({handleSubmit, newpost_button}) => {
     return (
-        <form onSubmit={props.handleSubmit} className={style.newpost}>
+        <form onSubmit={handleSubmit} className={style.newpost}>
             <div className={style.newpostTextareaBlock}>
                 <Field
                     inputClassName={style.newpostTextarea}

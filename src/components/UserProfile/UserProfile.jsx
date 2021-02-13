@@ -4,17 +4,17 @@ import undefinedUser from '../../img/undefinedUser.png';
 import UserProfileStatusContainer from './UserProfileStatus/UserProfileStatusContainer';
 
 
-let UserProfile = (props) => {
+let UserProfile = ({profile}) => {
 
     let templateAbout = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempus libero vel massa vulputate congue. Aenean commodo sem vitae dolor varius, in cursus est semper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas nulla augue, pretium in metus eu, gravida auctor quam. Donec et sem metus. Nulla sit amet eros sem. Sed vel lacinia est, id laoreet erat.';
 
     let hasContacts = false;
     let contacts = [];
 
-    for (let key in props.profile.contacts) {
-        if (props.profile.contacts.key !== undefined) {
+    for (let key in profile.contacts) {
+        if (profile.contacts.key !== undefined) {
             hasContacts = true;
-            contacts[key] = props.profile.contacts.key;
+            contacts[key] = profile.contacts.key;
         }
     }
 
@@ -22,8 +22,8 @@ let UserProfile = (props) => {
         <div className={style.user}>
             <div className={style.userImageBlock}>
                 {
-                    props.profile.photos.large
-                    ? <img src={props.profile.photos.large} alt="" className={style.userImage} />
+                    profile.photos.large
+                    ? <img src={profile.photos.large} alt="" className={style.userImage} />
                     : <img src={undefinedUser} alt="" className={style.userImage} />
                 }
             </div>
@@ -33,7 +33,7 @@ let UserProfile = (props) => {
                         Fullname
                     </h3>
                     <span className={style.userFullname}>
-                        {props.profile.fullName}
+                        {profile.fullName}
                     </span>
                     <UserProfileStatusContainer />
                 </div>
@@ -65,8 +65,8 @@ let UserProfile = (props) => {
             <div className={style.userAboutBlock}>
                 <p className={style.userAbout}>
                     {
-                        props.profile.aboutMe
-                        ? props.profile.aboutMe
+                        profile.aboutMe
+                        ? profile.aboutMe
                         : templateAbout
                     }
                 </p>
