@@ -193,17 +193,18 @@ export const setIsFetchingActionCreator = (isFetching) => {
 /** --------------------------------------------- */
 
 /** ---------------Thunk Creators---------------- */
-export const getUsersThunkCreator = (count, page) => {
-    return (dispatch) => {
-        dispatch(setIsFetchingActionCreator(true));
-    
-        usersAPI.getUsers(count, page).then((response) => {
-            dispatch(setUsersActionCreator(response.items));
-            dispatch(setPageSizeActionCreator(count));
-            dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
-            dispatch(setCurrentPageActionCreator(page));
-            dispatch(setIsFetchingActionCreator(false));
-        });
+export const getUsersThunkCreator = (count, page) => async (dispatch) => {
+
+    dispatch(setIsFetchingActionCreator(true));
+
+    let response = await usersAPI.getUsers(count, page);
+
+    if (response.error === null) {
+        dispatch(setUsersActionCreator(response.items));
+        dispatch(setPageSizeActionCreator(count));
+        dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
+        dispatch(setCurrentPageActionCreator(page));
+        dispatch(setIsFetchingActionCreator(false));
     }
 } 
 export const toggleFollowThunkCreator = (user_id, isFollow) => {
@@ -220,13 +221,15 @@ export const toggleFollowThunkCreator = (user_id, isFollow) => {
 } 
 export const showMoreUsersThunkCreator = (count, currentPage) => async (dispatch) => {
 
-    let response = usersAPI.getUsers(count, currentPage);
+    let response = await usersAPI.getUsers(count, currentPage);
 
-    dispatch(setUsersActionCreator(response.items, true));
-    dispatch(setPageSizeActionCreator(count));
-    dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
-    dispatch(setCurrentPageActionCreator(currentPage));
-    dispatch(setIsFetchingActionCreator(false));
+    if (response.error === null) {
+        dispatch(setUsersActionCreator(response.items, true));
+        dispatch(setPageSizeActionCreator(count));
+        dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
+        dispatch(setCurrentPageActionCreator(currentPage));
+        dispatch(setIsFetchingActionCreator(false));
+    }
 }
 /** --------------------------------------------- */
 

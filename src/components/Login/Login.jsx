@@ -93,10 +93,13 @@ const Login = (props) => {
     if (props.isAuth) return <Redirect to="/profile" />
 
     return (
-        <div className={style.login}>
-            <h1 className={style.formTitle}>Login</h1>
-            <div className={style.formDescription}>Log into your account</div>
-            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+        <div className={style.loginPage}>
+            <div className={style.login}>
+                <h1 className={style.socialNetworkTitle}>MeesageMe</h1>
+                <h1 className={style.formTitle}>Login</h1>
+                <div className={style.formDescription}>Log into your account</div>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+            </div>
         </div>
     );
 };

@@ -1,5 +1,28 @@
+.loginPage {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to right, rgba(0,0,0, 0.7) , rgba(0,0,0, 0.7)), url(https://themified.com/friend-finder/images/bg/bg-3.jpg) fixed no-repeat
+}
 .login {
-    width: 50%;
+    width: 30%;
+    padding: 20px 30px 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: 480px;
+    background-color: #ffffff;
+}
+.socialNetworkTitle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 25px;
+    align-self: center;
+    color: #27aae1;
+    border-bottom: 1px solid #27aae1;
 }
 .formTitle {
     color: #27aae1;

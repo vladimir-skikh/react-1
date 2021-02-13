@@ -41,7 +41,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-basis: 30px;
+    padding: 0 8px;
+    margin: 0 5px;
     color: #149AC9;
 }
 .paginationListItem:hover {
@@ -56,4 +57,7 @@
     font-weight: bold;
     background-color:#149AC9;
     border-color: #149AC9;
+}
+.hidden {
+    display: none;
 }

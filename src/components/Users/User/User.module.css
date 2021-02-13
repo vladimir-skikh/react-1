@@ -64,3 +64,6 @@
 .followButton:disabled {
     background-color: #035775a9;
 }
+.hidden {
+    display: none;
+}

@@ -32,6 +32,14 @@ let Users = (props) => {
             }
             <div className={style.pagination}>
                 <ul className={style.paginationList}>
+                    <li 
+                        className={style.paginationListItem + ' ' + (props.currentPage === 1 ? style.hidden : '')}
+                        onClick={ () => {
+                            onChangeCurrentPage(1);
+                        }}
+                    >
+                        ⋘
+                    </li>
                     {   
                         props.pages.slice(paginationStart, paginationEnd).map( page => (
                             <li 
@@ -44,14 +52,25 @@ let Users = (props) => {
                             </li>
                         ))
                     }
+                    <li 
+                        className={style.paginationListItem + ' ' + (props.currentPage === props.pages.length ? style.hidden : '')}
+                        onClick={ () => {
+                            onChangeCurrentPage(props.pages.length);
+                        }}
+                    >
+                        ⋙
+                    </li>
                 </ul>
             </div>
-            <button
-                className={style.showMoreButton}
-                onClick={props.onShowMoreClick}
-            >
-                Show more
-            </button>
+            {
+                props.currentPage !== props.pages.length ?
+                <button
+                    className={style.showMoreButton}
+                    onClick={props.onShowMoreClick}
+                >
+                    Show more
+                </button> : ''
+            }
         </div>
     )
 }

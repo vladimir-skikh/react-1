@@ -106,6 +106,7 @@ export const unsetUserThunkCreator = () => async (dispatch) => {
             id: null,
             email: null,
             login: null,
+            captchaUrl: null,
         }
         dispatch(unsetUserActionCreator(payload));
         dispatch(setIsAuthActionCreator(false));
@@ -119,7 +120,7 @@ const getCaptchaUrlThunkCreator = () => async (dispatch) => {
 }
 
 export const setIsAuthThunkCreator = (formData) => async (dispatch) => {
-    let response = authAPI.login(formData);
+    let response = await authAPI.login(formData);
     if (response.resultCode === 0) {
         let payload = {
             id: response.data.userId,

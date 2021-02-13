@@ -42,42 +42,47 @@ class App extends Component {
             return <Preloader />;
         }
         return (
-            <div>
-                <div className="header-background">
-                    <div className="wrapper wrapper-header">
-                        <HeaderContainer />
-                    </div>
-                </div>
-                <div className="wrapper wrapper-content">
-                    <aside className="sidebar">
-                        <Nav />
-                        <FollowContainer />
-                    </aside>
-                    <div className="content">
-                        <Switch>
-                            <Redirect exact from='/' to='/profile' />
-
-                            <Route path="/news" render={withSuspense(NewsContainer)}/>
-                            <Route path="/settings" render={withSuspense(Settings)}/>
-                            <Route
-                                path="/messages"
-                                render={withSuspense(MessagesContainer)}/>
-                            <Route
-                                path="/users"
-                                render={withSuspense(UsersContainer)} />
-                            <Route
-                                path="/user/:userId"
-                                render={withSuspense(UserProfileContainer)}/>
-                            <Route
-                                path="/profile"
-                                render={() => <MyProfileContainer />}
-                            />
-                            <Route path="/login" render={withSuspense(LoginContainer)} />
-                            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
-                        </Switch>
-                    </div>
-                </div>
-            </div>
+            <Switch>
+                <Route path="/login" render={withSuspense(LoginContainer)} />
+                <Route path="*" render={() => {
+                    return (
+                        <div>
+                            <div className="header-background">
+                                <div className="wrapper wrapper-header">
+                                    <HeaderContainer />
+                                </div>
+                            </div>
+                            <div className="wrapper wrapper-content">
+                                <aside className="sidebar">
+                                    <Nav />
+                                    <FollowContainer />
+                                </aside>
+                                <div className="content">
+                                    <Switch>
+                                        <Redirect exact from='/' to='/profile' />
+                                        <Route path="/news" render={withSuspense(NewsContainer)}/>
+                                        <Route path="/settings" render={withSuspense(Settings)}/>
+                                        <Route
+                                            path="/messages"
+                                            render={withSuspense(MessagesContainer)}/>
+                                        <Route
+                                            path="/users"
+                                            render={withSuspense(UsersContainer)} />
+                                        <Route
+                                            path="/user/:userId"
+                                            render={withSuspense(UserProfileContainer)}/>
+                                        <Route
+                                            path="/profile"
+                                            render={() => <MyProfileContainer />}
+                                        />
+                                        <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+                                    </Switch>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                }} />
+            </Switch>
         );
     }
 }
@@ -85,6 +90,7 @@ class App extends Component {
 let mapStateToProps = (state) => {
     return {
         isInitialized: state.appReducer.initialized,
+        isAuth: state.authReducer.isAuth,
     }
 }
 
