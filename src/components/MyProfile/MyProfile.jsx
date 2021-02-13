@@ -3,6 +3,7 @@ import style from './MyProfile.module.css';
 import undefinedUser from '../../img/undefinedUser.png'
 import MyProfileStatusContainer from './MyProfileStatus/MyProfileStatusContainer';
 import classnames from 'classnames';
+import Contacts from '../common/Contacts/Contacts';
 
 class MyProfile extends React.Component
 {    
@@ -35,29 +36,22 @@ class MyProfile extends React.Component
                         </span>
                         <MyProfileStatusContainer userId={this.props.profile.userId}/>
                     </div>
-                    <div className={style.userInfoBlockItem + ' ' + style.userContactsBlock}>
+                    <div className={classnames(style.userInfoBlockItem)}>
                         <h3 className={style.userInfoTitle + ' ' + style.userFullnameTitle}>
                             Contacts
                         </h3>
-                        <ul className={style.userContactsList}>
+                        <div className={style.userInfoBlockItem + ' ' + style.userContactsBlock}>
                             {
-                                Object.keys(this.props.profile.contacts).map( key => {
-                                    if (this.props.profile.contacts[key] !== null) {
-                                        return (
-                                            <li className={style.userContactsListItem + ' ' + key}>
-                                                <a href={this.props.profile.contacts[key]} className={style.userContactslink}>
-                                                    {key}
-                                                </a>
-                                            </li>
-                                        );
-                                    }
-                                    else return '';
-                                })
+                                Object.keys(this.props.profile.contacts).length !== 0 
+                                ? 
+                                    <Contacts contacts={this.props.profile.contacts}/>
+                                :
+                                    <span className={style.userContactsUnavailable}>
+                                        User has no available contatcs
+                                    </span> 
+
                             }
-                        </ul>
-                        <span className={style.userContactsUnavailable}>
-                            User has no available contatcs
-                        </span>
+                        </div>
                     </div>
                     <div className={style.userInfoBlockItem}>
                         <h3 className={style.userInfoTitle}>

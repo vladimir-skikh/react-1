@@ -1,0 +1,51 @@
+.userContactsList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex;
+}
+.userContactslink {
+    display: block;
+    width: 20px;
+    height: 20px;
+    font-size: 1px;
+    position: relative;
+    padding-left: 15px;
+}
+.userContactslink::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-size: contain;
+}
+.github::before {
+    background-image: url('../../../img/contacts/github.svg');
+}
+.vk::before {
+    background-image: url('../../../img/contacts/vk.svg');
+}
+.facebook::before {
+    background-image: url('../../../img/contacts/facebook.svg');
+}
+.twitter::before {
+    background-image: url('../../../img/contacts/twitter.svg');
+}
+.youtube::before {
+    background-image: url('../../../img/contacts/youtube.svg');
+}
+.website::before {
+    background-image: url('../../../img/contacts/website.svg');
+}
+.mainLink::before {
+    background-image: url('../../../img/contacts/mainlink.svg');
+}
+.instagram::before {
+    background-image: url('../../../img/contacts/instagram.svg');
+}
+.userContactsListItem:not(:last-of-type) {
+    margin-right: 10px;
+}
