@@ -1,5 +1,5 @@
-const ADD_POST = 'ADD-POST';
-const DELETE_POST = 'DELETE-POST';
+const ADD_POST = 'message-me/newsPageReducer/ADD-POST';
+const DELETE_POST = 'message-me/newsPageReducer/DELETE-POST';
 
 
 let initialState = {
@@ -71,6 +71,7 @@ const newsReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
+/** -------Action creators------- */
 export const addPostActionCreator = (newPostText) => {
     let action = {
         type: ADD_POST,
@@ -86,5 +87,6 @@ export const deletePostActionCreator = (post_id) => {
     }
     return action;
 }
+/** ------------------------------ */
 
 export default newsReducer;

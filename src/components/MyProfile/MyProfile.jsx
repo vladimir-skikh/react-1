@@ -51,6 +51,7 @@ class MyProfile extends React.Component
                                             </li>
                                         );
                                     }
+                                    else return '';
                                 })
                             }
                         </ul>

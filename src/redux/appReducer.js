@@ -1,6 +1,6 @@
 import { checkAuthThunkCreator } from "./authReducer";
 
-const SET_INITIALIZED = 'SET-INITIALIZED';
+const SET_INITIALIZED = 'messege-me/appReducer/SET-INITIALIZED';
 
 let initialState = {
     initialized: false,

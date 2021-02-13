@@ -218,19 +218,19 @@ export const toggleFollowThunkCreator = (user_id, isFollow) => {
         } 
     }
 } 
-export const showMoreUsersThunkCreator = (count, currentPage) => (dispatch) => {
-    return usersAPI.getUsers(count, currentPage).then( response => {
-        debugger
-        dispatch(setUsersActionCreator(response.items, true));
-        dispatch(setPageSizeActionCreator(count));
-        dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
-        dispatch(setCurrentPageActionCreator(currentPage));
-        dispatch(setIsFetchingActionCreator(false));
-    })
+export const showMoreUsersThunkCreator = (count, currentPage) => async (dispatch) => {
+
+    let response = usersAPI.getUsers(count, currentPage);
+
+    dispatch(setUsersActionCreator(response.items, true));
+    dispatch(setPageSizeActionCreator(count));
+    dispatch(setPagesCountActionCreator(Math.ceil(response.totalCount / count)));
+    dispatch(setCurrentPageActionCreator(currentPage));
+    dispatch(setIsFetchingActionCreator(false));
 }
 /** --------------------------------------------- */
 
-/** Other helpfull function */
+/** ----------Other helpfull functions---------- */
 const toggleFollowUnfollow = async (dispatch, user_id, apiMethod, actionCreator) => {
     dispatch(followingProgressActionCreator(user_id, true));
 
@@ -241,6 +241,6 @@ const toggleFollowUnfollow = async (dispatch, user_id, apiMethod, actionCreator)
         dispatch(followingProgressActionCreator(user_id, false));
     }
 }
-/** ----------------------- */
+/** ------------------------------------------- */
 
 export default usersReducer;

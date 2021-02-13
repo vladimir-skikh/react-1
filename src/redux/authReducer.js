@@ -1,10 +1,10 @@
 import { stopSubmit } from 'redux-form';
 import {authAPI, securityAPI} from '../api/api';
 
-const SET_USER_DATA = 'messageme/authReducer/SET-USER-DATA';
-const UNSET_USER_DATA = 'messageme/authReducer/UNSET-USER-DATA';
-const TOGLE_IS_AUTH = 'messageme/authReducer/TOGLE-IS-AUTH';
-const SET_CAPTCHA_URL = 'messageme/authReducer/SET-CAPTCHA-URL';
+const SET_USER_DATA = 'message-me/authReducer/SET-USER-DATA';
+const UNSET_USER_DATA = 'message-me/authReducer/UNSET-USER-DATA';
+const TOGLE_IS_AUTH = 'message-me/authReducer/TOGLE-IS-AUTH';
+const SET_CAPTCHA_URL = 'message-me/authReducer/SET-CAPTCHA-URL';
 
 
 let initialState = {
@@ -56,6 +56,7 @@ const authReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
+/** -------Action creators--------- */
 export const setUserActionCreator = (payload) => {
     let action = {
         type: SET_USER_DATA,
@@ -79,33 +80,6 @@ export const setIsAuthActionCreator = (isAuth) => {
     return action;
 }
 
-
-
-export const checkAuthThunkCreator = () => (dispatch) => {
-    return authAPI.me().then( response => {
-        if (response.resultCode === 0) {
-            dispatch(setUserActionCreator(response.data));
-            dispatch(setIsAuthActionCreator(true));
-        }
-    });
-}
-
-export const unsetUserThunkCreator = () => {
-    return (dispatch) => {
-        authAPI.logout().then( response => {
-            if (response.resultCode === 0) {
-                let payload = {
-                    id: null,
-                    email: null,
-                    login: null,
-                }
-                dispatch(unsetUserActionCreator(payload));
-                dispatch(setIsAuthActionCreator(false));
-            }
-        });
-    }
-}
-
 const setCaptchaUrlActionCreator = (url) => {
     let action = {
         type: SET_CAPTCHA_URL,
@@ -113,7 +87,30 @@ const setCaptchaUrlActionCreator = (url) => {
     }
     return action;
 }
+/** --------------------------------- */
 
+/** -------Thunk creators--------- */
+export const checkAuthThunkCreator = () => async (dispatch) => {
+    let response = await authAPI.me();
+
+    if (response.resultCode === 0) {
+        dispatch(setUserActionCreator(response.data));
+        dispatch(setIsAuthActionCreator(true));
+    }
+}
+
+export const unsetUserThunkCreator = () => async (dispatch) => {
+    let response = await authAPI.logout();
+    if (response.resultCode === 0) {
+        let payload = {
+            id: null,
+            email: null,
+            login: null,
+        }
+        dispatch(unsetUserActionCreator(payload));
+        dispatch(setIsAuthActionCreator(false));
+    }
+}
 const getCaptchaUrlThunkCreator = () => async (dispatch) => {
     let response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.url;
@@ -121,28 +118,28 @@ const getCaptchaUrlThunkCreator = () => async (dispatch) => {
     dispatch(setCaptchaUrlActionCreator(captchaUrl));
 }
 
-export const setIsAuthThunkCreator = (formData) => {
-    return (dispatch) => {
-        authAPI.login(formData).then( response => {
-            if (response.resultCode === 0) {
-                let payload = {
-                    id: response.data.userId,
-                    email: null,
-                    login: null,
-                }
-                dispatch(setUserActionCreator(payload));
-                dispatch(setIsAuthActionCreator(true));
-            }
-            else {
-                if (response.resultCode === 10) {
-                    dispatch(getCaptchaUrlThunkCreator());
-                }
-                let error_message = response.messages.length > 0 ? response.messages[0] : 'Email or password is incorrect';
-                let action = stopSubmit('login', {_error: error_message});
-                dispatch(action);
-            }
-        });
+export const setIsAuthThunkCreator = (formData) => async (dispatch) => {
+    let response = authAPI.login(formData);
+    if (response.resultCode === 0) {
+        let payload = {
+            id: response.data.userId,
+            email: null,
+            login: null,
+        }
+        dispatch(setUserActionCreator(payload));
+        dispatch(setIsAuthActionCreator(true));
+    }
+    else {
+        /** Неверный код капчи */
+        if (response.resultCode === 10) {
+            dispatch(getCaptchaUrlThunkCreator());
+        }
+
+        let error_message = response.messages.length > 0 ? response.messages[0] : 'Email or password is incorrect';
+        let action = stopSubmit('login', {_error: error_message});
+        dispatch(action);
     }
 }
+/** --------------------------------- */
 
 export default authReducer;

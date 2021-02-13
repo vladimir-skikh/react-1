@@ -1,4 +1,4 @@
-const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
+const ADD_NEW_MESSAGE = 'messege-me/messagesPageReducer/ADD-NEW-MESSAGE';
 
 let initialState = {
     dialogsData: [
