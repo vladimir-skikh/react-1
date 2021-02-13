@@ -242,5 +242,6 @@ const toggleFollowUnfollow = async (dispatch, user_id, apiMethod, actionCreator)
     }
 }
 /** ------------------------------------------- */
+/** Тест */
 
 export default usersReducer;
