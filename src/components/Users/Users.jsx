@@ -1,21 +1,10 @@
 import React from "react";
 import style from "./Users.module.css";
 import UserContainer from "./User/UserContainer";
+import Pagination from '../common/Pagination/Pagination';
 
 
 let Users = (props) => {
-
-    let paginationStart = 0;
-    let paginationEnd = 11;
-    if (props.currentPage > 6) {
-        paginationStart = props.currentPage - 6;
-        paginationEnd = props.currentPage + 5;
-    }
-
-    let onChangeCurrentPage = (pageNum) => {
-        props.updateUsers(props.count, pageNum);
-    }
-
     return (
         <div className={style.users}>
             {
@@ -30,38 +19,12 @@ let Users = (props) => {
                     />
                 ))
             }
-            <div className={style.pagination}>
-                <ul className={style.paginationList}>
-                    <li 
-                        className={style.paginationListItem + ' ' + (props.currentPage === 1 ? style.hidden : '')}
-                        onClick={ () => {
-                            onChangeCurrentPage(1);
-                        }}
-                    >
-                        ⋘
-                    </li>
-                    {   
-                        props.pages.slice(paginationStart, paginationEnd).map( page => (
-                            <li 
-                                className={style.paginationListItem + ' ' + (props.currentPage === page ? style.paginationListItemCurrent : '')}
-                                onClick={ () => {
-                                    onChangeCurrentPage(page);
-                                }}
-                            >
-                                {page}
-                            </li>
-                        ))
-                    }
-                    <li 
-                        className={style.paginationListItem + ' ' + (props.currentPage === props.pages.length ? style.hidden : '')}
-                        onClick={ () => {
-                            onChangeCurrentPage(props.pages.length);
-                        }}
-                    >
-                        ⋙
-                    </li>
-                </ul>
-            </div>
+            <Pagination 
+                updateData={props.updateUsers}
+                count={props.count}
+                currentPage={props.currentPage}
+                pages={props.pages}
+            />
             {
                 props.currentPage !== props.pages.length ?
                 <button
