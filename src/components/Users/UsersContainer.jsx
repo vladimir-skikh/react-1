@@ -11,6 +11,7 @@ import {
     setCurrentPageActionCreator,
     setIsFetchingActionCreator,
     getUsersThunkCreator,
+    unsetUsersActionCreator,
 } from "../../redux/usersPageReducer";
 import {
     getUsersData,
@@ -49,6 +50,10 @@ class UsersAPIContainer extends React.Component {
         if (this.props.usersData.length === 0) {
             this.updateUsers(count, page);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.unsetUsers();
     }
 
     render() {
@@ -93,6 +98,7 @@ let actionCreators = {
     setCurrentPage: setCurrentPageActionCreator,
     setIsFetching: setIsFetchingActionCreator,
     getUsers: getUsersThunkCreator,
+    unsetUsers: unsetUsersActionCreator
 };
 
 export default compose(

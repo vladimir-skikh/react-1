@@ -1,15 +1,16 @@
 import usersAPI from '../api/api';
 import { updateObjectInArray } from '../utils/helpers/helperObject';
 
-const FOLLOW_USER = "FOLLOW-USER";
-const UNFOLLOW_USER = "UNFOLLOW-USER";
-const SET_USERS = "SET-USERS";
-const SET_USERS_COUNT = "SET-USERS-COUNT";
-const SET_PAGE_SIZE = "SET-PAGE-SIZE";
-const SET_PAGES_COUNT = "SET-PAGES-COUNT";
-const SET_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
-const IS_FETCHING = "IS-FETCHING";
-const FOLLOWING_IN_PROGRESS = "FOLLOWING-IN-PROGRESS";
+const FOLLOW_USER = "message-me/usersReducer/FOLLOW-USER";
+const UNFOLLOW_USER = "message-me/usersReducer/UNFOLLOW-USER";
+const SET_USERS = "message-me/usersReducer/SET-USERS";
+const UNSET_USERS = "message-me/usersReducer/UNSET-USERS";
+const SET_USERS_COUNT = "message-me/usersReducer/SET-USERS-COUNT";
+const SET_PAGE_SIZE = "message-me/usersReducer/SET-PAGE-SIZE";
+const SET_PAGES_COUNT = "message-me/usersReducer/SET-PAGES-COUNT";
+const SET_CURRENT_PAGE = "message-me/usersReducer/CHANGE-CURRENT-PAGE";
+const IS_FETCHING = "message-me/usersReducer/IS-FETCHING";
+const FOLLOWING_IN_PROGRESS = "message-me/usersReducer/FOLLOWING-IN-PROGRESS";
 
 let initialState = {
     usersData: [],
@@ -41,6 +42,14 @@ const usersReducer = (state = initialState, action) => {
                     usersData: [...action.users],
                 };
             }
+            break;
+        }
+        case UNSET_USERS: {
+            stateCopy = {
+                ...state,
+                usersData: [],
+                currentPage: 1
+            };
             break;
         }
         case SET_USERS_COUNT: {
@@ -190,6 +199,12 @@ export const setIsFetchingActionCreator = (isFetching) => {
     };
     return action;
 };
+export const unsetUsersActionCreator = () => {
+    let action = {
+        type: UNSET_USERS
+    }
+    return action;
+}
 /** --------------------------------------------- */
 
 /** ---------------Thunk Creators---------------- */
