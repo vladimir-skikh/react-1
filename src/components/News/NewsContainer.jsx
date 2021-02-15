@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { getNews } from "../../redux/selectors/newsSelector";
 import News from "./News";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 let mapStateToProps = (state) => {
     return {
@@ -9,6 +11,9 @@ let mapStateToProps = (state) => {
 }
 let actionCreators = {}
 
-const NewsContainer = connect(mapStateToProps, actionCreators)(News);
+const NewsContainer = compose(
+    withAuthRedirect,
+    connect(mapStateToProps, actionCreators),
+)(News);
 
 export default NewsContainer;

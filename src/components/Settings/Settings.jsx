@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from "react-router-dom";
 import { compose } from 'redux';
+import withAuthRedirect from '../hoc/withAuthRedirect';
 import MyProfileSettingsContainer from './MyProfileSettings/MyProfileSettingsContainer';
 
 const Settings = (props) => {
@@ -31,6 +32,4 @@ const SettingsContainer = (props) => {
 }
 
 
-
-
-export default compose(withRouter)(SettingsContainer);
+export default compose(withAuthRedirect, withRouter)(SettingsContainer);

@@ -29,7 +29,9 @@ class User extends React.Component {
                 </div>
                 <div className={style.userInfoBlock}>
                     <div className={style.userInfo}>
-                        <span className={style.userName}>{this.props.userName}</span>
+                        <NavLink to={'/user/' + this.props.id} userId={this.props.id} className={style.userName}>
+                            <span className={style.userName}>{this.props.userName}</span>
+                        </NavLink>
                         {
                             this.props.avatar
                             ? <span className={style.status}>{this.props.status}</span>
