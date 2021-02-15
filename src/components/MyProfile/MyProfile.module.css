@@ -14,12 +14,40 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .userImage {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-
+}
+.userAvatarInputBlock {
+    position: absolute;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    top: 15px;
+    right: 15px;
+    transform: translate(15px, -15px);
+    transition: all 0.3s ease;
+}
+.userImageBlock:hover .userAvatarInputBlock {
+    height: 30px;
+    width: 30px;
+    transform: translate(0);
+    transition: all 0.3s ease;
+}
+.userAvatarIcon {
+    display: block;
+    color: #149AC9;
+    font-weight: bold;
+    font-size: 25px;
+} 
+.userAvatarIcon:hover {
+    cursor: pointer;
+}
+.userAvatarInput {
+    display: none;
 }
 .userInfoBlock {
     grid-area: infoBlock;

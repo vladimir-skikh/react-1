@@ -25,6 +25,18 @@ class MyProfile extends React.Component
                         ? <img src={this.props.profile.photos.large} alt="" className={style.userImage} />
                         : <img src={undefinedUser} alt="" className={style.userImage} />
                     }
+                    <div className={style.userAvatarInputBlock}>
+                        <label htmlFor="avatarInput" className={style.userAvatarIcon}>
+                            ↻
+                            <input 
+                                type="file" o
+                                nChange={this.onAvatarChange} 
+                                className={style.userAvatarInput} 
+                                id="avatarInput" 
+                                name="avatarInput"
+                            />
+                        </label>
+                    </div>
                 </div>
                 <div className={style.userInfoBlock}>
                     <div className={classnames(style.userInfoBlockItem, style.userFullnameBlock)}>
@@ -53,13 +65,6 @@ class MyProfile extends React.Component
                             }
                         </div>
                     </div>
-                    <div className={style.userInfoBlockItem}>
-                        <h3 className={style.userInfoTitle}>
-                            Avatar
-                        </h3>
-                        <input type="file" onChange={this.onAvatarChange}/>
-                    </div>
-
                 </div>
                 <div className={style.userAboutBlock}>
                     <p className={style.userAbout}>
