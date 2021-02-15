@@ -33,7 +33,7 @@ class User extends React.Component {
                         {
                             this.props.avatar
                             ? <span className={style.status}>{this.props.status}</span>
-                            : <span className={style.status}>Some status</span>
+                            : <span className={style.status}>No status</span>
                         }
                     </div>
                     <div className={style.followButtonBlock}>
