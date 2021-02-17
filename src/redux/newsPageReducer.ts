@@ -2,19 +2,13 @@ const ADD_POST = 'message-me/newsPageReducer/ADD-POST';
 const DELETE_POST = 'message-me/newsPageReducer/DELETE-POST';
 
 type PostType = {
-    id: number,
-    postText: string,
-    postPhoto: string,
-    authorAvatar: string,
+    id: number
+    postText: string
+    postPhoto: string
+    authorAvatar: string
     authorName: string
 }
-
-type initialStateType = {
-    postsData: Array<PostType>,
-    newPostText: string,
-}
-
-let initialState: initialStateType = {
+let initialState = {
     postsData: [
         {
             id: 1,
@@ -37,11 +31,13 @@ let initialState: initialStateType = {
             authorAvatar: "https://themified.com/friend-finder/images/users/user-4.jpg",
             authorName: "John Doe",
         },
-    ],
+    ] as Array<PostType>,
     newPostText: 'Write what you wish',
 }
 
-const newsReducer = (state:initialStateType = initialState, action) => {
+export type initialStateType = typeof initialState;
+
+const newsReducer = (state = initialState, action:any):initialStateType => {
     
     let stateCopy: initialStateType;
 
@@ -83,26 +79,28 @@ const newsReducer = (state:initialStateType = initialState, action) => {
     return stateCopy;
 }
 
-/** -------Action creators------- */
-type addPostActionType = {
+/** -----Action types----- */
+type AddPostActionType = {
     type: typeof ADD_POST,
     newPostText:string
 }
-type deletePostActionType = {
+type DeletePostActionType = {
     type: typeof DELETE_POST,
     post_id:number
 }
+/** ---------------------- */
 
-export const addPostActionCreator = (newPostText:string) => {
-    let action:addPostActionType = {
+/** -------Action creators------- */
+export const addPostActionCreator = (newPostText:string):AddPostActionType => {
+    let action:AddPostActionType = {
         type: ADD_POST,
         newPostText: newPostText,
     }
     return action;
 }
 
-export const deletePostActionCreator = (post_id:number) => {
-    let action:deletePostActionType = {
+export const deletePostActionCreator = (post_id:number):DeletePostActionType => {
+    let action:DeletePostActionType = {
         type: DELETE_POST,
         post_id: post_id,
     }
