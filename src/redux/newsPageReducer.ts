@@ -1,8 +1,20 @@
 const ADD_POST = 'message-me/newsPageReducer/ADD-POST';
 const DELETE_POST = 'message-me/newsPageReducer/DELETE-POST';
 
+type PostType = {
+    id: number,
+    postText: string,
+    postPhoto: string,
+    authorAvatar: string,
+    authorName: string
+}
 
-let initialState = {
+type initialStateType = {
+    postsData: Array<PostType>,
+    newPostText: string,
+}
+
+let initialState: initialStateType = {
     postsData: [
         {
             id: 1,
@@ -29,14 +41,14 @@ let initialState = {
     newPostText: 'Write what you wish',
 }
 
-const newsReducer = (state = initialState, action) => {
+const newsReducer = (state:initialStateType = initialState, action) => {
     
-    let stateCopy;
+    let stateCopy: initialStateType;
 
     switch (action.type) {
         case ADD_POST: {
 
-            let newPost = {
+            let newPost:PostType = {
                 id: 4,
                 postText: action.newPostText,
                 postPhoto: "https://themified.com/friend-finder/images/post-images/11.jpg",
@@ -72,16 +84,25 @@ const newsReducer = (state = initialState, action) => {
 }
 
 /** -------Action creators------- */
-export const addPostActionCreator = (newPostText) => {
-    let action = {
+type addPostActionType = {
+    type: typeof ADD_POST,
+    newPostText:string
+}
+type deletePostActionType = {
+    type: typeof DELETE_POST,
+    post_id:number
+}
+
+export const addPostActionCreator = (newPostText:string) => {
+    let action:addPostActionType = {
         type: ADD_POST,
         newPostText: newPostText,
     }
     return action;
 }
 
-export const deletePostActionCreator = (post_id) => {
-    let action = {
+export const deletePostActionCreator = (post_id:number) => {
+    let action:deletePostActionType = {
         type: DELETE_POST,
         post_id: post_id,
     }
