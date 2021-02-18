@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import newsReducer from "./newsPageReducer";
 import messagesReducer from "./messagesPageReducer";
 import followReducer from "./followReducer";
@@ -7,10 +7,11 @@ import userProfileReducer from "./userProfileReducer";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunkMiddleware from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'redux-form';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     appReducer,
     newsReducer,
     messagesReducer,
@@ -21,8 +22,10 @@ let reducers = combineReducers({
     form: formReducer,
 });
 
+type rootReducerType = typeof rootReducer;
+export type AppStateType = ReturnType<rootReducerType>;
+
 /** Подключение REDUX DevTools */
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 export default store;

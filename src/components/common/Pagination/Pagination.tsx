@@ -2,7 +2,14 @@ import React from "react";
 import classnames from 'classnames';
 import style from './Pagination.module.css';
 
-const Pagination = ({
+type Props = {
+    updateData: (count:number, pageNum:number) => void
+    count: number
+    currentPage: number
+    pages: Array<number>
+}
+
+const Pagination: React.FC<Props> = ({
     updateData,
     count,
     currentPage,
@@ -16,7 +23,7 @@ const Pagination = ({
         paginationEnd = currentPage + 5;
     }
 
-    let onChangeCurrentPage = (pageNum) => {
+    let onChangeCurrentPage = (pageNum: number) => {
         updateData(count, pageNum);
     }
 
