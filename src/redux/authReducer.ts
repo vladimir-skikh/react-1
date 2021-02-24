@@ -1,5 +1,6 @@
 import { stopSubmit } from 'redux-form';
 import {authAPI, securityAPI} from '../api/api';
+import { InitialAuthReducerStateType } from "./types/types";
 
 const SET_USER_DATA = 'message-me/authReducer/SET-USER-DATA';
 const UNSET_USER_DATA = 'message-me/authReducer/UNSET-USER-DATA';
@@ -7,7 +8,7 @@ const TOGLE_IS_AUTH = 'message-me/authReducer/TOGLE-IS-AUTH';
 const SET_CAPTCHA_URL = 'message-me/authReducer/SET-CAPTCHA-URL';
 
 
-let initialState = {
+let initialState: InitialAuthReducerStateType = {
     userData: {
         id: null,
         email: null,
@@ -17,7 +18,7 @@ let initialState = {
     isAuth: false,
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: any): InitialAuthReducerStateType => {
     let stateCopy;
 
     switch (action.type) {
@@ -45,7 +46,10 @@ const authReducer = (state = initialState, action) => {
         case SET_CAPTCHA_URL: {
             stateCopy = {
                 ...state,
-                captchaUrl: action.url,
+                userData: { 
+                    ...state.userData,
+                    captchaUrl: action.url,
+                }
             }
             break;
         }
@@ -56,32 +60,59 @@ const authReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
+/** -----Helpful types------ */
+type PayloadType = {
+    id: number | null,
+    email: string | null,
+    login: string | null,
+}
+/** ------------------------ */
+
+/** -----Action types------- */
+type SetUserActionType = {
+    type: typeof SET_USER_DATA,
+    payload: PayloadType,
+}
+type UnsetUserActionType = {
+    type: typeof UNSET_USER_DATA,
+    payload: PayloadType,
+}
+type SetIsAuthActionCreator = {
+    type: typeof TOGLE_IS_AUTH,
+    isAuth: boolean,
+}
+type SetCaptchaUrlActionCreator = {
+    type: typeof SET_CAPTCHA_URL,
+    url: string,
+}
+/** ------------------------ */
+
 /** -------Action creators--------- */
-export const setUserActionCreator = (payload) => {
-    let action = {
+export const setUserActionCreator = (payload: PayloadType): SetUserActionType => {
+    let action: SetUserActionType = {
         type: SET_USER_DATA,
         payload: payload,
     }
     return action;
 }
-export const unsetUserActionCreator = (payload) => {
-    let action = {
+export const unsetUserActionCreator = (payload: PayloadType): UnsetUserActionType => {
+    let action: UnsetUserActionType = {
         type: UNSET_USER_DATA,
         payload: payload,
     }
     return action;
 }
 
-export const setIsAuthActionCreator = (isAuth) => {
-    let action = {
+export const setIsAuthActionCreator = (isAuth: boolean): SetIsAuthActionCreator => {
+    let action: SetIsAuthActionCreator = {
         type: TOGLE_IS_AUTH,
         isAuth: isAuth,
     }
     return action;
 }
 
-const setCaptchaUrlActionCreator = (url) => {
-    let action = {
+const setCaptchaUrlActionCreator = (url: string): SetCaptchaUrlActionCreator => {
+    let action: SetCaptchaUrlActionCreator = {
         type: SET_CAPTCHA_URL,
         url: url,
     }
@@ -90,7 +121,7 @@ const setCaptchaUrlActionCreator = (url) => {
 /** --------------------------------- */
 
 /** -------Thunk creators--------- */
-export const checkAuthThunkCreator = () => async (dispatch) => {
+export const checkAuthThunkCreator = () => async (dispatch: any) => {
     let response = await authAPI.me();
 
     if (response.resultCode === 0) {
@@ -99,7 +130,7 @@ export const checkAuthThunkCreator = () => async (dispatch) => {
     }
 }
 
-export const unsetUserThunkCreator = () => async (dispatch) => {
+export const unsetUserThunkCreator = () => async (dispatch: any) => {
     let response = await authAPI.logout();
     if (response.resultCode === 0) {
         let payload = {
@@ -112,17 +143,17 @@ export const unsetUserThunkCreator = () => async (dispatch) => {
         dispatch(setIsAuthActionCreator(false));
     }
 }
-const getCaptchaUrlThunkCreator = () => async (dispatch) => {
+const getCaptchaUrlThunkCreator = () => async (dispatch: any) => {
     let response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.url;
 
     dispatch(setCaptchaUrlActionCreator(captchaUrl));
 }
 
-export const setIsAuthThunkCreator = (formData) => async (dispatch) => {
+export const setIsAuthThunkCreator = (formData: any) => async (dispatch: any) => {
     let response = await authAPI.login(formData);
     if (response.resultCode === 0) {
-        let payload = {
+        let payload: PayloadType = {
             id: response.data.userId,
             email: null,
             login: null,

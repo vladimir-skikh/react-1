@@ -1,13 +1,14 @@
 import { checkAuthThunkCreator } from "./authReducer";
+import { InitialAppReducerStateType } from "./types/types";
 
 const SET_INITIALIZED = 'messege-me/appReducer/SET-INITIALIZED';
 
-let initialState = {
+let initialState: InitialAppReducerStateType = {
     initialized: false,
 }
 
-const appReducer = (state = initialState, action) => {
-    let stateCopy;
+const appReducer = (state = initialState, action: any): InitialAppReducerStateType => {
+    let stateCopy: InitialAppReducerStateType;
 
     switch (action.type) {
         case SET_INITIALIZED: {
@@ -24,14 +25,22 @@ const appReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
-export const setInitializedCreator = () => {
-    let action = {
+/** ------Action Types--------- */
+type setInitializedActionType = {
+    type: typeof SET_INITIALIZED
+}
+/** --------------------------- */
+
+/** --------Action creators---------- */
+export const setInitializedCreator = (): setInitializedActionType => {
+    let action: setInitializedActionType = {
         type: SET_INITIALIZED,
     }
     return action;
 }
+/** --------------------------------- */
 
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch: any) => {
     let checkAuthPromise =  dispatch(checkAuthThunkCreator());
 
     Promise.all([checkAuthPromise]).then( () => {

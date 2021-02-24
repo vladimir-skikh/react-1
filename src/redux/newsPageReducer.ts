@@ -1,14 +1,8 @@
+import { PostType, NewsPageInitialStateType } from "./types/types";
 const ADD_POST = 'message-me/newsPageReducer/ADD-POST';
 const DELETE_POST = 'message-me/newsPageReducer/DELETE-POST';
 
-type PostType = {
-    id: number
-    postText: string
-    postPhoto: string
-    authorAvatar: string
-    authorName: string
-}
-let initialState = {
+let initialState: NewsPageInitialStateType = {
     postsData: [
         {
             id: 1,
@@ -35,11 +29,9 @@ let initialState = {
     newPostText: 'Write what you wish',
 }
 
-export type initialStateType = typeof initialState;
-
-const newsReducer = (state = initialState, action:any):initialStateType => {
+const newsReducer = (state = initialState, action:any):NewsPageInitialStateType => {
     
-    let stateCopy: initialStateType;
+    let stateCopy: NewsPageInitialStateType;
 
     switch (action.type) {
         case ADD_POST: {
