@@ -13,12 +13,7 @@ export type LoggedUserDataType = {
 
 /** AutyReducer initialState type */
 export type InitialAuthReducerStateType = {
-    userData: {
-        id: number | null,
-        email: string | null,
-        login: string | null,
-        captchaUrl: string | null,
-    },
+    userData: LoggedUserDataType,
     isAuth: boolean,
 }
 
@@ -38,3 +33,37 @@ let newsPageInitialState = {
 }
 
 export type NewsPageInitialStateType = typeof newsPageInitialState;
+
+/** Contacts type */
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+
+/** Photos type */
+export type PhotosType = {
+    small: string
+    large: string
+}
+
+/** UserProflie type */
+export type UserProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+/** UserProfilePage initialState type */
+export type UserProfileInitialStateType = {
+    userProfile: UserProfileType | null,
+    userStatus: string | null,
+    init: boolean,
+}

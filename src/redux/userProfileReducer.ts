@@ -1,3 +1,4 @@
+import { UserProfileInitialStateType, UserProfileType, PhotosType } from './types/types';
 import {profileAPI} from '../api/api';
 import { stopSubmit } from 'redux-form';
 
@@ -9,13 +10,14 @@ const SET_INIT = 'message-me/userProfile/SET-INIT-PROFILE';
 const SET_PHOTOS = 'message-me/userProfile/SET-PHOTOS';
 
 
-let initialState = {
+
+let initialState: UserProfileInitialStateType = {
     userProfile: null,
     userStatus: "",
     init: false,
 }
 
-const userProfileReducer = (state = initialState, action) => {
+const userProfileReducer = (state = initialState, action: any): UserProfileInitialStateType => {
 
     let stateCopy;
 
@@ -66,35 +68,57 @@ const userProfileReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
+/** -------ActionTypes------- */
+type SetUserProfileActionType = {
+    type: typeof SET_USER_PROFILE
+    userProfile: UserProfileType
+}
+type UnsetUserProfileActionType = {
+    type: typeof UNSET_USER_PROFILE
+}
+type SetUserStatusActionType = {
+    type: typeof SET_USER_STATUS,
+    status: string
+}
+type SetInitActionType = {
+    type: typeof SET_INIT
+}
+type UploadPhotoActionType = {
+    type: typeof SET_PHOTOS,
+    photos: PhotosType,
+}
+
+/** ------------------------- */
+
 /** --------Action creators-------- */
-export const setUserProfileActionCreator = (userProfile) => {
-    let action = {
+export const setUserProfileActionCreator = (userProfile: UserProfileType): SetUserProfileActionType => {
+    let action: SetUserProfileActionType = {
         type: SET_USER_PROFILE,
         userProfile: userProfile,
     }
     return action;
 }
-export const unsetUserProfileActionCreator = () => {
-    let action = {
+export const unsetUserProfileActionCreator = (): UnsetUserProfileActionType => {
+    let action: UnsetUserProfileActionType = {
         type: UNSET_USER_PROFILE,
     }
     return action;
 }
-export const setUserStatusActionCreator = (status) => {
-    let action = {
+export const setUserStatusActionCreator = (status: string): SetUserStatusActionType => {
+    let action: SetUserStatusActionType = {
         type: SET_USER_STATUS,
         status: status,
     }
     return action;
 }
-const setInitActionCreator = () => {
-    let action = {
+const setInitActionCreator = (): SetInitActionType => {
+    let action: SetInitActionType = {
         type: SET_INIT,
     }
     return action;
 }
-const uploadPhotoActionCreator = (photos) => {
-    let action = {
+const uploadPhotoActionCreator = (photos: PhotosType): UploadPhotoActionType => {
+    let action: UploadPhotoActionType = {
         type: SET_PHOTOS,
         photos: photos,
     }
@@ -103,17 +127,17 @@ const uploadPhotoActionCreator = (photos) => {
 /** ------------------------------ */
 
 /** -------------Thunk Creators------------- */
-const getUserProfileThunkCreator = (userId) => async (dispatch) => {
+const getUserProfileThunkCreator = (userId: number) => async (dispatch: any) => {
     let response =  await profileAPI.setUserInfoById(userId);
     dispatch(setUserProfileActionCreator(response));
 } 
 
-const getUserStatusThunkCreator = (userId) => async (dispatch) => {
+const getUserStatusThunkCreator = (userId: number) => async (dispatch: any) => {
     let response =  await profileAPI.getStatus(userId);
     dispatch(setUserStatusActionCreator(response));
 } 
 
-export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
+export const updateUserStatusThunkCreator = (status: string) => async (dispatch: any) => {
     let response = await profileAPI.updateStatus(status);
     if (response.resultCode === 0) {
         dispatch(setUserStatusActionCreator(status));
@@ -122,13 +146,13 @@ export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
         Promise.reject(response.messages[0]);
     }
 } 
-export const uploadPhotoThunkCreator = (file) => async (dispatch) => {
+export const uploadPhotoThunkCreator = (file: any) => async (dispatch: any) => {
     let response = await profileAPI.uploadPhoto(file);
     if (response.resultCode === 0) {
         dispatch(uploadPhotoActionCreator(response.data.photos));
     }
 }
-export const saveProfileDataThunkCreator = (formData) => async (dispatch, getState) => {
+export const saveProfileDataThunkCreator = (formData: any) => async (dispatch: any, getState: any) => {
     const userId = getState().authReducer.userData.id;
     const response = await profileAPI.saveProfileData(formData);
 
@@ -152,7 +176,7 @@ export const saveProfileDataThunkCreator = (formData) => async (dispatch, getSta
 /** ---------------------------------------- */
 
 /** --------------Init-------------- */
-export const initProfile = (userId) => (dispatch) => {
+export const initProfile = (userId: number) => (dispatch: any) => {
     let profile =  dispatch(getUserProfileThunkCreator(userId));
     let status =  dispatch(getUserStatusThunkCreator(userId));
 
