@@ -1,3 +1,5 @@
+import { setUserActionCreator } from './authReducer';
+import { UsersPageInitialStateType, UsersPageUserDataType } from './types/types';
 import usersAPI from '../api/api';
 import { updateObjectInArray } from '../utils/helpers/helperObject';
 
@@ -12,7 +14,7 @@ const SET_CURRENT_PAGE = "message-me/usersReducer/CHANGE-CURRENT-PAGE";
 const IS_FETCHING = "message-me/usersReducer/IS-FETCHING";
 const FOLLOWING_IN_PROGRESS = "message-me/usersReducer/FOLLOWING-IN-PROGRESS";
 
-let initialState = {
+let initialState: UsersPageInitialStateType = {
     usersData: [],
     pageSize: 10,
     totalUsers: 0,
@@ -23,9 +25,9 @@ let initialState = {
     followingInProgress: [],
 };
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: any): UsersPageInitialStateType => {
 
-    let stateCopy;
+    let stateCopy: UsersPageInitialStateType;
 
     switch (action.type) {
         case SET_USERS: {
@@ -133,74 +135,118 @@ const usersReducer = (state = initialState, action) => {
     return stateCopy;
 };
 
+/** ------Action types------ */
+type FollowActionType = {
+    type: typeof FOLLOW_USER
+    user_id: number
+}
+type UnfollowActionType = {
+    type: typeof UNFOLLOW_USER
+    user_id: number
+}
+type FollowingProgressActionType = {
+    type: typeof FOLLOWING_IN_PROGRESS
+    progress: boolean
+    user_id: number
+}
+type SetUserActionType = {
+    type: typeof SET_USERS
+    users: Array<UsersPageUserDataType>
+    showMore: boolean
+}
+type SetTotalUsersActionType = {
+    type: typeof SET_USERS_COUNT
+    count: number
+}
+type SetPageSizeActionType = {
+    type: typeof SET_PAGE_SIZE
+    size: number
+}
+type SetPagesCountActionType = {
+    type: typeof SET_PAGES_COUNT
+    count: number
+}
+type SetCurrentPageActionType = {
+    type: typeof SET_CURRENT_PAGE
+    pageNum: number
+};
+type SetIsFetchingActionType = {
+    type: typeof IS_FETCHING
+    isFetching: boolean
+};
+type UnsetUsersActionType = {
+    type: typeof UNSET_USERS
+};
+/** ------------------------ */
+
 /** ---------------Action creators--------------- */
-export const followActionCreator = (user_id) => {
-    let action = {
+export const followActionCreator = (user_id: number): FollowActionType => {
+    let action: FollowActionType = {
         type: FOLLOW_USER,
         user_id: user_id,
     };
     return action;
 };
-export const unfollowActionCreator = (user_id) => {
-    let action = {
+export const unfollowActionCreator = (user_id: number): UnfollowActionType => {
+    let action: UnfollowActionType = {
         type: UNFOLLOW_USER,
         user_id: user_id,
     };
     return action;
 };
-export const followingProgressActionCreator = (user_id, progress) => {
-    let action = {
+export const followingProgressActionCreator = (user_id: number, progress: boolean): FollowingProgressActionType => {
+    let action: FollowingProgressActionType = {
         type: FOLLOWING_IN_PROGRESS,
         progress: progress,
         user_id: user_id,
     };
     return action;
 };
-export const setUsersActionCreator = (users, showMore = false) => {
-    let action = {
+export const setUsersActionCreator = (users: Array<UsersPageUserDataType>, showMore: boolean = false): SetUserActionType => {
+    let action: SetUserActionType = {
         type: SET_USERS,
         users: users,
         showMore: showMore,
     };
     return action;
 };
-export const setTotalUsersActionCreator = (count) => {
-    let action = {
+export const setTotalUsersActionCreator = (count: number): SetTotalUsersActionType => {
+    let action: SetTotalUsersActionType = {
         type: SET_USERS_COUNT,
         count: count,
     };
     return action;
 };
-export const setPageSizeActionCreator = (size) => {
-    let action = {
+export const setPageSizeActionCreator = (size: number): SetPageSizeActionType => {
+    let action: SetPageSizeActionType = {
         type: SET_PAGE_SIZE,
         size: size,
     };
     return action;
 };
-export const setPagesCountActionCreator = (count) => {
-    let action = {
+export const setPagesCountActionCreator = (count: number): SetPagesCountActionType => {
+    let action: SetPagesCountActionType = {
         type: SET_PAGES_COUNT,
         count: count,
     };
     return action;
 };
-export const setCurrentPageActionCreator = (pageNum) => {
-    let action = {
+export const setCurrentPageActionCreator = (pageNum: number): SetCurrentPageActionType => {
+    let action: SetCurrentPageActionType = {
         type: SET_CURRENT_PAGE,
         pageNum: pageNum,
     };
     return action;
 };
-export const setIsFetchingActionCreator = (isFetching) => {
-    let action = {
+export const setIsFetchingActionCreator = (isFetching: boolean): SetIsFetchingActionType => {
+    let action: SetIsFetchingActionType = {
         type: IS_FETCHING,
         isFetching: isFetching,
     };
     return action;
 };
-export const unsetUsersActionCreator = () => {
-    let action = {
+export const unsetUsersActionCreator = (): UnsetUsersActionType => {
+    let action: UnsetUsersActionType = {
         type: UNSET_USERS
     }
     return action;
@@ -208,7 +254,7 @@ export const unsetUsersActionCreator = () => {
 /** --------------------------------------------- */
 
 /** ---------------Thunk Creators---------------- */
-export const getUsersThunkCreator = (count, page) => async (dispatch) => {
+export const getUsersThunkCreator = (count: number, page: number) => async (dispatch: any) => {
 
     dispatch(setIsFetchingActionCreator(true));
 
@@ -222,19 +268,19 @@ export const getUsersThunkCreator = (count, page) => async (dispatch) => {
         dispatch(setIsFetchingActionCreator(false));
     }
 } 
-export const toggleFollowThunkCreator = (user_id, isFollow) => {
+export const toggleFollowThunkCreator = (user_id: number, isFollow: boolean) => {
     if (isFollow) {
-        return async (dispatch) => {
+        return async (dispatch: any) => {
             toggleFollowUnfollow(dispatch, user_id, usersAPI.followUserById.bind(usersAPI), followActionCreator);
         }
     }
     else {
-        return async (dispatch) => {
+        return async (dispatch: any) => {
             toggleFollowUnfollow(dispatch, user_id, usersAPI.unfollowUserById.bind(usersAPI), unfollowActionCreator);
         } 
     }
 } 
-export const showMoreUsersThunkCreator = (count, currentPage) => async (dispatch) => {
+export const showMoreUsersThunkCreator = (count: number, currentPage: number) => async (dispatch: any) => {
 
     let response = await usersAPI.getUsers(count, currentPage);
 
@@ -249,7 +295,7 @@ export const showMoreUsersThunkCreator = (count, currentPage) => async (dispatch
 /** --------------------------------------------- */
 
 /** ----------Other helpfull functions---------- */
-const toggleFollowUnfollow = async (dispatch, user_id, apiMethod, actionCreator) => {
+const toggleFollowUnfollow = async (dispatch: any, user_id: number, apiMethod: any, actionCreator: any) => {
     dispatch(followingProgressActionCreator(user_id, true));
 
     let response = await apiMethod(user_id);

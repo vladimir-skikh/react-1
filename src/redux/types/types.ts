@@ -1,3 +1,4 @@
+import { PhotosType } from './types';
 /** AppReducer initialState type */
 export type InitialAppReducerStateType = {
     initialized: boolean
@@ -66,4 +67,25 @@ export type UserProfileInitialStateType = {
     userProfile: UserProfileType | null,
     userStatus: string | null,
     init: boolean,
+}
+
+/** UsersPage userData type */
+export type UsersPageUserDataType = {
+    id: number
+    name: string
+    status: string
+    photos: PhotosType
+    followed: boolean
+}
+
+/** UsersPage initialState type */
+export type UsersPageInitialStateType = {
+    usersData: Array<UsersPageUserDataType>,
+    pageSize: number,
+    totalUsers: number,
+    pagesCount: number,
+    pages: Array<number>,
+    currentPage: number,
+    isFetching: boolean,
+    followingInProgress: Array<number>,
 }
