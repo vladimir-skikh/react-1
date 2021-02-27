@@ -1,4 +1,3 @@
-import { PhotosType } from './types';
 /** AppReducer initialState type */
 export type InitialAppReducerStateType = {
     initialized: boolean
