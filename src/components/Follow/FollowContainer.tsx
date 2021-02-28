@@ -1,10 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getUsersThunkCreator } from "../../redux/followReducer";
+import { AppStateType } from "../../redux/reduxStore";
 import { getFollowComponentUsers } from "../../redux/selectors/followSelector";
+import { UsersPageUserDataType } from "../../redux/types/types";
 import Follow from "./Follow";
 
-class FollowAPIContainer extends React.Component 
+type Props = {
+    followData: Array<UsersPageUserDataType>
+    getUsers: (count: number, pageNum: number) => void
+}
+
+class FollowAPIContainer extends React.Component<Props> 
 {
     componentDidMount() {
         this.props.getUsers(3, 1);
@@ -22,7 +29,7 @@ class FollowAPIContainer extends React.Component
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         followData: getFollowComponentUsers(state),
     }

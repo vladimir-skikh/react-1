@@ -1,4 +1,3 @@
-import { setUserActionCreator } from './authReducer';
 import { UsersPageInitialStateType, UsersPageUserDataType } from './types/types';
 import usersAPI from '../api/api';
 import { updateObjectInArray } from '../utils/helpers/helperObject';
