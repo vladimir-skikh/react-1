@@ -1,6 +1,7 @@
+import { MessagesReducerInitialStateType, MessageType } from './types/types';
 const ADD_NEW_MESSAGE = 'messege-me/messagesPageReducer/ADD-NEW-MESSAGE';
 
-let initialState = {
+let initialState: MessagesReducerInitialStateType = {
     dialogsData: [
         {
             id: 2,
@@ -35,14 +36,14 @@ let initialState = {
     ],
 }
 
-const messagesReducer = (state = initialState, action) => {
+const messagesReducer = (state = initialState, action: any): MessagesReducerInitialStateType => {
 
-    let stateCopy;
+    let stateCopy: MessagesReducerInitialStateType;
 
     switch (action.type) {
         case ADD_NEW_MESSAGE: {
 
-            let newMessage = {
+            let newMessage: MessageType = {
                 author: "me",
                 avatar: "https://invisionbyte.ru/test/uploads/monthly_2018_01/Wmug__uf.thumb.jpg.eca0349ccc67dd24370df4c7e452e924.jpg",
                 message: action.message,
@@ -50,7 +51,6 @@ const messagesReducer = (state = initialState, action) => {
 
             stateCopy = { 
                 ...state,
-                newMessageText: '',
                 activeDialogMessagesData: [...state.activeDialogMessagesData, newMessage],
             };
 
@@ -65,12 +65,21 @@ const messagesReducer = (state = initialState, action) => {
     return stateCopy;
 }
 
-export const addNewMessageCreator = (message) => {
-    let action = {
+/** -------Action types--------- */
+type AddNewMesageActionType = {
+    type: typeof ADD_NEW_MESSAGE 
+    message: string
+}
+/** ---------------------------- */
+
+/** -----------Action creators-------- */
+export const addNewMessageActionCreator = (message: string): AddNewMesageActionType => {
+    let action: AddNewMesageActionType = {
         type: ADD_NEW_MESSAGE,
         message: message,
     }
     return action;
 }
+/** --------------------------------- */
 
 export default messagesReducer;

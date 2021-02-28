@@ -88,3 +88,29 @@ export type UsersPageInitialStateType = {
     isFetching: boolean,
     followingInProgress: Array<number>,
 }
+
+/** FollowReducer InitialState type */
+export type FollowReducerInitialStateType = {
+    followData: Array<UsersPageUserDataType>
+} 
+
+/** Message type */
+export type MessageType = {
+    author: string
+    avatar: string,
+    message: string,
+}
+
+/** Dialog type */
+export type DialogType = {
+    id: number
+    name: string
+    avatar: string
+    lastMessage: string
+}
+
+/** MessagesReducer InitialState type */
+export type MessagesReducerInitialStateType = {
+    dialogsData: Array<DialogType>
+    activeDialogMessagesData: Array<MessageType>
+}
