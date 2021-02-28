@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import style from './Contacts.module.css';
+import { ContactsMapType } from '../../../redux/types/types';
 
-const Contatcs = ({contacts}) => {
+type PropsType = {
+    contacts: ContactsMapType
+}
+
+const Contacts: FC<PropsType> = ({
+    contacts
+}) => {
     return (
         <ul className={style.userContactsList}>
         {
@@ -20,4 +27,4 @@ const Contatcs = ({contacts}) => {
     );
 }
 
-export default Contatcs;
+export default Contacts;

@@ -45,6 +45,10 @@ export type ContactsType = {
     youtube: string
     mainLink: string
 }
+/** CntactsMap type */
+export type ContactsMapType = {
+    [index: string]: string | undefined
+}
 
 /** Photos type */
 export type PhotosType = {
