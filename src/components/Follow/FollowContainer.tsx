@@ -6,10 +6,15 @@ import { getFollowComponentUsers } from "../../redux/selectors/followSelector";
 import { UsersPageUserDataType } from "../../redux/types/types";
 import Follow from "./Follow";
 
-type Props = {
+type MapStatePropsType = {
     followData: Array<UsersPageUserDataType>
-    getUsers: (count: number, pageNum: number) => void
 }
+type MapDispatchPropsType = {
+    getUsers: (count: number, page: number) => void
+}
+type OwnPropsType = {}
+
+type Props = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 class FollowAPIContainer extends React.Component<Props> 
 {
@@ -28,16 +33,15 @@ class FollowAPIContainer extends React.Component<Props>
         );
     }
 }
+  
+let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
+    followData: getFollowComponentUsers(state),
+});
 
-let mapStateToProps = (state: AppStateType) => {
-    return {
-        followData: getFollowComponentUsers(state),
-    }
-}
 let actionCreators = {
     getUsers: getUsersThunkCreator
 }
 
-const FollowContainer = connect(mapStateToProps, actionCreators)(FollowAPIContainer);
+const FollowContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, actionCreators)(FollowAPIContainer);
 
 export default FollowContainer;

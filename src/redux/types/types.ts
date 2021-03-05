@@ -1,3 +1,11 @@
+import { AppStateType } from './../reduxStore';
+
+/**
+ * @Global types for dispatch and getState
+ */
+export type GetStateType = () => AppStateType
+
+
 /** AppReducer initialState type */
 export type InitialAppReducerStateType = {
     initialized: boolean
@@ -58,12 +66,12 @@ export type PhotosType = {
 
 /** UserProflie type */
 export type UserProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
+    userId?: number | undefined
+    lookingForAJob?: boolean | undefined
+    lookingForAJobDescription?: string | undefined
+    fullName?: string | undefined
+    contacts?: ContactsType | undefined
+    photos?: PhotosType | undefined
 }
 /** UserProfilePage initialState type */
 export type UserProfileInitialStateType = {

@@ -1,5 +1,5 @@
 import { stopSubmit } from 'redux-form';
-import {authAPI, securityAPI} from '../api/api';
+import {authAPI, ResultCodesEnum, securityAPI} from '../api/api';
 import { InitialAuthReducerStateType } from "./types/types";
 
 const SET_USER_DATA = 'message-me/authReducer/SET-USER-DATA';
@@ -124,7 +124,7 @@ const setCaptchaUrlActionCreator = (url: string): SetCaptchaUrlActionCreator => 
 export const checkAuthThunkCreator = () => async (dispatch: any) => {
     let response = await authAPI.me();
 
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(setUserActionCreator(response.data));
         dispatch(setIsAuthActionCreator(true));
     }
@@ -132,7 +132,7 @@ export const checkAuthThunkCreator = () => async (dispatch: any) => {
 
 export const unsetUserThunkCreator = () => async (dispatch: any) => {
     let response = await authAPI.logout();
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         let payload = {
             id: null,
             email: null,
@@ -152,7 +152,7 @@ const getCaptchaUrlThunkCreator = () => async (dispatch: any) => {
 
 export const setIsAuthThunkCreator = (formData: any) => async (dispatch: any) => {
     let response = await authAPI.login(formData);
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         let payload: PayloadType = {
             id: response.data.userId,
             email: null,
@@ -163,7 +163,7 @@ export const setIsAuthThunkCreator = (formData: any) => async (dispatch: any) =>
     }
     else {
         /** Неверный код капчи */
-        if (response.resultCode === 10) {
+        if (response.resultCode === ResultCodesEnum.CaptchaIsRequired) {
             dispatch(getCaptchaUrlThunkCreator());
         }
 

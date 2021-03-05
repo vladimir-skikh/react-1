@@ -1,4 +1,34 @@
+import { UserProfileType } from './../redux/types/types';
 import axios from "axios";
+
+/** Response result codes */
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10,
+}
+/** --------------------- */
+
+/** ----------API Request types---------- */
+type LoginFormDataType = {
+    email: string,
+    password: string,
+    rememberMe: boolean
+    captcha?: string | null
+}
+/** ----------------------------- */
+
+/** ----------API Response types---------- */
+type MeResponseType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+/** ----------------------------- */
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,32 +39,32 @@ const instance = axios.create({
 })
 
 const usersAPI = {
-    getUsers(count = 10, page = 1) {
+    getUsers: async (count = 10, page = 1) => {
         return instance.get(`users?count=${count}&page=${page}`).then( response => response.data);
     },
-    followUserById(userId)  {
+    followUserById: async (userId: number) => {
         return instance.post(`follow/${userId}`).then( response => response.data);
     },
-    unfollowUserById(userId) {
+    unfollowUserById: async (userId: number) => {
         return instance.delete(`follow/${userId}`).then( response => response.data);
     },
-    setUserInfoById(userId) {
+    setUserInfoById: async (userId: number) => {
         console.warn('Method deprecated! Use profileAPI method to set user info.');
         return profileAPI.setUserInfoById(userId);
     },
 }
 
 export const profileAPI = {
-    setUserInfoById(userId) {
+    setUserInfoById: async (userId: number) => {
         return instance.get(`profile/${userId}`).then( response => response.data);
     },
-    getStatus(userId) {
+    getStatus: async (userId: number) => {
         return instance.get(`profile/status/${userId}`).then( response => response.data);
     },
-    updateStatus(status) {
+    updateStatus: async (status: string) => {
         return instance.put(`profile/status`, { status: status }).then( response => response.data);
     },
-    uploadPhoto(image) {
+    uploadPhoto: async (image: any) => {
         const formData = new FormData();
         formData.append('image', image);
         
@@ -44,16 +74,16 @@ export const profileAPI = {
             }
         }).then( response => response.data);
     },
-    saveProfileData(formData) {
+    saveProfileData: async (formData: UserProfileType) => {
         return instance.put(`profile`, formData).then( response => response.data);
     }
 }
 
 export const authAPI = {
-    me() {
-        return instance.get('auth/me').then( response => response.data);
+    me: async () => {
+        return instance.get<MeResponseType>('auth/me').then( response => response.data);
     },
-    login(formData) {
+    login: async (formData: LoginFormDataType) => {
         return instance.post('auth/login', {
             email: formData.email,
             password: formData.password,
@@ -61,13 +91,13 @@ export const authAPI = {
             captcha: formData.captcha ? formData.captcha : false,
         }).then( response => response.data);
     },
-    logout() {
+    logout: async () => {
         return instance.delete('auth/login').then( response => response.data);
     },
 }
 
 export const securityAPI = {
-    getCaptchaUrl() {
+    getCaptchaUrl: async () => {
         return instance.get('security/get-captcha-url').then( response => response.data);
     },
 }

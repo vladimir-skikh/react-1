@@ -29,7 +29,7 @@ let initialState: NewsPageInitialStateType = {
     newPostText: 'Write what you wish',
 }
 
-const newsReducer = (state = initialState, action:any):NewsPageInitialStateType => {
+const newsReducer = (state = initialState, action: ActionsType):NewsPageInitialStateType => {
     
     let stateCopy: NewsPageInitialStateType;
 
@@ -80,6 +80,7 @@ type DeletePostActionType = {
     type: typeof DELETE_POST,
     post_id:number
 }
+type ActionsType = AddPostActionType | DeletePostActionType
 /** ---------------------- */
 
 /** -------Action creators------- */

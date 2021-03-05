@@ -1,6 +1,10 @@
+import { ResultCodesEnum } from './../api/api';
+import { AppStateType } from './reduxStore';
 import { UsersPageInitialStateType, UsersPageUserDataType } from './types/types';
 import usersAPI from '../api/api';
 import { updateObjectInArray } from '../utils/helpers/helperObject';
+import { ThunkAction } from 'redux-thunk';
+import { Dispatch } from 'react';
 
 const FOLLOW_USER = "message-me/usersReducer/FOLLOW-USER";
 const UNFOLLOW_USER = "message-me/usersReducer/UNFOLLOW-USER";
@@ -24,7 +28,7 @@ let initialState: UsersPageInitialStateType = {
     followingInProgress: [],
 };
 
-const usersReducer = (state = initialState, action: any): UsersPageInitialStateType => {
+const usersReducer = (state = initialState, action: ActionsType): UsersPageInitialStateType => {
 
     let stateCopy: UsersPageInitialStateType;
 
@@ -176,6 +180,18 @@ type SetIsFetchingActionType = {
 type UnsetUsersActionType = {
     type: typeof UNSET_USERS
 };
+
+
+type ActionsType = FollowActionType | 
+                   UnfollowActionType | 
+                   FollowingProgressActionType |
+                   SetUserActionType |
+                   SetTotalUsersActionType |
+                   SetPageSizeActionType |
+                   SetPagesCountActionType |
+                   SetCurrentPageActionType |
+                   SetIsFetchingActionType |
+                   UnsetUsersActionType
 /** ------------------------ */
 
 /** ---------------Action creators--------------- */
@@ -253,7 +269,10 @@ export const unsetUsersActionCreator = (): UnsetUsersActionType => {
 /** --------------------------------------------- */
 
 /** ---------------Thunk Creators---------------- */
-export const getUsersThunkCreator = (count: number, page: number) => async (dispatch: any) => {
+type ThunkCreatorsType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type DispatchType = Dispatch<ActionsType>
+
+export const getUsersThunkCreator = (count: number, page: number):ThunkCreatorsType  => async (dispatch, getState) => {
 
     dispatch(setIsFetchingActionCreator(true));
 
@@ -267,19 +286,19 @@ export const getUsersThunkCreator = (count: number, page: number) => async (disp
         dispatch(setIsFetchingActionCreator(false));
     }
 } 
-export const toggleFollowThunkCreator = (user_id: number, isFollow: boolean) => {
+export const toggleFollowThunkCreator = (user_id: number, isFollow: boolean): ThunkCreatorsType => {
     if (isFollow) {
-        return async (dispatch: any) => {
+        return async (dispatch) => {
             toggleFollowUnfollow(dispatch, user_id, usersAPI.followUserById.bind(usersAPI), followActionCreator);
         }
     }
     else {
-        return async (dispatch: any) => {
+        return async (dispatch) => {
             toggleFollowUnfollow(dispatch, user_id, usersAPI.unfollowUserById.bind(usersAPI), unfollowActionCreator);
         } 
     }
 } 
-export const showMoreUsersThunkCreator = (count: number, currentPage: number) => async (dispatch: any) => {
+export const showMoreUsersThunkCreator = (count: number, currentPage: number): ThunkCreatorsType => async (dispatch) => {
 
     let response = await usersAPI.getUsers(count, currentPage);
 
@@ -294,12 +313,17 @@ export const showMoreUsersThunkCreator = (count: number, currentPage: number) =>
 /** --------------------------------------------- */
 
 /** ----------Other helpfull functions---------- */
-const toggleFollowUnfollow = async (dispatch: any, user_id: number, apiMethod: any, actionCreator: any) => {
+const toggleFollowUnfollow = async (
+    dispatch: DispatchType, 
+    user_id: number, 
+    apiMethod: (user_id: number) => Promise<any>, 
+    actionCreator: (user_id: number) => FollowActionType | UnfollowActionType
+) => {
     dispatch(followingProgressActionCreator(user_id, true));
 
     let response = await apiMethod(user_id);
 
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(actionCreator(user_id));
         dispatch(followingProgressActionCreator(user_id, false));
     }
