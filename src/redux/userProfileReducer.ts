@@ -141,7 +141,7 @@ const uploadPhotoActionCreator = (photos: PhotosType): UploadPhotoActionType => 
 type ThunkCreatorsType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 
 const getUserProfileThunkCreator = (userId: number):ThunkCreatorsType  => async (dispatch) => {
-    let response =  await profileAPI.setUserInfoById(userId);
+    let response =  await profileAPI.getUserInfoById(userId);
     dispatch(setUserProfileActionCreator(response));
 } 
 
@@ -162,7 +162,7 @@ export const updateUserStatusThunkCreator = (status: string): ThunkCreatorsType 
 export const uploadPhotoThunkCreator = (file: any): ThunkCreatorsType => async (dispatch) => {
     let response = await profileAPI.uploadPhoto(file);
     if (response.resultCode === ResultCodesEnum.Success) {
-        dispatch(uploadPhotoActionCreator(response.data.photos));
+        dispatch(uploadPhotoActionCreator(response.data));
     }
 }
 export const saveProfileDataThunkCreator = (formData: any): ThunkCreatorsType => async (dispatch, getState) => {

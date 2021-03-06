@@ -1,4 +1,4 @@
-import { UserProfileType } from './../redux/types/types';
+import { UserProfileType, UsersPageUserDataType, PhotosType } from './../redux/types/types';
 import axios from "axios";
 
 /** Response result codes */
@@ -10,15 +10,15 @@ export enum ResultCodesEnum {
 /** --------------------- */
 
 /** ----------API Request types---------- */
-type LoginFormDataType = {
+type LoginRequestType = {
     email: string,
     password: string,
     rememberMe: boolean
     captcha?: string | null
 }
-/** ----------------------------- */
+/** ------------------------------------- */
 
-/** ----------API Response types---------- */
+/** ----------authAPI Response types---------- */
 type MeResponseType = {
     data: {
         id: number
@@ -28,7 +28,60 @@ type MeResponseType = {
     resultCode: ResultCodesEnum
     messages: Array<string>
 }
-/** ----------------------------- */
+
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+type LogoutResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+/** ----------------------------------------- */
+
+/** ----------usersAPI Response types---------- */
+type GetUsersResponseType = {
+    items: Array<UsersPageUserDataType>
+    totalCount: number 
+    error: string | null
+}
+
+type FollowUserByIdResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+type UnfollowUserByIdResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+/** ------------------------------------------- */
+
+/** ----------profileAPI Response types---------- */
+type GetUserInfoByIdResponseType = UserProfileType
+type UpdateStatusResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+type UploadPhotoResponseType = {
+    data: PhotosType
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+type SaveProfileDataResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+/** ------------------------------------------- */
 
 const instance = axios.create({
     withCredentials: true,
@@ -39,43 +92,43 @@ const instance = axios.create({
 })
 
 const usersAPI = {
-    getUsers: async (count = 10, page = 1) => {
-        return instance.get(`users?count=${count}&page=${page}`).then( response => response.data);
+    getUsers: async (count: number = 10, page: number = 1) => {
+        return instance.get<GetUsersResponseType>(`users?count=${count}&page=${page}`).then( response => response.data);
     },
     followUserById: async (userId: number) => {
-        return instance.post(`follow/${userId}`).then( response => response.data);
+        return instance.post<FollowUserByIdResponseType>(`follow/${userId}`).then( response => response.data);
     },
     unfollowUserById: async (userId: number) => {
-        return instance.delete(`follow/${userId}`).then( response => response.data);
+        return instance.delete<UnfollowUserByIdResponseType>(`follow/${userId}`).then( response => response.data);
     },
-    setUserInfoById: async (userId: number) => {
+    getUserInfoById: async (userId: number) => {
         console.warn('Method deprecated! Use profileAPI method to set user info.');
-        return profileAPI.setUserInfoById(userId);
+        return profileAPI.getUserInfoById(userId);
     },
 }
 
 export const profileAPI = {
-    setUserInfoById: async (userId: number) => {
-        return instance.get(`profile/${userId}`).then( response => response.data);
+    getUserInfoById: async (userId: number) => {
+        return instance.get<GetUserInfoByIdResponseType>(`profile/${userId}`).then( response => response.data);
     },
     getStatus: async (userId: number) => {
-        return instance.get(`profile/status/${userId}`).then( response => response.data);
+        return instance.get<any>(`profile/status/${userId}`).then( response => response.data);
     },
     updateStatus: async (status: string) => {
-        return instance.put(`profile/status`, { status: status }).then( response => response.data);
+        return instance.put<UpdateStatusResponseType>(`profile/status`, { status: status }).then( response => response.data);
     },
     uploadPhoto: async (image: any) => {
         const formData = new FormData();
         formData.append('image', image);
         
-        return instance.put(`profile/photo`, formData, {
+        return instance.put<UploadPhotoResponseType>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }).then( response => response.data);
     },
     saveProfileData: async (formData: UserProfileType) => {
-        return instance.put(`profile`, formData).then( response => response.data);
+        return instance.put<SaveProfileDataResponseType>(`profile`, formData).then( response => response.data);
     }
 }
 
@@ -83,8 +136,8 @@ export const authAPI = {
     me: async () => {
         return instance.get<MeResponseType>('auth/me').then( response => response.data);
     },
-    login: async (formData: LoginFormDataType) => {
-        return instance.post('auth/login', {
+    login: async (formData: LoginRequestType) => {
+        return instance.post<LoginResponseType>('auth/login', {
             email: formData.email,
             password: formData.password,
             rememberMe: formData.rememberMe,
@@ -92,7 +145,7 @@ export const authAPI = {
         }).then( response => response.data);
     },
     logout: async () => {
-        return instance.delete('auth/login').then( response => response.data);
+        return instance.delete<LogoutResponseType>('auth/login').then( response => response.data);
     },
 }
 
