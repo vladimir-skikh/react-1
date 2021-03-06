@@ -1,12 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import { Redirect } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { required, email } from "../../utils/validators/validators";
 import {Input} from '../common/FormControls/FormControls';
+import { MapStatePropsType, MapDispatchPropsType, OwnPropsType } from './LoginContainer';
+import { LoginRequestType } from '../../api/api';
 import formStyle from '../common/FormControls/FormControls.module.css';
 import style from "./Login.module.css";
 
-const LoginForm = (props) => {
+type LoginFormPropsType = {
+    captchaUrl: string | null
+} 
+
+const LoginForm: FC<InjectedFormProps<LoginRequestType, LoginFormPropsType> & LoginFormPropsType> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             {
@@ -21,7 +27,7 @@ const LoginForm = (props) => {
                     wrapperClassName={style.loginFormWrapper}
                     component={Input}
                     type="email"
-                    placeholder={"Email"}
+                    placeholder="Email"
                     name="email"
                     validate={[required, email]}
                     side="right"
@@ -34,7 +40,7 @@ const LoginForm = (props) => {
                     wrapperClassName={style.loginFormWrapper}
                     component={Input}
                     type="password"
-                    placeholder={"Password"}
+                    placeholder="Password"
                     name="password"
                     validate={[required]}
                     side="right"
@@ -81,12 +87,14 @@ const LoginForm = (props) => {
     );
 };
 
-let LoginReduxForm = reduxForm({
+let LoginReduxForm = reduxForm<LoginRequestType, LoginFormPropsType>({
     form: "login",
 })(LoginForm);
 
-const Login = (props) => {
-    const onSubmit = (formData) => {
+type LoginComponentPropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+const Login: FC<LoginComponentPropsType> = (props) => {
+    const onSubmit = (formData: any) => {
         props.submitLogin(formData);
     };
 

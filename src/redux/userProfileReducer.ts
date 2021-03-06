@@ -37,7 +37,7 @@ const userProfileReducer = (state = initialState, action: ActionsType): UserProf
         case SET_USER_PROFILE: {
             stateCopy = {
                 ...state,
-                userProfile: {...(<SetUserProfileActionType>action).userProfile},
+                userProfile: {...(action as SetUserProfileActionType).userProfile},
             }
             break;
         }
@@ -53,14 +53,14 @@ const userProfileReducer = (state = initialState, action: ActionsType): UserProf
         case SET_USER_STATUS: {
             stateCopy = {
                 ...state,
-                userStatus: (<SetUserStatusActionType>action).status,
+                userStatus: (action as SetUserStatusActionType).status,
             }
             break;
         }
         case SET_PHOTOS: {
             stateCopy = {
                 ...state,
-                userProfile: {...state.userProfile, photos: (<UploadPhotoActionType>action).photos},
+                userProfile: {...state.userProfile, photos: (action as UploadPhotoActionType).photos},
             }
             break;
         }

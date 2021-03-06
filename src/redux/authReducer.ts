@@ -15,9 +15,9 @@ let initialState: InitialAuthReducerStateType = {
         id: null,
         email: null,
         login: null,
-        captchaUrl: null,
     },
     isAuth: false,
+    captchaUrl: null,
 }
 
 const authReducer = (state = initialState, action: ActionsType): InitialAuthReducerStateType => {
@@ -27,21 +27,21 @@ const authReducer = (state = initialState, action: ActionsType): InitialAuthRedu
         case SET_USER_DATA: {
             stateCopy = {
                 ...state,
-                userData: {...(<SetUserActionType>action).payload},
+                userData: {...(action as SetUserActionType).payload},
             }
             break;
         }
         case UNSET_USER_DATA: {
             stateCopy = {
                 ...state,
-                userData: {...(<UnsetUserActionType>action).payload},
+                userData: {...(action as UnsetUserActionType).payload},
             }
             break;
         }
         case TOGLE_IS_AUTH: {
             stateCopy = {
                 ...state,
-                isAuth: (<SetIsAuthActionCreator>action).isAuth,
+                isAuth: (action as SetIsAuthActionCreator).isAuth,
             }
             break;
         }
@@ -50,8 +50,8 @@ const authReducer = (state = initialState, action: ActionsType): InitialAuthRedu
                 ...state,
                 userData: { 
                     ...state.userData,
-                    captchaUrl: (<SetCaptchaUrlActionCreator>action).url,
-                }
+                },
+                captchaUrl: (action as SetCaptchaUrlActionCreator).url,
             }
             break;
         }

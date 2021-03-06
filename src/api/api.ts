@@ -10,7 +10,7 @@ export enum ResultCodesEnum {
 /** --------------------- */
 
 /** ----------API Request types---------- */
-type LoginRequestType = {
+export type LoginRequestType = {
     email: string,
     password: string,
     rememberMe: boolean
