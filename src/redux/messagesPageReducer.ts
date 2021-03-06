@@ -36,7 +36,7 @@ let initialState: MessagesReducerInitialStateType = {
     ],
 }
 
-const messagesReducer = (state = initialState, action: any): MessagesReducerInitialStateType => {
+const messagesReducer = (state = initialState, action: ActionsType): MessagesReducerInitialStateType => {
 
     let stateCopy: MessagesReducerInitialStateType;
 
@@ -70,6 +70,8 @@ type AddNewMesageActionType = {
     type: typeof ADD_NEW_MESSAGE 
     message: string
 }
+
+type ActionsType = AddNewMesageActionType
 /** ---------------------------- */
 
 /** -----------Action creators-------- */

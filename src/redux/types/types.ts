@@ -16,7 +16,7 @@ export type LoggedUserDataType = {
     id: number | null,
     email: string | null,
     login: string | null,
-    captchaUrl: string | null,
+    captchaUrl?: string | null,
 }
 
 /** AutyReducer initialState type */

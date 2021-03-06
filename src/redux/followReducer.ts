@@ -7,7 +7,7 @@ const SET_USERS = 'messege-me/followReducer/SET-USERS';
 let initialState: FollowReducerInitialStateType = {
     followData: []
 }
-const followReducer = (state = initialState, action: any): FollowReducerInitialStateType => {
+const followReducer = (state = initialState, action: ActionsType): FollowReducerInitialStateType => {
 
     let stateCopy: FollowReducerInitialStateType;
 
@@ -32,6 +32,8 @@ type SetUsersActionType = {
     type: typeof SET_USERS
     users: Array<UsersPageUserDataType>
 }
+
+type ActionsType = SetUsersActionType
 /** ------------------------ */
 
 /** ------Action creators----- */

@@ -21,7 +21,7 @@ let initialState: UserProfileInitialStateType = {
 /**
  * Problem with action type. Created ActionsType breaks in switch - case
  */
-const userProfileReducer = (state = initialState, action: any): UserProfileInitialStateType => {
+const userProfileReducer = (state = initialState, action: ActionsType): UserProfileInitialStateType => {
 
     let stateCopy: UserProfileInitialStateType;
 
@@ -37,7 +37,7 @@ const userProfileReducer = (state = initialState, action: any): UserProfileIniti
         case SET_USER_PROFILE: {
             stateCopy = {
                 ...state,
-                userProfile: {...action.userProfile},
+                userProfile: {...(<SetUserProfileActionType>action).userProfile},
             }
             break;
         }
@@ -53,14 +53,14 @@ const userProfileReducer = (state = initialState, action: any): UserProfileIniti
         case SET_USER_STATUS: {
             stateCopy = {
                 ...state,
-                userStatus: action.status,
+                userStatus: (<SetUserStatusActionType>action).status,
             }
             break;
         }
         case SET_PHOTOS: {
             stateCopy = {
                 ...state,
-                userProfile: {...state.userProfile, photos: action.photos},
+                userProfile: {...state.userProfile, photos: (<UploadPhotoActionType>action).photos},
             }
             break;
         }
