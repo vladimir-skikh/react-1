@@ -1,6 +1,5 @@
+import { InferActionsTypes } from "./reduxStore";
 import { PostType, NewsPageInitialStateType } from "./types/types";
-const ADD_POST = 'message-me/newsPageReducer/ADD-POST';
-const DELETE_POST = 'message-me/newsPageReducer/DELETE-POST';
 
 let initialState: NewsPageInitialStateType = {
     postsData: [
@@ -29,12 +28,12 @@ let initialState: NewsPageInitialStateType = {
     newPostText: 'Write what you wish',
 }
 
-const newsReducer = (state = initialState, action: ActionsType):NewsPageInitialStateType => {
+const newsReducer = (state = initialState, action: ActionsTypes):NewsPageInitialStateType => {
     
     let stateCopy: NewsPageInitialStateType;
 
     switch (action.type) {
-        case ADD_POST: {
+        case 'message-me/newsPageReducer/ADD-POST': {
 
             let newPost:PostType = {
                 id: 4,
@@ -53,7 +52,7 @@ const newsReducer = (state = initialState, action: ActionsType):NewsPageInitialS
             break;
 
         }
-        case DELETE_POST: {
+        case 'message-me/newsPageReducer/DELETE-POST': {
             stateCopy = {
                 ...state,
                 postsData: state.postsData.filter( p => p.id !== action.post_id),
@@ -72,33 +71,11 @@ const newsReducer = (state = initialState, action: ActionsType):NewsPageInitialS
 }
 
 /** -----Action types----- */
-type AddPostActionType = {
-    type: typeof ADD_POST,
-    newPostText:string
+export const actions = {
+    addPostActionCreator: (newPostText:string) => ({type: 'message-me/newsPageReducer/ADD-POST', newPostText: newPostText} as const),
+    deletePostActionCreator: (post_id:number) => ({type: 'message-me/newsPageReducer/DELETE-POST', post_id: post_id} as const)
 }
-type DeletePostActionType = {
-    type: typeof DELETE_POST,
-    post_id:number
-}
-type ActionsType = AddPostActionType | DeletePostActionType
+
+type ActionsTypes = InferActionsTypes<typeof actions>
 /** ---------------------- */
-
-/** -------Action creators------- */
-export const addPostActionCreator = (newPostText:string):AddPostActionType => {
-    let action:AddPostActionType = {
-        type: ADD_POST,
-        newPostText: newPostText,
-    }
-    return action;
-}
-
-export const deletePostActionCreator = (post_id:number):DeletePostActionType => {
-    let action:DeletePostActionType = {
-        type: DELETE_POST,
-        post_id: post_id,
-    }
-    return action;
-}
-/** ------------------------------ */
-
 export default newsReducer;

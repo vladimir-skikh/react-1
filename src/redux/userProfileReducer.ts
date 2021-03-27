@@ -1,7 +1,7 @@
 import { ResultCodesEnum } from './../api/api';
 import { AppStateType } from './reduxStore';
 import { UserProfileInitialStateType, UserProfileType, PhotosType } from './types/types';
-import { profileAPI } from '../api/api';
+import { profileAPI } from '../api/profile-api';
 import { stopSubmit, FormAction } from 'redux-form';
 import { ThunkAction } from 'redux-thunk';
 

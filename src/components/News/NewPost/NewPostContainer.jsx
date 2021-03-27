@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import NewPost from "./NewPost"
-import {addPostActionCreator} from '../../../redux/newsPageReducer'
+import {actions} from '../../../redux/newsPageReducer'
 
 let mapStateToProps = (state) => {
     return {
@@ -9,7 +9,7 @@ let mapStateToProps = (state) => {
 }
 
 let actionCreators = {
-    addNewPost: addPostActionCreator,
+    addNewPost: actions.addPostActionCreator,
 }
 
 const NewPostContainer = connect(mapStateToProps, actionCreators)(NewPost);

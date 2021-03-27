@@ -1,19 +1,16 @@
-import { AppStateType } from './reduxStore';
-import { ThunkAction } from "redux-thunk";
+import { InferActionsTypes } from './reduxStore';
 import { checkAuthThunkCreator } from "./authReducer";
-import { InitialAppReducerStateType } from "./types/types";
-
-const SET_INITIALIZED = 'messege-me/appReducer/SET-INITIALIZED';
+import { BaseThunkType, InitialAppReducerStateType } from "./types/types";
 
 let initialState: InitialAppReducerStateType = {
     initialized: false,
 }
 
-const appReducer = (state = initialState, action: ActionsType): InitialAppReducerStateType => {
+const appReducer = (state = initialState, action: ActionsTypes): InitialAppReducerStateType => {
     let stateCopy: InitialAppReducerStateType;
 
     switch (action.type) {
-        case SET_INITIALIZED: {
+        case 'SET_INITIALIZED': {
             stateCopy = {
                 ...state,
                 initialized: true,
@@ -28,28 +25,18 @@ const appReducer = (state = initialState, action: ActionsType): InitialAppReduce
 }
 
 /** ------Action Types--------- */
-type setInitializedActionType = {
-    type: typeof SET_INITIALIZED
+export const actions = {
+    setInitializedActionCreator: () => ({type: 'SET_INITIALIZED'} as const)
 }
-
-type ActionsType = setInitializedActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 /** --------------------------- */
+type ThunkType = BaseThunkType<ActionsTypes>;
 
-/** --------Action creators---------- */
-export const setInitializedCreator = (): setInitializedActionType => {
-    let action: setInitializedActionType = {
-        type: SET_INITIALIZED,
-    }
-    return action;
-}
-/** --------------------------------- */
-type ThunkCreatorsType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
-
-export const initializeApp = (): ThunkCreatorsType => async (dispatch) => {
+export const initializeApp = (): ThunkType => async (dispatch) => {
     let checkAuthPromise =  dispatch(checkAuthThunkCreator());
 
     Promise.all([checkAuthPromise]).then( () => {
-        dispatch(setInitializedCreator());
+        dispatch(actions.setInitializedActionCreator());
     })
 }
 

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ActiveDialog from "./ActiveDialog";
-import {addNewMessageActionCreator} from '../../../redux/messagesPageReducer'
+import { actions } from '../../../redux/messagesPageReducer'
 import { getActiveDisalogMessages } from "../../../redux/selectors/messagesSelector";
 
 let mapStateToProps = (state) => {
@@ -10,7 +10,7 @@ let mapStateToProps = (state) => {
 }
 
 let actionCreators = {
-    addNewMessage: addNewMessageActionCreator,
+    addNewMessage: actions.addNewMessageActionCreator,
 }
 const ActiveDialogContainer = connect(mapStateToProps, actionCreators)(ActiveDialog);
 

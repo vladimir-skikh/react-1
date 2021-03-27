@@ -1,3 +1,5 @@
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './../reduxStore';
 
 /**
@@ -126,3 +128,6 @@ export type MessagesReducerInitialStateType = {
     dialogsData: Array<DialogType>
     activeDialogMessagesData: Array<MessageType>
 }
+
+/** Base Thunk Type */
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>;

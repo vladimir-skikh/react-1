@@ -4,7 +4,7 @@ import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { required, email } from "../../utils/validators/validators";
 import {Input} from '../common/FormControls/FormControls';
 import { MapStatePropsType, MapDispatchPropsType, OwnPropsType } from './LoginContainer';
-import { LoginRequestType } from '../../api/api';
+import { LoginRequestType } from '../../api/auth-api';
 import formStyle from '../common/FormControls/FormControls.module.css';
 import style from "./Login.module.css";
 

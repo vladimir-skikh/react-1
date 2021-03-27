@@ -1,5 +1,5 @@
+import { InferActionsTypes } from './reduxStore';
 import { MessagesReducerInitialStateType, MessageType } from './types/types';
-const ADD_NEW_MESSAGE = 'messege-me/messagesPageReducer/ADD-NEW-MESSAGE';
 
 let initialState: MessagesReducerInitialStateType = {
     dialogsData: [
@@ -36,12 +36,12 @@ let initialState: MessagesReducerInitialStateType = {
     ],
 }
 
-const messagesReducer = (state = initialState, action: ActionsType): MessagesReducerInitialStateType => {
+const messagesReducer = (state = initialState, action: ActionsTypes): MessagesReducerInitialStateType => {
 
     let stateCopy: MessagesReducerInitialStateType;
 
     switch (action.type) {
-        case ADD_NEW_MESSAGE: {
+        case 'messege-me/messagesPageReducer/ADD-NEW-MESSAGE': {
 
             let newMessage: MessageType = {
                 author: "me",
@@ -66,22 +66,11 @@ const messagesReducer = (state = initialState, action: ActionsType): MessagesRed
 }
 
 /** -------Action types--------- */
-type AddNewMesageActionType = {
-    type: typeof ADD_NEW_MESSAGE 
-    message: string
+export const actions = {
+    addNewMessageActionCreator: (message: string) => ({type: 'messege-me/messagesPageReducer/ADD-NEW-MESSAGE', message: message} as const)
 }
 
-type ActionsType = AddNewMesageActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 /** ---------------------------- */
-
-/** -----------Action creators-------- */
-export const addNewMessageActionCreator = (message: string): AddNewMesageActionType => {
-    let action: AddNewMesageActionType = {
-        type: ADD_NEW_MESSAGE,
-        message: message,
-    }
-    return action;
-}
-/** --------------------------------- */
 
 export default messagesReducer;
